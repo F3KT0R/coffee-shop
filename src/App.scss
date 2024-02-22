@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  padding: 1rem;
+
+  .checkboxes {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #2e2e2ef0;
+    color: beige;
+    gap: 0.25rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid #585858;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+      margin: 0;
+      padding: 0;
+    }
+
+    h4 {
+      padding-left: 1rem;
+    }
+
+    &__brand {
+      text-align: center;
+      font-size: larger;
+    }
+
+    &__image {
+      width: 25rem;
+    }
+
+    &__price {
+      text-align: center;
+      // background-color: #1d1d1df0;
+      padding: 0.25rem;
+      margin-bottom: 0.5rem !important;
+    }
+
+    &__system {
+      color: red;
+      font-size: larger;
+    }
+  }
+}
