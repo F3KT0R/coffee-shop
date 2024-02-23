@@ -16,10 +16,10 @@ const types = [
     id: 'ness',
     type: 'Nespresso',
   },
-  // {
-  //   id: 'lav',
-  //   type: 'Lavazza',
-  // },
+  {
+    id: 'lav',
+    type: 'Lavazza',
+  },
   // {
   //   id: 'sen',
   //   type: 'Senseo',
@@ -46,16 +46,18 @@ export const App = () => {
     });
 
     setData(newData);
-    // return () => {
-    //   second
-    // }
   }, [type]);
+
+  useEffect(() => {
+    handleCheckboxes(types[0].id, types[0].type);
+  }, []);
 
   const handleCheckboxes = (id: string, type: string) => {
     const allCheck = document.getElementsByName('chk');
 
     allCheck.forEach((checkbox: any) => {
       if (checkbox.id != id) checkbox.checked = false;
+      else checkbox.checked = true;
       setType(type);
     });
   };
