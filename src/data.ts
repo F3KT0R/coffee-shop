@@ -644,7 +644,7 @@ export const items = [
     pods: 16,
   },
   {
-    image: 'https://i.postimg.cc/ZK3NQ91f/1.png',
+    image: 'https://i.postimg.cc/kXS4BXYL/1.png',
     brand: 'Café René',
     price: 650,
     system: 'Dolce Gusto',

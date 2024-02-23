@@ -32,7 +32,7 @@ const types = [
 
 export const App = () => {
   const [data, setData] = useState<CoffeListing[]>(items);
-  const [type, setType] = useState(types[2].type);
+  const [type, setType] = useState(types[0].type);
 
   const allData = items;
 
