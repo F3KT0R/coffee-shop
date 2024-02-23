@@ -1,6 +1,7 @@
 import './App.scss';
 
 export type CoffeListing = {
+  id?: number;
   image: string;
   brand: string;
   price: number;
@@ -11,7 +12,9 @@ export type CoffeListing = {
 export const ItemCard = (coffee: CoffeListing) => {
   return (
     <div className='card'>
-      <h4 className='card__brand'>{coffee.brand}</h4>
+      <h4 className='card__brand'>
+        #{coffee.id} - {coffee.brand}
+      </h4>
       <img
         loading='lazy'
         src={coffee.image}

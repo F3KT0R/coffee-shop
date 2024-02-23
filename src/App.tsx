@@ -16,33 +16,36 @@ const types = [
     id: 'ness',
     type: 'Nespresso',
   },
-  {
-    id: 'lav',
-    type: 'Lavazza',
-  },
-  {
-    id: 'sen',
-    type: 'Senseo',
-  },
-  {
-    id: 'nessp',
-    type: 'Nespresso Pro',
-  },
+  // {
+  //   id: 'lav',
+  //   type: 'Lavazza',
+  // },
+  // {
+  //   id: 'sen',
+  //   type: 'Senseo',
+  // },
+  // {
+  //   id: 'nessp',
+  //   type: 'Nespresso Pro',
+  // },
 ];
 
 export const App = () => {
   const [data, setData] = useState<CoffeListing[]>(items);
-  const [type, setType] = useState(types[0].type);
+  const [type, setType] = useState(types[2].type);
 
   const allData = items;
 
   useEffect(() => {
     let newData: CoffeListing[] = [];
-    allData.map((item) => {
-      if (item.system == type) newData.push(item);
+    allData.map((item: CoffeListing, index: number) => {
+      if (item.system == type) {
+        item.id = index + 1;
+        newData.push(item);
+      }
     });
 
-    setData(newData.reverse());
+    setData(newData);
     // return () => {
     //   second
     // }
