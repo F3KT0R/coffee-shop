@@ -32,7 +32,7 @@ const types = [
 
 export const App = () => {
   const [data, setData] = useState<CoffeListing[]>(items);
-  const [type, setType] = useState(types[1].type);
+  const [type, setType] = useState(types[0].type);
 
   const allData = items;
 
@@ -42,7 +42,7 @@ export const App = () => {
       if (item.system == type) newData.push(item);
     });
 
-    setData(newData);
+    setData(newData.reverse());
     // return () => {
     //   second
     // }
