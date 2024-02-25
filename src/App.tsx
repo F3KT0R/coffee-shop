@@ -20,10 +20,10 @@ const types = [
     id: 'lav',
     type: 'Lavazza',
   },
-  // {
-  //   id: 'sen',
-  //   type: 'Senseo',
-  // },
+  {
+    id: 'sen',
+    type: 'Senseo',
+  },
   // {
   //   id: 'nessp',
   //   type: 'Nespresso Pro',
