@@ -3,12 +3,38 @@
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
-  padding: 1rem;
 
-  .checkboxes {
+  .categories {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+    background-color: #141414f0;
+    padding: 1rem 0;
+
+    .btn {
+      border: 3px solid #585858;
+      outline: none !important;
+
+      &:hover {
+        background-color: #dcdcdc;
+        color: #2e2e2e;
+        &:active,
+        &:focus {
+          color: beige;
+        }
+      }
+
+      &.active {
+        background-color: #585858;
+
+        &:hover {
+          color: beige;
+        }
+      }
+    }
   }
 
   &__card {
@@ -53,7 +79,6 @@
 
     &__price {
       text-align: center;
-      // background-color: #1d1d1df0;
       padding: 0.25rem;
       margin-bottom: 0.5rem !important;
     }

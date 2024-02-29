@@ -10,25 +10,49 @@ export type CoffeListing = {
   pods: number;
 };
 
-export const ItemCard = (coffee: CoffeListing) => {
+export type Bucket = {
+  itemId: number;
+  quantity: number;
+  unitPrice: number;
+};
+
+type ItemCardProps = {
+  coffeeItem: CoffeListing;
+  // onCardClick: (newItem: Bucket) => void;
+};
+
+export const ItemCard = ({ /*onCardClick, */ coffeeItem }: ItemCardProps) => {
+  // const handleCardClick = (id: number, price: number) => {
+  //   onCardClick({
+  //     itemId: id,
+  //     quantity: 1,
+  //     unitPrice: price,
+  //   });
+  // };
+
   return (
     <>
-      {!coffee.notAvailable ? (
-        <div className='card'>
+      {!coffeeItem.notAvailable ? (
+        <div
+          className='card'
+          // onClick={() =>
+          //   !!coffeeItem.id && handleCardClick(coffeeItem.id, coffeeItem.price)
+          // }
+        >
           <h4 className='card__brand'>
-            #{coffee.id} - {coffee.brand}
+            #{coffeeItem.id} - {coffeeItem.brand}
           </h4>
           <img
             loading='lazy'
-            src={coffee.image}
-            alt={coffee.brand}
+            src={coffeeItem.image}
+            alt={coffeeItem.brand}
             className='card__image'
           />
           <h2 className='card__price'>
-            {coffee.price} din / {coffee.pods} kapsula
+            {coffeeItem.price} din / {coffeeItem.pods} kapsula
           </h2>
           <h4>
-            Za <span className='card__system'>{coffee.system}</span> aparate
+            Za <span className='card__system'>{coffeeItem.system}</span> aparate
           </h4>
         </div>
       ) : (
