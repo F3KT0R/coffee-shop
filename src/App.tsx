@@ -1,6 +1,6 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
-import { Bucket, CoffeListing, ItemCard } from './ItemCard';
+import { /*Bucket,*/ CoffeListing, ItemCard } from './ItemCard';
 import { items } from './data';
 
 const types = [
