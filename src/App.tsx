@@ -24,10 +24,10 @@ const types = [
     id: 'sen',
     type: 'Senseo',
   },
-  // {
-  //   id: 'nessp',
-  //   type: 'Nespresso Pro',
-  // },
+  {
+    id: 'nessp',
+    type: 'Nespresso Pro',
+  },
 ];
 
 export const App = () => {
