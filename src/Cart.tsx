@@ -9,16 +9,16 @@ export type Cart = {
   price: number;
 };
 
-type CartProps = {
-  itemsInCart: Cart[];
-};
+// type CartProps = {
+//   itemsInCart: Cart[];
+// };
 
-export const Cart = ({ itemsInCart }: CartProps) => {
+export const Cart = (/*{ itemsInCart }: CartProps*/) => {
   return (
     <>
-      {itemsInCart.map((item: Cart) => {
+      {/* {itemsInCart.map((item: Cart) => {
         // return <ItemCard key={item.itemId} coffeeItem={item} />;
-      })}
+      })} */}
     </>
   );
 };

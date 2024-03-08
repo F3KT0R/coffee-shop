@@ -3,8 +3,8 @@ import { useEffect, useState } from 'react';
 import { CoffeListing, CardItem } from './CardItem';
 import { Cart } from './Cart';
 import { items } from './data';
-import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const types = [
   {
@@ -62,9 +62,9 @@ export const App = () => {
     setInCart(JSON.parse(localBucket));
   };
 
-  const handleCartClick = () => {
-    setIsCartOpened((prevValue) => !prevValue);
-  };
+  // const handleCartClick = () => {
+  //   setIsCartOpened((prevValue) => !prevValue);
+  // };
 
   const handleCategories = (id: string, type: string) => {
     const allBtn = document.getElementsByName('type');
@@ -77,30 +77,30 @@ export const App = () => {
     });
   };
 
-  const handleCardClick = (newItem: Cart) => {
-    setInCart((prevState) => {
-      const updatedBucket = prevState.map((item) => {
-        if (item.itemId === newItem.itemId) {
-          return {
-            ...item,
-            quantity: item.quantity + 1,
-          };
-        }
-        return item;
-      });
-      if (!prevState.some((item) => item.itemId === newItem.itemId)) {
-        updatedBucket.push({
-          image: newItem.image,
-          name: newItem.name,
-          itemId: newItem.itemId,
-          quantity: 1,
-          price: newItem.price,
-        });
-      }
-      localStorage.setItem('cart', JSON.stringify(inCart));
-      return updatedBucket;
-    });
-  };
+  // const handleCardClick = (newItem: Cart) => {
+  //   setInCart((prevState) => {
+  //     const updatedBucket = prevState.map((item) => {
+  //       if (item.itemId === newItem.itemId) {
+  //         return {
+  //           ...item,
+  //           quantity: item.quantity + 1,
+  //         };
+  //       }
+  //       return item;
+  //     });
+  //     if (!prevState.some((item) => item.itemId === newItem.itemId)) {
+  //       updatedBucket.push({
+  //         image: newItem.image,
+  //         name: newItem.name,
+  //         itemId: newItem.itemId,
+  //         quantity: 1,
+  //         price: newItem.price,
+  //       });
+  //     }
+  //     localStorage.setItem('cart', JSON.stringify(inCart));
+  //     return updatedBucket;
+  //   });
+  // };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
