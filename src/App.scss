@@ -4,15 +4,45 @@
   gap: 2rem;
   flex-wrap: wrap;
 
+  &:nth-child(1) {
+    gap: 0;
+  }
+
+  .cart {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 2rem 2rem 0 0;
+
+    &__icon {
+    }
+    &__number {
+      border-radius: 50%;
+      height: 20px;
+      width: 20px;
+      font-size: 13px;
+      font-weight: bolder;
+      text-align: center;
+      background-color: red;
+    }
+  }
+
   .categories {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
+    flex-wrap: wrap;
     width: 100%;
     background-color: #141414f0;
     padding: 1rem 0;
+    margin-bottom: 1rem;
 
     .btn {
       border: 3px solid #585858;
@@ -54,6 +84,7 @@
     gap: 0.25rem;
     padding-bottom: 0.5rem;
     border: 1px solid #585858;
+    cursor: pointer;
 
     h1,
     h2,

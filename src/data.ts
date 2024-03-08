@@ -439,6 +439,7 @@ export const items = [
     price: 1060,
     system: 'Tassimo',
     pods: 16,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/9QcpF8RG/18.png',
@@ -446,6 +447,7 @@ export const items = [
     price: 1060,
     system: 'Tassimo',
     pods: 16,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/P5KMLWY0/19.png',
@@ -1470,6 +1472,34 @@ export const items = [
     pods: 16,
   },
   {
+    image: 'https://i.postimg.cc/2Svqh9Zq/1.png',
+    brand: 'Looney Toons',
+    price: 800,
+    system: 'Dolce Gusto',
+    pods: 10,
+  },
+  {
+    image: 'https://i.postimg.cc/pdHmZQfs/2.png',
+    brand: 'Looney Toons',
+    price: 800,
+    system: 'Dolce Gusto',
+    pods: 10,
+  },
+  {
+    image: 'https://i.postimg.cc/8PxJFgjQ/3.png',
+    brand: 'Looney Toons',
+    price: 800,
+    system: 'Dolce Gusto',
+    pods: 10,
+  },
+  {
+    image: 'https://i.postimg.cc/kM1tmbC5/4.png',
+    brand: 'Looney Toons',
+    price: 800,
+    system: 'Dolce Gusto',
+    pods: 10,
+  },
+  {
     image: 'https://i.postimg.cc/BbKxx3Rb/1.png',
     brand: 'Nescafé',
     price: 800,
@@ -1482,6 +1512,7 @@ export const items = [
     price: 800,
     system: 'Dolce Gusto',
     pods: 12,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/d0NdpDYD/3.png',
@@ -2028,6 +2059,7 @@ export const items = [
     price: 790,
     system: 'Dolce Gusto',
     pods: 12,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/tCDMJtdc/12.png',
@@ -2049,6 +2081,7 @@ export const items = [
     price: 790,
     system: 'Dolce Gusto',
     pods: 12,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/3NFbg2sd/1.png',
@@ -2126,6 +2159,7 @@ export const items = [
     price: 550,
     system: 'Nespresso',
     pods: 10,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/bYM6jTNN/2.png',
@@ -2168,6 +2202,7 @@ export const items = [
     price: 650,
     system: 'Nespresso',
     pods: 10,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/gk0J6KYb/1.png',
@@ -2294,6 +2329,7 @@ export const items = [
     price: 500,
     system: 'Nespresso',
     pods: 10,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/5NZVN5y3/19.png',
@@ -2959,6 +2995,7 @@ export const items = [
     price: 550,
     system: 'Nespresso',
     pods: 10,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/mryTtc15/7.png',
@@ -3491,6 +3528,7 @@ export const items = [
     price: 650,
     system: 'Nespresso',
     pods: 10,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/qB64X1N8/16.png',
@@ -3547,6 +3585,7 @@ export const items = [
     price: 1200,
     system: 'Nespresso',
     pods: 20,
+    notAvailable: true,
   },
   {
     image: 'https://i.postimg.cc/Px89ZFSJ/24.png',

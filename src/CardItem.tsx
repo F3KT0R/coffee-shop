@@ -1,43 +1,55 @@
 import './App.scss';
+import { CartType } from './CartItem';
 
 export type CoffeListing = {
   id?: number;
   notAvailable?: boolean;
   image: string;
-  brand: string;
   price: number;
+  brand: string;
   system: string;
   pods: number;
 };
 
-export type Bucket = {
-  itemId: number;
-  quantity: number;
-  unitPrice: number;
-};
-
 type ItemCardProps = {
   coffeeItem: CoffeListing;
-  // onCardClick: (newItem: Bucket) => void;
+  onCardClick?: (newItem: CartType) => void;
 };
 
-export const ItemCard = ({ /*onCardClick, */ coffeeItem }: ItemCardProps) => {
-  // const handleCardClick = (id: number, price: number) => {
-  //   onCardClick({
-  //     itemId: id,
-  //     quantity: 1,
-  //     unitPrice: price,
-  //   });
-  // };
+export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
+  const handleCardClick = (
+    image: string,
+    brand: string,
+    system: string,
+    id: number,
+    price: number
+  ) => {
+    !!onCardClick &&
+      onCardClick({
+        image: image,
+        brand: brand,
+        system: system,
+        id: id,
+        quantity: 1,
+        price: price,
+      });
+  };
 
   return (
     <>
       {!coffeeItem.notAvailable ? (
         <div
           className='card'
-          // onClick={() =>
-          //   !!coffeeItem.id && handleCardClick(coffeeItem.id, coffeeItem.price)
-          // }
+          onClick={() =>
+            !!coffeeItem.id &&
+            handleCardClick(
+              coffeeItem.image,
+              coffeeItem.brand,
+              coffeeItem.system,
+              coffeeItem.id,
+              coffeeItem.price
+            )
+          }
         >
           <h4 className='card__brand'>
             #{coffeeItem.id} - {coffeeItem.brand}

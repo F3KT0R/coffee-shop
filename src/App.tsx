@@ -1,7 +1,10 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
-import { /*Bucket,*/ CoffeListing, ItemCard } from './ItemCard';
+import { CoffeListing, CardItem } from './CardItem';
+import { Cart } from './Cart';
 import { items } from './data';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const types = [
   {
@@ -33,13 +36,12 @@ const types = [
 export const App = () => {
   const [data, setData] = useState<CoffeListing[]>(items);
   const [type, setType] = useState(types[0].type);
-  // const [inBucket, setInBucket] = useState<Bucket[]>([]);
-
-  const allData = items;
+  const [inCart, setInCart] = useState<Cart[]>([]);
+  const [isCartOpened, setIsCartOpened] = useState<boolean>(false);
 
   useEffect(() => {
     let newData: CoffeListing[] = [];
-    allData.map((item: CoffeListing, index: number) => {
+    items.map((item: CoffeListing, index: number) => {
       if (item.system == type) {
         item.id = index + 1;
         newData.push(item);
@@ -51,7 +53,18 @@ export const App = () => {
 
   useEffect(() => {
     handleCategories(types[0].id, types[0].type);
+    setStateFromLocal();
   }, []);
+
+  const setStateFromLocal = (): void => {
+    const localBucket = localStorage.getItem('cart');
+    if (!localBucket) return;
+    setInCart(JSON.parse(localBucket));
+  };
+
+  const handleCartClick = () => {
+    setIsCartOpened((prevValue) => !prevValue);
+  };
 
   const handleCategories = (id: string, type: string) => {
     const allBtn = document.getElementsByName('type');
@@ -64,27 +77,30 @@ export const App = () => {
     });
   };
 
-  // const handleCardClick = (newItem: Bucket) => {
-  //   setInBucket((prevState) => {
-  //     const updatedBucket = prevState.map((item) => {
-  //       if (item.itemId === newItem.itemId) {
-  //         return {
-  //           ...item,
-  //           quantity: item.quantity + 1,
-  //         };
-  //       }
-  //       return item;
-  //     });
-  //     if (!prevState.some((item) => item.itemId === newItem.itemId)) {
-  //       updatedBucket.push({
-  //         itemId: newItem.itemId,
-  //         quantity: 1,
-  //         unitPrice: newItem.unitPrice,
-  //       });
-  //     }
-  //     return updatedBucket;
-  //   });
-  // };
+  const handleCardClick = (newItem: Cart) => {
+    setInCart((prevState) => {
+      const updatedBucket = prevState.map((item) => {
+        if (item.itemId === newItem.itemId) {
+          return {
+            ...item,
+            quantity: item.quantity + 1,
+          };
+        }
+        return item;
+      });
+      if (!prevState.some((item) => item.itemId === newItem.itemId)) {
+        updatedBucket.push({
+          image: newItem.image,
+          name: newItem.name,
+          itemId: newItem.itemId,
+          quantity: 1,
+          price: newItem.price,
+        });
+      }
+      localStorage.setItem('cart', JSON.stringify(inCart));
+      return updatedBucket;
+    });
+  };
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -92,32 +108,50 @@ export const App = () => {
 
   return (
     <div className='container'>
-      <div className='categories'>
-        {types.map((item) => {
-          return (
-            <button
-              key={item.id}
-              name='type'
-              className='btn'
-              id={item.id}
-              onClick={() => handleCategories(item.id, item.type)}
-            >
-              {item.type}
-            </button>
-          );
-        })}
-      </div>
-      <div className='container__card'>
-        {data.map((item: CoffeListing, index: number) => {
-          return (
-            <ItemCard
-              key={index}
-              coffeeItem={item}
-              // onCardClick={handleCardClick}
-            />
-          );
-        })}
-      </div>
+      {/* <div
+        className='cart'
+        onClick={() => {
+          handleCartClick();
+        }}
+      >
+        <FontAwesomeIcon icon={faCartShopping} className='cart__icon' />
+        {inCart.length > 0 && (
+          <div className='cart__number'>{inCart.length}</div>
+        )}
+      </div> */}
+      {!!isCartOpened ? (
+        ''
+      ) : (
+        // <Cart itemsInCart={inCart} />
+        <>
+          <div className='categories'>
+            {types.map((item) => {
+              return (
+                <button
+                  key={item.id}
+                  name='type'
+                  className='btn'
+                  id={item.id}
+                  onClick={() => handleCategories(item.id, item.type)}
+                >
+                  {item.type}
+                </button>
+              );
+            })}
+          </div>
+          <div className='container__card'>
+            {data.map((item: CoffeListing, index: number) => {
+              return (
+                <CardItem
+                  key={index}
+                  coffeeItem={item}
+                  // onCardClick={handleCardClick}
+                />
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 };
