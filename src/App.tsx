@@ -1,7 +1,7 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
 import { CoffeListing, CardItem } from './CardItem';
-import { Cart } from './Cart';
+// import { Cart } from './Cart';
 import { items } from './data';
 // import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -36,8 +36,8 @@ const types = [
 export const App = () => {
   const [data, setData] = useState<CoffeListing[]>(items);
   const [type, setType] = useState(types[0].type);
-  const [inCart, setInCart] = useState<Cart[]>([]);
-  const [isCartOpened, setIsCartOpened] = useState<boolean>(false);
+  // const [inCart, setInCart] = useState<Cart[]>([]);
+  // const [isCartOpened, setIsCartOpened] = useState<boolean>(false);
 
   useEffect(() => {
     let newData: CoffeListing[] = [];
@@ -53,14 +53,14 @@ export const App = () => {
 
   useEffect(() => {
     handleCategories(types[0].id, types[0].type);
-    setStateFromLocal();
+    // setStateFromLocal();
   }, []);
 
-  const setStateFromLocal = (): void => {
-    const localBucket = localStorage.getItem('cart');
-    if (!localBucket) return;
-    setInCart(JSON.parse(localBucket));
-  };
+  // const setStateFromLocal = (): void => {
+  //   const localBucket = localStorage.getItem('cart');
+  //   if (!localBucket) return;
+  //   setInCart(JSON.parse(localBucket));
+  // };
 
   // const handleCartClick = () => {
   //   setIsCartOpened((prevValue) => !prevValue);
@@ -119,39 +119,39 @@ export const App = () => {
           <div className='cart__number'>{inCart.length}</div>
         )}
       </div> */}
-      {!!isCartOpened ? (
-        ''
-      ) : (
-        // <Cart itemsInCart={inCart} />
-        <>
-          <div className='categories'>
-            {types.map((item) => {
-              return (
-                <button
-                  key={item.id}
-                  name='type'
-                  className='btn'
-                  id={item.id}
-                  onClick={() => handleCategories(item.id, item.type)}
-                >
-                  {item.type}
-                </button>
-              );
-            })}
-          </div>
-          <div className='container__card'>
-            {data.map((item: CoffeListing, index: number) => {
-              return (
-                <CardItem
-                  key={index}
-                  coffeeItem={item}
-                  // onCardClick={handleCardClick}
-                />
-              );
-            })}
-          </div>
-        </>
-      )}
+      {/* {!!isCartOpened ? ( */}
+      {/* '' */}
+      {/* ) : ( */}
+      {/* // <Cart itemsInCart={inCart} /> */}
+      <>
+        <div className='categories'>
+          {types.map((item) => {
+            return (
+              <button
+                key={item.id}
+                name='type'
+                className='btn'
+                id={item.id}
+                onClick={() => handleCategories(item.id, item.type)}
+              >
+                {item.type}
+              </button>
+            );
+          })}
+        </div>
+        <div className='container__card'>
+          {data.map((item: CoffeListing, index: number) => {
+            return (
+              <CardItem
+                key={index}
+                coffeeItem={item}
+                // onCardClick={handleCardClick}
+              />
+            );
+          })}
+        </div>
+      </>
+      {/* )} */}
     </div>
   );
 };
