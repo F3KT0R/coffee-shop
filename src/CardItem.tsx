@@ -1,4 +1,5 @@
 import './App.scss';
+import { CachedImage } from './CachedImage';
 import { CartType } from './CartItem';
 
 export type CoffeListing = {
@@ -54,12 +55,8 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
           <h4 className='card__brand'>
             #{coffeeItem.id} - {coffeeItem.brand}
           </h4>
-          <img
-            loading='lazy'
-            src={coffeeItem.image}
-            alt={coffeeItem.brand}
-            className='card__image'
-          />
+          <CachedImage imageUrl={coffeeItem.image} />
+
           <h2 className='card__price'>
             {coffeeItem.price} din / {coffeeItem.pods} kapsula
           </h2>

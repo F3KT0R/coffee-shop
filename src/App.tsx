@@ -43,7 +43,7 @@ export const App = () => {
     let newData: CoffeListing[] = [];
     items.map((item: CoffeListing, index: number) => {
       if (item.system == type) {
-        item.id = index + 1;
+        item.id = item.id || index + 1;
         newData.push(item);
       }
     });
