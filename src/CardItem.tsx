@@ -1,5 +1,5 @@
+import { types } from './App';
 import './App.scss';
-import { CachedImage } from './CachedImage';
 import { CartType } from './CartItem';
 
 export type CoffeListing = {
@@ -9,7 +9,7 @@ export type CoffeListing = {
   price: number;
   brand: string;
   system: string;
-  pods: number;
+  pods?: number;
 };
 
 type ItemCardProps = {
@@ -36,6 +36,21 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
       });
   };
 
+  const roundToNearestTen = (num: number): number => {
+    return Math.round(num / 10) * 10;
+  };
+
+  const calculatePrice = (
+    ogPrice: number,
+    pods: number | string = ''
+  ): number => {
+    if (pods == '') return roundToNearestTen(ogPrice * 230);
+
+    return roundToNearestTen(
+      ogPrice * 140 + parseInt(pods.toString()) * 16 * 1.5
+    );
+  };
+
   return (
     <>
       {!coffeeItem.notAvailable ? (
@@ -55,13 +70,27 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
           <h4 className='card__brand'>
             #{coffeeItem.id} - {coffeeItem.brand}
           </h4>
-          <CachedImage imageUrl={coffeeItem.image} />
 
+          <img
+            loading='lazy'
+            src={coffeeItem.image}
+            alt='Cached Image'
+            className='card__image'
+          />
           <h2 className='card__price'>
-            {coffeeItem.price} din / {coffeeItem.pods} kapsula
+            {calculatePrice(coffeeItem.price, coffeeItem.pods)} din
+            <span>
+              {!!coffeeItem.pods ? ' / ' + coffeeItem.pods + ' kapsula' : ''}
+            </span>
           </h2>
           <h4>
-            Za <span className='card__system'>{coffeeItem.system}</span> aparate
+            Za{' '}
+            <span className='card__system'>
+              {types.map((type) => {
+                if (type.type == coffeeItem.system) return type.name;
+              })}
+            </span>{' '}
+            aparate
           </h4>
         </div>
       ) : (

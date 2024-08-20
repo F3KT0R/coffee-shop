@@ -1,38 +1,11 @@
 .container {
+  position: relative;
   display: flex;
   justify-content: center;
   gap: 2rem;
   flex-wrap: wrap;
 
-  &:nth-child(1) {
-    gap: 0;
-  }
-
-  .cart {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 100;
-    display: flex;
-    gap: 0.5rem;
-    cursor: pointer;
-    padding: 2rem 2rem 0 0;
-
-    &__icon {
-    }
-    &__number {
-      border-radius: 50%;
-      height: 20px;
-      width: 20px;
-      font-size: 13px;
-      font-weight: bolder;
-      text-align: center;
-      background-color: red;
-    }
-  }
-
   .categories {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     display: flex;
@@ -75,6 +48,40 @@
     gap: 2rem;
   }
 
+  .backdrop-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(
+      0,
+      0,
+      0,
+      0.5
+    ); /* Adjust color and opacity as needed */
+    backdrop-filter: blur(10px); /* Adjust blur intensity */
+    z-index: 999;
+  }
+
+  .loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem; /* Adjust size as needed */
+    z-index: 1000;
+    animation: spin 2s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
   .card {
     display: flex;
     flex-direction: column;
@@ -85,6 +92,7 @@
     padding-bottom: 0.5rem;
     border: 1px solid #585858;
     cursor: pointer;
+    max-width: min-content;
 
     h1,
     h2,
@@ -108,29 +116,6 @@
       width: 25rem;
     }
 
-    &__loading {
-      align-self: center;
-      -webkit-animation: spin 4s linear infinite;
-      -moz-animation: spin 4s linear infinite;
-      animation: spin 4s linear infinite;
-    }
-    @-moz-keyframes spin {
-      100% {
-        -moz-transform: rotate(360deg);
-      }
-    }
-    @-webkit-keyframes spin {
-      100% {
-        -webkit-transform: rotate(360deg);
-      }
-    }
-    @keyframes spin {
-      100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-      }
-    }
-
     &__price {
       text-align: center;
       padding: 0.25rem;
@@ -141,5 +126,10 @@
       color: red;
       font-size: larger;
     }
+  }
+
+  .btn {
+    scale: 1.2;
+    margin-bottom: 1rem;
   }
 }

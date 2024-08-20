@@ -1,106 +1,87 @@
 import './App.scss';
 import { useEffect, useState } from 'react';
 import { CoffeListing, CardItem } from './CardItem';
-// import { Cart } from './Cart';
-import { items } from './data';
-// import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const types = [
+export const types = [
   {
     id: 'tass',
-    type: 'Tassimo',
+    type: 'tassimo',
+    name: 'Tassimo',
   },
   {
     id: 'dolce',
-    type: 'Dolce Gusto',
+    type: 'dolce-gusto',
+    name: 'Dolce Gusto',
   },
   {
     id: 'ness',
-    type: 'Nespresso',
+    type: 'nespresso',
+    name: 'Nespresso',
   },
   {
     id: 'lav',
-    type: 'Lavazza',
+    type: 'a-modo-mio',
+    name: 'Lavazza',
   },
   {
     id: 'sen',
-    type: 'Senseo',
+    type: 'senseo',
+    name: 'Senseo',
   },
   {
     id: 'nessp',
-    type: 'Nespresso Pro',
+    type: 'nes-pro',
+    name: 'Nespresso Pro',
   },
 ];
 
 export const App = () => {
-  const [data, setData] = useState<CoffeListing[]>(items);
+  const [data, setData] = useState<CoffeListing[]>([]);
   const [type, setType] = useState(types[0].type);
-  // const [inCart, setInCart] = useState<Cart[]>([]);
-  // const [isCartOpened, setIsCartOpened] = useState<boolean>(false);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let newData: CoffeListing[] = [];
-    items.map((item: CoffeListing, index: number) => {
-      if (item.system == type) {
-        item.id = item.id || index + 1;
-        newData.push(item);
+    const fetchProductData = async () => {
+      setLoading(true);
+      try {
+        const response = await fetch(
+          `https://kafeshop-api.netlify.app/sitemap-data?category=${type}&page=${page}`
+        );
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        const products = await response.json();
+
+        if (data[0]?.system == type) {
+          setData((prevData) => prevData.concat(...products.data));
+        } else {
+          setData(products.data);
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching product data:', error);
+        setLoading(false);
       }
-    });
+    };
 
-    setData(newData);
-  }, [type]);
-
-  useEffect(() => {
-    handleCategories(types[0].id, types[0].type);
-    // setStateFromLocal();
-  }, []);
-
-  // const setStateFromLocal = (): void => {
-  //   const localBucket = localStorage.getItem('cart');
-  //   if (!localBucket) return;
-  //   setInCart(JSON.parse(localBucket));
-  // };
-
-  // const handleCartClick = () => {
-  //   setIsCartOpened((prevValue) => !prevValue);
-  // };
+    fetchProductData();
+  }, [type, page]);
 
   const handleCategories = (id: string, type: string) => {
     const allBtn = document.getElementsByName('type');
-
     allBtn.forEach((button: any) => {
-      if (button.id != id) button.classList.remove('active');
+      if (button.id !== id) button.classList.remove('active');
       else button.classList.add('active');
       scrollToTop();
       setType(type);
+      setPage(1);
     });
   };
 
-  // const handleCardClick = (newItem: Cart) => {
-  //   setInCart((prevState) => {
-  //     const updatedBucket = prevState.map((item) => {
-  //       if (item.itemId === newItem.itemId) {
-  //         return {
-  //           ...item,
-  //           quantity: item.quantity + 1,
-  //         };
-  //       }
-  //       return item;
-  //     });
-  //     if (!prevState.some((item) => item.itemId === newItem.itemId)) {
-  //       updatedBucket.push({
-  //         image: newItem.image,
-  //         name: newItem.name,
-  //         itemId: newItem.itemId,
-  //         quantity: 1,
-  //         price: newItem.price,
-  //       });
-  //     }
-  //     localStorage.setItem('cart', JSON.stringify(inCart));
-  //     return updatedBucket;
-  //   });
-  // };
+  const handlePage = (incrementation: number) =>
+    setPage((prevValue) => prevValue + incrementation);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
@@ -108,50 +89,41 @@ export const App = () => {
 
   return (
     <div className='container'>
-      {/* <div
-        className='cart'
-        onClick={() => {
-          handleCartClick();
-        }}
-      >
-        <FontAwesomeIcon icon={faCartShopping} className='cart__icon' />
-        {inCart.length > 0 && (
-          <div className='cart__number'>{inCart.length}</div>
-        )}
-      </div> */}
-      {/* {!!isCartOpened ? ( */}
-      {/* '' */}
-      {/* ) : ( */}
-      {/* // <Cart itemsInCart={inCart} /> */}
-      <>
-        <div className='categories'>
-          {types.map((item) => {
-            return (
-              <button
-                key={item.id}
-                name='type'
-                className='btn'
-                id={item.id}
-                onClick={() => handleCategories(item.id, item.type)}
-              >
-                {item.type}
-              </button>
-            );
-          })}
-        </div>
-        <div className='container__card'>
-          {data.map((item: CoffeListing, index: number) => {
-            return (
-              <CardItem
-                key={index}
-                coffeeItem={item}
-                // onCardClick={handleCardClick}
-              />
-            );
-          })}
-        </div>
-      </>
-      {/* )} */}
+      {loading ? (
+        <>
+          <div className='backdrop-blur'></div>
+          <FontAwesomeIcon className='loading' icon={faSpinner} />
+        </>
+      ) : (
+        ''
+      )}
+      <div className='categories'>
+        {types.map((item) => {
+          return (
+            <button
+              key={item.id}
+              name='type'
+              className='btn'
+              id={item.id}
+              onClick={() => handleCategories(item.id, item.type)}
+            >
+              {item.name}
+            </button>
+          );
+        })}
+      </div>
+      <div className='container__card'>
+        {data.length > 0
+          ? data.map((item: CoffeListing, index: number) => {
+              if (item.image != '')
+                return <CardItem key={index} coffeeItem={item} />;
+            })
+          : ''}
+      </div>
+      <button className='btn' onClick={() => handlePage(1)}>
+        {' '}
+        Učitaj još
+      </button>
     </div>
   );
 };
