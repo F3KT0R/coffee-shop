@@ -44,7 +44,7 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
     ogPrice: number,
     pods: number | string = ''
   ): number => {
-    if (pods == '') return roundToNearestTen(ogPrice * 230);
+    if (pods == '') return roundToNearestTen(ogPrice * 237);
 
     return roundToNearestTen(
       ogPrice * 140 + parseInt(pods.toString()) * 16 * 1.5

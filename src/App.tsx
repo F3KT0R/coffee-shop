@@ -35,6 +35,11 @@ export const types = [
     type: 'nes-pro',
     name: 'Nespresso Pro',
   },
+  {
+    id: 'tea',
+    type: 'yogi-tea',
+    name: 'Čajevi',
+  },
 ];
 
 export const App = () => {
@@ -120,7 +125,7 @@ export const App = () => {
             })
           : ''}
       </div>
-      <button className='btn' onClick={() => handlePage(1)}>
+      <button className='btn btn-load' onClick={() => handlePage(1)}>
         {' '}
         Učitaj još
       </button>
