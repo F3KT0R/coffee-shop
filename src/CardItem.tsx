@@ -42,8 +42,16 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
 
   const calculatePrice = (
     ogPrice: number,
-    pods: number | string = ''
+    pods: number | string = '',
+    type: string
   ): number => {
+    if (type == 'syrup') {
+      if (ogPrice < 5) {
+        return roundToNearestTen(ogPrice * 350);
+      } else {
+        return roundToNearestTen(ogPrice * 280);
+      }
+    }
     if (pods == '') return roundToNearestTen(ogPrice * 237);
 
     return roundToNearestTen(
@@ -78,9 +86,14 @@ export const CardItem = ({ onCardClick, coffeeItem }: ItemCardProps) => {
             className='card__image'
           />
           <h2 className='card__price'>
-            {calculatePrice(coffeeItem.price, coffeeItem.pods)} din
+            {calculatePrice(
+              coffeeItem.price,
+              coffeeItem.pods,
+              coffeeItem.system
+            )}{' '}
+            din
             <span>
-              {!!coffeeItem.pods ? ' / ' + coffeeItem.pods + ' kapsula' : ''}
+              {coffeeItem.pods ? ' / ' + coffeeItem.pods + ' kapsula' : ''}
             </span>
           </h2>
           <h4>

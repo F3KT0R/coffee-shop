@@ -40,6 +40,11 @@ export const types = [
     type: 'yogi-tea',
     name: 'Čajevi',
   },
+  {
+    id: 'syrup',
+    type: 'syrup',
+    name: 'Sirupi',
+  },
 ];
 
 export const App = () => {
@@ -76,7 +81,7 @@ export const App = () => {
 
   const handleCategories = (id: string, type: string) => {
     const allBtn = document.getElementsByName('type');
-    allBtn.forEach((button: any) => {
+    allBtn.forEach((button: HTMLElement) => {
       if (button.id !== id) button.classList.remove('active');
       else button.classList.add('active');
       scrollToTop();
