@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - run: npm ci
+      - run: npm run build --workspace @kafeshop/core
+      - run: npm run format:check
+      - run: npm run lint
+      - run: npm run typecheck
+      # API tests run against an in-memory Postgres (PGlite) -- no database service needed.
+      - run: npm test
+      - run: npm run build --workspace @kafeshop/api
+      - run: npm run build --workspace @kafeshop/web

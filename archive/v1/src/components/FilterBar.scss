@@ -1,0 +1,230 @@
+.filter-bar {
+  position: sticky;
+  top: 73px; // Adjust based on header height
+  background: var(--filter-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 90;
+  padding: 1rem 0;
+
+  &__container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__search {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      padding-right: 3rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--input-bg);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+
+      &:focus {
+        outline: none;
+        border-color: var(--accent-color);
+      }
+
+      &::placeholder {
+        color: var(--text-secondary);
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.25rem;
+      pointer-events: none;
+    }
+  }
+
+  &__systems {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+
+    &::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background: var(--bg-secondary);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+
+    .system-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--card-bg);
+      color: var(--text-primary);
+      font-weight: 600;
+      font-size: 0.875rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+
+      &:hover {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+
+      &.active {
+        background: var(--accent-color);
+        color: white;
+        border-color: var(--accent-color);
+      }
+    }
+  }
+
+  &__brands {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .filter-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .brands-scroll {
+      display: flex;
+      gap: 0.5rem;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+
+      &::-webkit-scrollbar {
+        height: 4px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: var(--bg-secondary);
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+      }
+
+      .brand-btn {
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        background: var(--bg-secondary);
+        color: var(--text-primary);
+        font-weight: 500;
+        font-size: 0.8rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        white-space: nowrap;
+        flex-shrink: 0;
+
+        &:hover:not(:disabled) {
+          background: var(--card-hover-bg);
+          border-color: var(--accent-color);
+        }
+
+        &.active {
+          background: var(--accent-color);
+          color: white;
+          border-color: var(--accent-color);
+        }
+
+        &:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+}
+
+// Large screens
+@media (min-width: 1920px) {
+  .filter-bar {
+    &__container {
+      max-width: 100%;
+    }
+
+    &__search {
+      max-width: 500px;
+
+      .search-input {
+        font-size: 1rem;
+        padding: 0.75rem 1rem;
+        padding-right: 3rem;
+      }
+
+      .search-icon {
+        font-size: 1.25rem;
+        right: 1rem;
+      }
+    }
+
+    &__systems .system-btn {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.875rem;
+    }
+
+    &__brands .brands-scroll .brand-btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+}
+
+// Tablets and medium screens
+@media (max-width: 1200px) {
+  .filter-bar {
+    &__systems .system-btn {
+      padding: 0.625rem 1.25rem;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .filter-bar {
+    top: 57px; // Adjust for mobile header
+
+    &__container {
+      padding: 0 1rem;
+    }
+
+    &__search {
+      max-width: 100%;
+    }
+
+    &__systems {
+      .system-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+  }
+}

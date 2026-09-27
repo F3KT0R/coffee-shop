@@ -1,0 +1,4484 @@
+{
+  "100341": {
+    "__typename": "SimpleProduct",
+    "sku": "100341",
+    "uid": "NDQwMA==",
+    "name": "Miscela Blu",
+    "url_key": "miscela-blu-caffe-borbone-nespresso",
+    "weight": 0.56,
+    "stock_status": "IN_STOCK",
+    "quantity": 914,
+    "review_count": 13,
+    "rating_summary": 86,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.29,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 8.29,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Caffè Borbone has been creating quality coffee for years. Their Miscela Blu (blue blend) coffee is available for Nespresso® in plastic pods that are easy to use and brew coffee quickly and efficiently. The coffee you&#039;ll enjoy has an intense aroma of nuts and chocolate. Each box gives you 50 pods of this medium roasted coffee for you to brew. </p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Miscela Blu"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Caffè Borbone has been creating quality coffee for years. Their Miscela Blu (blue blend) coffee is available for Nespresso® in plastic pods that are easy to use and brew coffee quickly and efficiently. The coffee you&#039;ll enjoy has an intense aroma of nuts and chocolate. Each box gives you 50 pods of this medium roasted coffee for you to brew. </p>"
+        },
+        {
+          "code": "price",
+          "value": "8.290000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/n/e/nespresso-caffe-borbone-50-miscela-blu-v2-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "miscela-blu-caffe-borbone-nespresso"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "50 pods for Nespresso®"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2028-07-31 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Caffè Borbone"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Miscela Blu"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "50"
+        },
+        {
+          "code": "number_of_units",
+          "value": "50"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "8"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.165800"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Caffè Borbone"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Nespresso®"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Strong"
+            },
+            {
+              "label": "Sulphite-free"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso®"
+            },
+            {
+              "label": "Lungo capsules for Nespresso®"
+            },
+            {
+              "label": "Starbucks for Nespresso"
+            },
+            {
+              "label": "Lavazza for Nespresso"
+            },
+            {
+              "label": "illy coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café Royal coffee pods for Nespresso®"
+            },
+            {
+              "label": "Descaling and care for Nespresso®"
+            },
+            {
+              "label": "L'OR coffee pods for Nespresso®"
+            },
+            {
+              "label": "Segafredo coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café René coffee pods for Nespresso®"
+            },
+            {
+              "label": "Caffè Borbone for Nespresso®"
+            },
+            {
+              "label": "Pods for Nespresso"
+            },
+            {
+              "label": "Gevalia coffee pods for Nespresso®"
+            },
+            {
+              "label": "Belmio coffee pods for Nespresso®"
+            },
+            {
+              "label": "Friele coffee pods for Nespresso®"
+            },
+            {
+              "label": "Garibaldi coffee pods for Nespresso®"
+            },
+            {
+              "label": "Tonino Lamborghini coffee pods for Nespresso®"
+            },
+            {
+              "label": "L'OR espresso pods for Nespresso®"
+            },
+            {
+              "label": "Lavazza espresso pods for Nespresso®"
+            },
+            {
+              "label": "Friends espresso pods for Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "148"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Espresso"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100575": {
+    "__typename": "SimpleProduct",
+    "sku": "100575",
+    "uid": "NTI4Ng==",
+    "name": "Crème Brûlée",
+    "url_key": "creme-brulee-dolce-vita-nespresso-10",
+    "weight": 0.11,
+    "stock_status": "IN_STOCK",
+    "quantity": 2182,
+    "review_count": 44,
+    "rating_summary": 88,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.79,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 1.79,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Dolce Vita is an Italian brand that has made a series of hot drinks for Nespresso® in different flavors, such as this delicious Creme Brulee variant. The Dolce Vita drinks are created in café style, and are a good alternative to a cup of coffee if you want to save on caffeine, or for the youngest who are not quite ready for a full coffee yet.</p> <p>Dolce Vita Creme Brulee is inspired by the classic French dessert. The taste is as it is known in a Creme Brulee vanilla-like, with a toasted caramelized body and a creamy consistency.</p> <p>Dolce Vita has been innovative here and created a variant you do not see every day for Nespresso®. A Nespresso® machine is not just for coffee, and here you get a new and unique taste experience, which is perfect for self-pampering when you need a little break.</p> <p>Dolce Vita Creme Brulee is brewed perfectly in your Nespresso® machine, but remember to have it brewed with the espresso button on your machine, so you get the best result.</p> <p><em>This product has no affilitation with nor is it produced by or recognised by Nestlé®.</em></p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-dolce-vita-10-creme-brulee-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-dolce-vita-10-creme-brulee-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-dolce-vita-10-creme-brulee-1203.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-dolce-vita-10-creme-brulee-1204.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-dolce-vita-10-creme-brulee-1205.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Crème Brûlée"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Dolce Vita is an Italian brand that has made a series of hot drinks for Nespresso® in different flavors, such as this delicious Creme Brulee variant. The Dolce Vita drinks are created in café style, and are a good alternative to a cup of coffee if you want to save on caffeine, or for the youngest who are not quite ready for a full coffee yet.</p> <p>Dolce Vita Creme Brulee is inspired by the classic French dessert. The taste is as it is known in a Creme Brulee vanilla-like, with a toasted caramelized body and a creamy consistency.</p> <p>Dolce Vita has been innovative here and created a variant you do not see every day for Nespresso®. A Nespresso® machine is not just for coffee, and here you get a new and unique taste experience, which is perfect for self-pampering when you need a little break.</p> <p>Dolce Vita Creme Brulee is brewed perfectly in your Nespresso® machine, but remember to have it brewed with the espresso button on your machine, so you get the best result.</p> <p><em>This product has no affilitation with nor is it produced by or recognised by Nestlé®.</em></p>"
+        },
+        {
+          "code": "price",
+          "value": "1.790000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/n/e/nespresso-dolce-vita-10-creme-brulee-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/n/e/nespresso-dolce-vita-10-creme-brulee-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/n/e/nespresso-dolce-vita-10-creme-brulee-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "creme-brulee-dolce-vita-nespresso-10"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "10 pods for Nespresso®"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2028-07-31 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Dolce Vita"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Cocoa"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Espresso"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Crème Brûlée"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Gluten free"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "10"
+        },
+        {
+          "code": "number_of_units",
+          "value": "10"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": "100 g"
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.179000"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Dolce Vita"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Medium"
+            },
+            {
+              "label": "Milk pods"
+            },
+            {
+              "label": "Nespresso®"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Roasted"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Toast"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso®"
+            },
+            {
+              "label": "Lungo capsules for Nespresso®"
+            },
+            {
+              "label": "Starbucks for Nespresso"
+            },
+            {
+              "label": "Lavazza for Nespresso"
+            },
+            {
+              "label": "illy coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café Royal coffee pods for Nespresso®"
+            },
+            {
+              "label": "KaffeK for Nespresso®"
+            },
+            {
+              "label": "Descaling and care for Nespresso®"
+            },
+            {
+              "label": "L'OR coffee pods for Nespresso®"
+            },
+            {
+              "label": "Segafredo coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café René coffee pods for Nespresso®"
+            },
+            {
+              "label": "Caffè Borbone for Nespresso®"
+            },
+            {
+              "label": "Pods for Nespresso"
+            },
+            {
+              "label": "Gevalia coffee pods for Nespresso®"
+            },
+            {
+              "label": "Belmio coffee pods for Nespresso®"
+            },
+            {
+              "label": "Friele coffee pods for Nespresso®"
+            },
+            {
+              "label": "Garibaldi coffee pods for Nespresso®"
+            },
+            {
+              "label": "Tonino Lamborghini coffee pods for Nespresso®"
+            },
+            {
+              "label": "Decaffeinated coffee pods for Nespresso® "
+            },
+            {
+              "label": "Friends coffee pods for Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "282"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100678": {
+    "__typename": "SimpleProduct",
+    "sku": "100678",
+    "uid": "NTcyNA==",
+    "name": "Immune Support",
+    "url_key": "immune-support-yogi-tea-17",
+    "weight": 0.07,
+    "stock_status": "IN_STOCK",
+    "quantity": 158,
+    "review_count": 3,
+    "rating_summary": 93,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 2.59,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 2.59,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A balanced herbal tea for the colder months</p> <ul><li>17 tea bags</li><li>Caffeine-free</li><li>Herbaceous, fruity and citrusy flavour with a gentle tartness</li><li>With acerola cherry, rose hip, basil, elderberry and lemon</li></ul> <p>Yogi Tea Immune Support brings together acerola cherry, rose hip, basil and elderberry with bright notes of lemon, lemon verbena and lemongrass, in a herbal blend with a herbaceous, fruity and citrusy profile. This tea is a perfect choice for those cold winter days where the light and the energy are low. The flavour combines gentle sweetness from rose hip with aromatic basil, the fruity character of elderberry and a refreshing citrus lift from lemon and lemon verbena. Each pack contains 17 teabags, making it easy to prepare a cup whenever it suits your day.</p> <p>Enjoy the warm, fruity notes of Yogi Tea Immune Support today!</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/e/tea-yogi-17-immune-support-v2-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/e/tea-yogi-17-immune-support-v2-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/e/tea-yogi-17-immune-support-v2-1203.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/e/tea-yogi-17-immune-support-v2-1204.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/e/tea-yogi-17-immune-support-v2-1205.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Immune Support"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A balanced herbal tea for the colder months</p> <ul><li>17 tea bags</li><li>Caffeine-free</li><li>Herbaceous, fruity and citrusy flavour with a gentle tartness</li><li>With acerola cherry, rose hip, basil, elderberry and lemon</li></ul> <p>Yogi Tea Immune Support brings together acerola cherry, rose hip, basil and elderberry with bright notes of lemon, lemon verbena and lemongrass, in a herbal blend with a herbaceous, fruity and citrusy profile. This tea is a perfect choice for those cold winter days where the light and the energy are low. The flavour combines gentle sweetness from rose hip with aromatic basil, the fruity character of elderberry and a refreshing citrus lift from lemon and lemon verbena. Each pack contains 17 teabags, making it easy to prepare a cup whenever it suits your day.</p> <p>Enjoy the warm, fruity notes of Yogi Tea Immune Support today!</p>"
+        },
+        {
+          "code": "price",
+          "value": "2.590000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/t/e/tea-yogi-17-immune-support-v2-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/t/e/tea-yogi-17-immune-support-v2-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/t/e/tea-yogi-17-immune-support-v2-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "immune-support-yogi-tea-17"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "17 tea bags"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2029-05-31 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Yogi Tea"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Tea"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Immune Support"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "bags"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "17"
+        },
+        {
+          "code": "number_of_units",
+          "value": "17"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.152353"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Autumn"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Fruity"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Herbal"
+            },
+            {
+              "label": "Herbal tea"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "New look"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Organic"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Tea"
+            },
+            {
+              "label": "Winter"
+            },
+            {
+              "label": "Yogi Tea"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "Yogi Tea"
+            },
+            {
+              "label": "David Rio Chai tea"
+            },
+            {
+              "label": "Te"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "41"
+        },
+        {
+          "code": "highlighted",
+          "value": "New look"
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Product Type > Tea > Herbal tea"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100699": {
+    "__typename": "SimpleProduct",
+    "sku": "100699",
+    "uid": "NTg2NQ==",
+    "name": "Café Latte Dubai Chocolate Style",
+    "url_key": "cafe-latte-dubai-chocolate-style-senseo-8",
+    "weight": 0.14,
+    "stock_status": "IN_STOCK",
+    "quantity": 845,
+    "review_count": 14,
+    "rating_summary": 93,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 2.29,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 2.29,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Your new go-to latte with a Dubai chocolate twist</p> <p>• 8 pads </p> <p>• Compatible with Senseo machines</p> <p>• Notes of chocolate and pistachio</p> <p>• All-in-one pod with coffee and milk</p> <p>Senseo Café Latte Dubai Chocolate Style is made for those moments when you want more than just coffee. Inspired by the viral Dubai chocolate, it blends smooth coffee, creamy milk, rich chocolate, and a subtle pistachio note. The taste is soft, sweet, and perfectly balanced. Just insert a pad in your Senseo machine to enjoy a café-style latte at home in seconds. No effort, just great flavour every time.</p> <p>Make your coffee break something to look forward to: shop Senseo Café Latte Dubai Chocolate Style pads today!</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Café Latte Dubai Chocolate Style"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Your new go-to latte with a Dubai chocolate twist</p> <p>• 8 pads </p> <p>• Compatible with Senseo machines</p> <p>• Notes of chocolate and pistachio</p> <p>• All-in-one pod with coffee and milk</p> <p>Senseo Café Latte Dubai Chocolate Style is made for those moments when you want more than just coffee. Inspired by the viral Dubai chocolate, it blends smooth coffee, creamy milk, rich chocolate, and a subtle pistachio note. The taste is soft, sweet, and perfectly balanced. Just insert a pad in your Senseo machine to enjoy a café-style latte at home in seconds. No effort, just great flavour every time.</p> <p>Make your coffee break something to look forward to: shop Senseo Café Latte Dubai Chocolate Style pads today!</p>"
+        },
+        {
+          "code": "price",
+          "value": "2.290000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/s/e/senseo-8-cafe-latte-dubai-chocolate-style-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "cafe-latte-dubai-chocolate-style-senseo-8"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "8 pads for Senseo"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-05-25 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Senseo"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Senseo"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Café Latte Dubai Chocolate Style"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Coffee with flavour"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Pods"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "8"
+        },
+        {
+          "code": "number_of_units",
+          "value": "8"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": "100 ml"
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.286250"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Chocolate"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Latte"
+            },
+            {
+              "label": "Pistachio"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Senseo"
+            },
+            {
+              "label": "Senseo"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "White coffee"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Senseo®"
+            },
+            {
+              "label": "Black coffee pads for Senseo®"
+            },
+            {
+              "label": "Café Royal coffee pods for Senseo"
+            },
+            {
+              "label": "Accessories for Senseo®"
+            },
+            {
+              "label": "KaffeK for Senseo®"
+            },
+            {
+              "label": "Decaf coffee for Senseo"
+            },
+            {
+              "label": "Descaling and care for Senseo"
+            },
+            {
+              "label": "Segafredo coffee pods for Senseo"
+            },
+            {
+              "label": "Café René coffee pods for Senseo"
+            },
+            {
+              "label": " Pads for Senseo®"
+            },
+            {
+              "label": "Merrild coffee pods for Senseo"
+            },
+            {
+              "label": "Friele coffee pods for Senseo"
+            },
+            {
+              "label": "Marcilla coffee pods for Senseo"
+            },
+            {
+              "label": "Gimoka pods for Senseo"
+            },
+            {
+              "label": "Coffee pods for Senseo"
+            },
+            {
+              "label": "Senseo pods for Senseo"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "283"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Senseo"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Latte"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100742": {
+    "__typename": "SimpleProduct",
+    "sku": "100742",
+    "uid": "NjE1NQ==",
+    "name": "Pike Place® Roast",
+    "url_key": "pike-place-roast-starbucks-10-nespresso-vertuo",
+    "weight": 0.18,
+    "stock_status": "OUT_OF_STOCK",
+    "quantity": 0,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.99,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 7.49,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A smooth, everyday espresso with a chocolatey finish</p> <p>• 10 aluminium capsules (Coffee/Mug, 230ml)</p> <p>• For Nespresso® Vertuo machines</p> <p>• Notes of cocoa and toasted nuts</p> <p>• Medium (7/13)</p> <p>Pike Place® Roast from Starbucks® is a well-rounded, medium-roast coffee for those who want a reliable, easy-drinking cup every day. Made with Arabica beans from Latin America, it delivers a smooth mouthfeel with subtly rich notes of cocoa and toasted nuts. Named after the first Starbucks® store in Seattle, this blend has been served fresh in Starbucks® cafés around the world ever since. Packed in aluminium capsules compatible with Nespresso® Vertuo machines, it&#039;s consistent, simple, and ready in seconds.</p> <p>Make Starbucks® Pike Place® Roast part of your daily coffee routine.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-pike-place-roast-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-pike-place-roast-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-pike-place-roast-1203.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-pike-place-roast-1204.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-pike-place-roast-1205.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Pike Place® Roast"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A smooth, everyday espresso with a chocolatey finish</p> <p>• 10 aluminium capsules (Coffee/Mug, 230ml)</p> <p>• For Nespresso® Vertuo machines</p> <p>• Notes of cocoa and toasted nuts</p> <p>• Medium (7/13)</p> <p>Pike Place® Roast from Starbucks® is a well-rounded, medium-roast coffee for those who want a reliable, easy-drinking cup every day. Made with Arabica beans from Latin America, it delivers a smooth mouthfeel with subtly rich notes of cocoa and toasted nuts. Named after the first Starbucks® store in Seattle, this blend has been served fresh in Starbucks® cafés around the world ever since. Packed in aluminium capsules compatible with Nespresso® Vertuo machines, it&#039;s consistent, simple, and ready in seconds.</p> <p>Make Starbucks® Pike Place® Roast part of your daily coffee routine.</p>"
+        },
+        {
+          "code": "price",
+          "value": "8.990000"
+        },
+        {
+          "code": "special_price",
+          "value": "7.490000"
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/v/e/vertuo-starbucks-10-pike-place-roast-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/v/e/vertuo-starbucks-10-pike-place-roast-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/v/e/vertuo-starbucks-10-pike-place-roast-1201.webp"
+        },
+        {
+          "code": "news_to_date",
+          "value": ""
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "pike-place-roast-starbucks-10-nespresso-vertuo"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "10 pods for Nespresso® Vertuo"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-01-15 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Starbucks"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Regular Cup"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Pike Place® Roast"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Aluminium"
+            },
+            {
+              "label": "Arabica"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "10"
+        },
+        {
+          "code": "number_of_units",
+          "value": "10"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "7"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Medium"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.749000"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "100% Arabica"
+            },
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Aluminium"
+            },
+            {
+              "label": "Americano"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Medium"
+            },
+            {
+              "label": "Nespresso® Vertuo"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Pure cocoa"
+            },
+            {
+              "label": "Roasted"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Starbucks®"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Sweet"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso® Vertuo"
+            },
+            {
+              "label": "Pods for Nespresso® Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "0"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso® Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Americano"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "13"
+        }
+      ]
+    }
+  },
+  "100744": {
+    "__typename": "SimpleProduct",
+    "sku": "100744",
+    "uid": "NjE2MQ==",
+    "name": "Vanilla",
+    "url_key": "vanilla-starbucks-10-nespresso-vertuo",
+    "weight": 0.18,
+    "stock_status": "OUT_OF_STOCK",
+    "quantity": 0,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.09,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 8.09,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A light, sweet coffee with a soft vanilla finish</p> <p>• 10 aluminium capsules (Coffee/Mug, 230ml)</p> <p>• For Nespresso® Vertuo machines</p> <p>• Vanilla flavoured coffee</p> <p>• Medium (5/13)</p> <p>Creamy Vanilla from Starbucks® is a soft, smooth flavoured coffee for those who like their cup light, sweet, and easy to drink. Made with natural flavours, it brings together sweet vanilla and shortbread notes in a well-balanced, velvety cup. The light roast keeps it gentle and approachable, while the vanilla flavour adds a warm, sweet finish. Packed in 10 aluminium capsules compatible with Nespresso® Vertuo machines, it&#039;s delicious on its own or with milk for a creamy, flavourful moment.</p> <p>Don&#039;t miss out, make room for Starbucks® Creamy Vanilla.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-creamy-vanilla-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-creamy-vanilla-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-creamy-vanilla-1203.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-creamy-vanilla-1204.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/v/e/vertuo-starbucks-10-creamy-vanilla-1205.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Vanilla"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A light, sweet coffee with a soft vanilla finish</p> <p>• 10 aluminium capsules (Coffee/Mug, 230ml)</p> <p>• For Nespresso® Vertuo machines</p> <p>• Vanilla flavoured coffee</p> <p>• Medium (5/13)</p> <p>Creamy Vanilla from Starbucks® is a soft, smooth flavoured coffee for those who like their cup light, sweet, and easy to drink. Made with natural flavours, it brings together sweet vanilla and shortbread notes in a well-balanced, velvety cup. The light roast keeps it gentle and approachable, while the vanilla flavour adds a warm, sweet finish. Packed in 10 aluminium capsules compatible with Nespresso® Vertuo machines, it&#039;s delicious on its own or with milk for a creamy, flavourful moment.</p> <p>Don&#039;t miss out, make room for Starbucks® Creamy Vanilla.</p>"
+        },
+        {
+          "code": "price",
+          "value": "8.090000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/v/e/vertuo-starbucks-10-creamy-vanilla-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/v/e/vertuo-starbucks-10-creamy-vanilla-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/v/e/vertuo-starbucks-10-creamy-vanilla-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "vanilla-starbucks-10-nespresso-vertuo"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "10 pods for Nespresso® Vertuo"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2026-11-06 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Starbucks"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Regular Cup"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Vanilla"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Aluminium"
+            },
+            {
+              "label": "Coffee with flavour"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "10"
+        },
+        {
+          "code": "number_of_units",
+          "value": "10"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "5"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Medium"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.809000"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Aluminium"
+            },
+            {
+              "label": "Americano"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Medium"
+            },
+            {
+              "label": "Nespresso® Vertuo"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Starbucks®"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Vanilla"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso® Vertuo"
+            },
+            {
+              "label": "Pods for Nespresso® Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "12"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso® Vertuo"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Americano"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "13"
+        }
+      ]
+    }
+  },
+  "100747": {
+    "__typename": "SimpleProduct",
+    "sku": "100747",
+    "uid": "NjI4MQ==",
+    "name": "Caffitaly Descaler",
+    "url_key": "caffitaly-descaler-durgol-250ml",
+    "weight": 0.3,
+    "stock_status": "IN_STOCK",
+    "quantity": 197,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 4.49,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 4.49,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Keep your Caffitaly machines running smoothly</p> <p>• 250 ml bottle</p> <p>• Descaler solution</p> <p>• Perfect for all Caffitaly mahcines and Costa Coffee Podio X1</p> <p>• Removes limescale and supports smooth machine operation</p> <p>This Caffitaly descaler is a 250 ml descaler solution for all Caffitaly mahcines. It has a special formula and helps remove limescale build-up. Regular use supports smooth machine operation and helps maintain the taste of your coffee. Use it periodically and after heavy use to help keep your coffee machine in good condition. This is a simple care product for keeping your machine clean and your coffee tasting fresh.</p> <p>Keep your Caffitaly machine ready  — Shop now.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/l/cln-durgol-250ml-costa-podio-descaler-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/l/cln-durgol-250ml-costa-podio-descaler-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/l/cln-durgol-250ml-costa-podio-descaler-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/l/cln-durgol-250ml-costa-podio-descaler-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Caffitaly Descaler"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Keep your Caffitaly machines running smoothly</p> <p>• 250 ml bottle</p> <p>• Descaler solution</p> <p>• Perfect for all Caffitaly mahcines and Costa Coffee Podio X1</p> <p>• Removes limescale and supports smooth machine operation</p> <p>This Caffitaly descaler is a 250 ml descaler solution for all Caffitaly mahcines. It has a special formula and helps remove limescale build-up. Regular use supports smooth machine operation and helps maintain the taste of your coffee. Use it periodically and after heavy use to help keep your coffee machine in good condition. This is a simple care product for keeping your machine clean and your coffee tasting fresh.</p> <p>Keep your Caffitaly machine ready  — Shop now.</p>"
+        },
+        {
+          "code": "price",
+          "value": "4.490000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/c/l/cln-durgol-250ml-costa-podio-descaler-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/c/l/cln-durgol-250ml-costa-podio-descaler-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/c/l/cln-durgol-250ml-costa-podio-descaler-1201.webp"
+        },
+        {
+          "code": "news_to_date",
+          "value": ""
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "caffitaly-descaler-durgol-250ml"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 20%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "250 ml"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2030-08-27 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Durgol"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Costa Podio"
+            },
+            {
+              "label": "Caffitaly"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Accessories"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Caffitaly Descaler"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "pcs."
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": ""
+        },
+        {
+          "code": "number_of_units",
+          "value": "1"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": ""
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Costa Podio"
+            },
+            {
+              "label": "Descaling"
+            },
+            {
+              "label": "Descaling liquid"
+            },
+            {
+              "label": "Durgol"
+            },
+            {
+              "label": "Maintenance and cleaning"
+            },
+            {
+              "label": "New Arrival"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": []
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "7"
+        },
+        {
+          "code": "highlighted",
+          "value": "New Arrival"
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Product Type > Maintenance and cleaning"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100752": {
+    "__typename": "SimpleProduct",
+    "sku": "100752",
+    "uid": "NjE3MA==",
+    "name": "Espresso",
+    "url_key": "espresso-grand-mere-tassimo-24",
+    "weight": 0.33,
+    "stock_status": "IN_STOCK",
+    "quantity": 1471,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 6.09,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 6.09,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Classic French espresso in a bigger pack</p> <p>• 24 pods for Tassimo</p> <p>• Espresso</p> <p>• Rich and full-bodied</p> <p>• Traditional French coffee</p> <p>Grand’Mère Espresso is a classic French espresso with a rich and full-bodied taste, rounded off by a delicate and airy crema. Rooted in French coffee tradition, it reflects the classic and authentic style Grand’Mère has been known for since 1954. This pack contains 24 Tassimo pods, making it ideal for frequent use. Packed in the signature Tassimo T-Disc to preserve freshness, this espresso is easy to brew and consistently delicious.</p> <p>Get your Grand’Mère Espresso 24-pod pack today.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/a/tassimo-grand-mere-24-espresso-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/a/tassimo-grand-mere-24-espresso-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/a/tassimo-grand-mere-24-espresso-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/t/a/tassimo-grand-mere-24-espresso-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Espresso"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Classic French espresso in a bigger pack</p> <p>• 24 pods for Tassimo</p> <p>• Espresso</p> <p>• Rich and full-bodied</p> <p>• Traditional French coffee</p> <p>Grand’Mère Espresso is a classic French espresso with a rich and full-bodied taste, rounded off by a delicate and airy crema. Rooted in French coffee tradition, it reflects the classic and authentic style Grand’Mère has been known for since 1954. This pack contains 24 Tassimo pods, making it ideal for frequent use. Packed in the signature Tassimo T-Disc to preserve freshness, this espresso is easy to brew and consistently delicious.</p> <p>Get your Grand’Mère Espresso 24-pod pack today.</p>"
+        },
+        {
+          "code": "price",
+          "value": "6.090000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/t/a/tassimo-grand-mere-24-espresso-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/t/a/tassimo-grand-mere-24-espresso-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/t/a/tassimo-grand-mere-24-espresso-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "espresso-grand-mere-tassimo-24"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 20%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "24 pods for Tassimo"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-08-30 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Grand Mere"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Tassimo"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Espresso"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Espresso"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "24"
+        },
+        {
+          "code": "number_of_units",
+          "value": "24"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "8"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.253750"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Grand' Mère"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Strong"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Tassimo"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "for Tassimo®"
+            },
+            {
+              "label": "Black coffee for Tassimo®"
+            },
+            {
+              "label": "Coffee with milk for Tassimo®"
+            },
+            {
+              "label": "Cocoa capsules for Tassimo®"
+            },
+            {
+              "label": "Accessories for Tassimo®"
+            },
+            {
+              "label": "Decaf coffee for Tassimo"
+            },
+            {
+              "label": "Descaling and care for Tassimo"
+            },
+            {
+              "label": "L'OR coffee pods for Tassimo"
+            },
+            {
+              "label": "Jacobs coffee pods for Tassimo"
+            },
+            {
+              "label": "Pods for Tassimo®"
+            },
+            {
+              "label": "Friele coffee pods for Tassimo"
+            },
+            {
+              "label": "Marcilla coffee pods for Tassimo"
+            },
+            {
+              "label": "Gevalia coffee pods for Tassimo"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "338"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Tassimo"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Espresso"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "10"
+        }
+      ]
+    }
+  },
+  "100800": {
+    "__typename": "SimpleProduct",
+    "sku": "100800",
+    "uid": "NjE3Ng==",
+    "name": "Espresso - Budget",
+    "url_key": "espresso-kaffek-budget-dolce-gusto-16",
+    "weight": 0.26,
+    "stock_status": "IN_STOCK",
+    "quantity": 3412,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.7,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 1.7,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A strong, dark-roasted espresso at an affordable price</p> <p>• 16 pods</p> <p>• Compatible with Dolce Gusto® coffee machines</p> <p>• Very strong (8/10)</p> <p>• Budget-friendly</p> <p>This Espresso is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. Made from dark-roasted Arabica beans, it gives you a full-bodied, intense cup with gentle acidity and a natural sweetness. Good on its own or as a base for a cappuccino or latte. Packed in pods compatible with Dolce Gusto® coffee machines, it&#039;s a reliable daily espresso that won&#039;t stretch the budget.</p> <p>Get yours today, only on KaffeK.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/d/o/dolce-gusto-kaffek-16-budget-espresso-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/d/o/dolce-gusto-kaffek-16-budget-espresso-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/d/o/dolce-gusto-kaffek-16-budget-espresso-1203.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/d/o/dolce-gusto-kaffek-16-budget-espresso-1204.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/d/o/dolce-gusto-kaffek-16-budget-espresso-1205.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Espresso - Budget"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A strong, dark-roasted espresso at an affordable price</p> <p>• 16 pods</p> <p>• Compatible with Dolce Gusto® coffee machines</p> <p>• Very strong (8/10)</p> <p>• Budget-friendly</p> <p>This Espresso is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. Made from dark-roasted Arabica beans, it gives you a full-bodied, intense cup with gentle acidity and a natural sweetness. Good on its own or as a base for a cappuccino or latte. Packed in pods compatible with Dolce Gusto® coffee machines, it&#039;s a reliable daily espresso that won&#039;t stretch the budget.</p> <p>Get yours today, only on KaffeK.</p>"
+        },
+        {
+          "code": "price",
+          "value": "1.700000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/d/o/dolce-gusto-kaffek-16-budget-espresso-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/d/o/dolce-gusto-kaffek-16-budget-espresso-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/d/o/dolce-gusto-kaffek-16-budget-espresso-1201.webp"
+        },
+        {
+          "code": "news_to_date",
+          "value": ""
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "espresso-kaffek-budget-dolce-gusto-16"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 20%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "16 pods for Dolce Gusto®"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2028-08-14 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "KaffeK"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Dolce Gusto"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Espresso"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Espresso - Budget"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Arabica"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "16"
+        },
+        {
+          "code": "number_of_units",
+          "value": "16"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "8"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Very strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.106250"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "100% Arabica"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dark roast"
+            },
+            {
+              "label": "Dolce Gusto"
+            },
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "KaffeK"
+            },
+            {
+              "label": "New Arrival"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Very strong"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Dolce Gusto®"
+            },
+            {
+              "label": "Nescafé capsules for Dolce Gusto"
+            },
+            {
+              "label": "Decaf coffee for Dolce Gusto"
+            },
+            {
+              "label": "Descaling and care for Dolce Gusto"
+            },
+            {
+              "label": "Segafredo coffee pods for Dolce Gusto"
+            },
+            {
+              "label": "Café René pods for Dolce Gusto"
+            },
+            {
+              "label": "Caffè Borbone for Dolce Gusto"
+            },
+            {
+              "label": "Dolce Vita pods for Dolce Gusto"
+            },
+            {
+              "label": "Pods for Dolce Gusto®"
+            },
+            {
+              "label": "Gimoka pods for Dolce Gusto"
+            },
+            {
+              "label": "Starbucks® pods for Dolce Gusto"
+            },
+            {
+              "label": "Senso Nocturno pods for Dolce Gusto"
+            },
+            {
+              "label": "Starbucks® Grande coffee pods for Dolce Gusto"
+            },
+            {
+              "label": "KaffeK coffee pods for Dolce Gusto"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "330"
+        },
+        {
+          "code": "highlighted",
+          "value": "New Arrival"
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Dolce Gusto"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Espresso"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "10"
+        }
+      ]
+    }
+  },
+  "100844": {
+    "__typename": "BundleProduct",
+    "sku": "100844",
+    "uid": "NjAzNQ==",
+    "name": "Black coffee bundle",
+    "url_key": "black-coffee-bundle-l-or-150-nespresso-pro",
+    "stock_status": "OUT_OF_STOCK",
+    "quantity": 0,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 60,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 60,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Great workplace coffee by L&#039;OR</p> <p>• 150 capsules</p> <p>• For Nespresso® Pro machines</p> <p>• Includes 2 espresso cups</p> <p>• Three different black coffees in one box</p> <p>Stocking good coffee at work shouldn&#039;t be complicated. This L&#039;OR bundle gives you 150 pods across three black coffee varieties, so there&#039;s something for everyone, whether they like it bold, smooth, or somewhere in between. Compatible with Nespresso® Pro machines, it&#039;s a simple, no-fuss way to keep the whole office happy, cup after cup.</p> <p>Don&#039;t miss out, get your L&#039;OR bundle for Nespresso® Pro today!</p> <p><em>This product is not affiliated with nor produced, approved or endorsed by Nestlé®. </em></p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-pro-bundle-100844-v1-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-pro-lor-50-espresso-subtil-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-pro-lor-50-lungo-intense-1202.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-pro-lor-50-ristretto-1202.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/o/t/oth-lor-2-glass-espresso-1201.webp",
+        "position": 4,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Black coffee bundle"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Great workplace coffee by L&#039;OR</p> <p>• 150 capsules</p> <p>• For Nespresso® Pro machines</p> <p>• Includes 2 espresso cups</p> <p>• Three different black coffees in one box</p> <p>Stocking good coffee at work shouldn&#039;t be complicated. This L&#039;OR bundle gives you 150 pods across three black coffee varieties, so there&#039;s something for everyone, whether they like it bold, smooth, or somewhere in between. Compatible with Nespresso® Pro machines, it&#039;s a simple, no-fuss way to keep the whole office happy, cup after cup.</p> <p>Don&#039;t miss out, get your L&#039;OR bundle for Nespresso® Pro today!</p> <p><em>This product is not affiliated with nor produced, approved or endorsed by Nestlé®. </em></p>"
+        },
+        {
+          "code": "price",
+          "value": "0.000000"
+        },
+        {
+          "code": "image",
+          "value": "/n/e/nespresso-pro-bundle-100844-v1-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/n/e/nespresso-pro-bundle-100844-v1-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/n/e/nespresso-pro-bundle-100844-v1-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "black-coffee-bundle-l-or-150-nespresso-pro"
+        },
+        {
+          "code": "price_type",
+          "value": "1"
+        },
+        {
+          "code": "price_view",
+          "selected_options": [
+            {
+              "label": "As Low as"
+            }
+          ]
+        },
+        {
+          "code": "one_liner",
+          "value": "150 capsules for Nespresso® Pro"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": "65.05"
+        },
+        {
+          "code": "best_before_date",
+          "value": ""
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "L'OR"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso Pro"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Black coffee bundle"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "150"
+        },
+        {
+          "code": "number_of_units",
+          "value": ""
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.400000"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Aluminium"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Bundle"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "L’OR"
+            },
+            {
+              "label": "Nespresso® Pro"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Sulphite-free"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso® Professional"
+            },
+            {
+              "label": "Starbucks® coffee capsules for Nespresso® Pro"
+            },
+            {
+              "label": "Café Royal coffee capsules for Nespresso® Pro"
+            },
+            {
+              "label": "KaffeK for Nespresso® Professional"
+            },
+            {
+              "label": "Decaf coffee for Nespresso® Pro"
+            },
+            {
+              "label": "Descaling and care for Nespresso® Pro"
+            },
+            {
+              "label": "Pods for Nespresso® Pro"
+            },
+            {
+              "label": "Gimoka capsules for Nespresso® Pro"
+            },
+            {
+              "label": "Coffee capsules for Nespresso® pro"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "0"
+        },
+        {
+          "code": "recently_bought",
+          "value": "4"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso® Pro"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Black coffee"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  },
+  "100863": {
+    "__typename": "SimpleProduct",
+    "sku": "100863",
+    "uid": "NjMzMg==",
+    "name": "Espresso",
+    "url_key": "espresso-rood-douwe-egberts-coffee-beans-500g",
+    "weight": 0.51,
+    "stock_status": "IN_STOCK",
+    "quantity": 1824,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 9.99,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 9.99,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Bold, dark-roast coffee beans with notes of chocolate and roasted nuts</p> <ul><li>500 g whole coffee beans</li><li>Strong intensity (10/12)</li><li>Notes of chocolate and roasted nuts</li><li>Bold, dark roast</li></ul> <p>Douwe Egberts Espresso coffee beans bring together Arabica and Robusta in a dark roast built for a bold cup. Expect a full, complex aroma with warm notes of chocolate and roasted nuts, finishing with the lingering intensity of a true espresso. At intensity 10 out of 12, this is a strong blend suited to your favourite brewing method. Use around 7 g of beans per cup for the perfect flavour, and grind just before use.</p> <p>Shop Douwe Egberts Espresso coffee beans and brew café-quality espresso at home.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-douwe-egberts-500g-espresso-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-douwe-egberts-500g-espresso-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-douwe-egberts-500g-espresso-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-douwe-egberts-500g-espresso-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Espresso"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Bold, dark-roast coffee beans with notes of chocolate and roasted nuts</p> <ul><li>500 g whole coffee beans</li><li>Strong intensity (10/12)</li><li>Notes of chocolate and roasted nuts</li><li>Bold, dark roast</li></ul> <p>Douwe Egberts Espresso coffee beans bring together Arabica and Robusta in a dark roast built for a bold cup. Expect a full, complex aroma with warm notes of chocolate and roasted nuts, finishing with the lingering intensity of a true espresso. At intensity 10 out of 12, this is a strong blend suited to your favourite brewing method. Use around 7 g of beans per cup for the perfect flavour, and grind just before use.</p> <p>Shop Douwe Egberts Espresso coffee beans and brew café-quality espresso at home.</p>"
+        },
+        {
+          "code": "price",
+          "value": "9.990000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/w/b/wbe-douwe-egberts-500g-espresso-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/w/b/wbe-douwe-egberts-500g-espresso-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/w/b/wbe-douwe-egberts-500g-espresso-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "espresso-rood-douwe-egberts-coffee-beans-500g"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "500 g coffee beans"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-07-31 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Douwe Egberts"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Coffee Beans"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Espresso"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Arabica/Robusta"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "g."
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": ""
+        },
+        {
+          "code": "number_of_units",
+          "value": "500"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "10"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": ""
+        },
+        {
+          "code": "price_per_kilo",
+          "value": "19.980000"
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Arabica & Robusta"
+            },
+            {
+              "label": "Chocolate"
+            },
+            {
+              "label": "Coffee beans"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Dark roast"
+            },
+            {
+              "label": "Douwe Egberts"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "New Arrival"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Nutty"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Strong"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Sweet"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "Tilbehør til kaffebønner"
+            },
+            {
+              "label": "illy coffee beans"
+            },
+            {
+              "label": "Starbucks® coffee beans"
+            },
+            {
+              "label": "Café Royal coffee beans"
+            },
+            {
+              "label": "Domus Barista Coffee Beans"
+            },
+            {
+              "label": "KaffeK coffee beans"
+            },
+            {
+              "label": "Lavazza coffee beans"
+            },
+            {
+              "label": "Decaf coffee beans"
+            },
+            {
+              "label": "L'OR coffee beans"
+            },
+            {
+              "label": "Segafredo coffee beans"
+            },
+            {
+              "label": "Caffè Borbone coffee beans "
+            },
+            {
+              "label": "Merrild coffee beans"
+            },
+            {
+              "label": "Garibaldi coffee beans"
+            },
+            {
+              "label": "Tonino Lamborghini coffee beans"
+            },
+            {
+              "label": "Gimoka coffee beans"
+            },
+            {
+              "label": "Delonghi espresso coffee beans"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "0"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Product Type > Coffee beans"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "12"
+        }
+      ]
+    }
+  },
+  "108905": {
+    "__typename": "SimpleProduct",
+    "sku": "108905",
+    "uid": "MzMzNw==",
+    "name": "Espresso Strong - Budget",
+    "url_key": "espresso-strong-budget-kaffek-nespresso-10",
+    "weight": 0.09,
+    "stock_status": "IN_STOCK",
+    "quantity": 57281,
+    "review_count": 456,
+    "rating_summary": 91,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 1.1,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 1.1,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A strong everyday coffee at an affordable price</p> <p>• 10 plastic pods</p> <p>• Very strong (9/10)</p> <p>• Compatible with Nespresso® Original coffee machines</p> <p>• Budget-friendly</p> <p>This Espresso Strong - Budget is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. This intense, full-bodied blend gives you a powerful, satisfying cup that cuts through milk just as well as it drinks on its own. Packed in plastic pods compatible with Nespresso® Original coffee machines, it&#039;s a reliable daily coffee that won&#039;t stretch the budget.</p> <p>Get yours today, only on KaffeK.</p> <p><em>This product is not affiliated with nor produced, approved or endorsed by Nestlé®. </em></p> <p><em>These capsules are not compatible with the L&#039;OR Barista machine.</em></p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-v2-trnsfrm.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-1202.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-1203.webp",
+        "position": 3,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-1204.webp",
+        "position": 4,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/n/e/nespresso-kaffek-10-p-espresso-strong-1205.webp",
+        "position": 5,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Espresso Strong - Budget"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A strong everyday coffee at an affordable price</p> <p>• 10 plastic pods</p> <p>• Very strong (9/10)</p> <p>• Compatible with Nespresso® Original coffee machines</p> <p>• Budget-friendly</p> <p>This Espresso Strong - Budget is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. This intense, full-bodied blend gives you a powerful, satisfying cup that cuts through milk just as well as it drinks on its own. Packed in plastic pods compatible with Nespresso® Original coffee machines, it&#039;s a reliable daily coffee that won&#039;t stretch the budget.</p> <p>Get yours today, only on KaffeK.</p> <p><em>This product is not affiliated with nor produced, approved or endorsed by Nestlé®. </em></p> <p><em>These capsules are not compatible with the L&#039;OR Barista machine.</em></p>"
+        },
+        {
+          "code": "price",
+          "value": "1.100000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "special_from_date",
+          "value": ""
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/n/e/nespresso-kaffek-10-p-espresso-strong-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/n/e/nespresso-kaffek-10-p-espresso-strong-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/n/e/nespresso-kaffek-10-p-espresso-strong-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "espresso-strong-budget-kaffek-nespresso-10"
+        },
+        {
+          "code": "swatch_image",
+          "value": "/n/e/nespresso-kaffekapslen-everyday-coffee-strong-01.jpg"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "am_shipping_type",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "one_liner",
+          "value": "10 pods for Nespresso®"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2028-05-16 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "KaffeK"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": "Nespresso"
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Pods and capsules"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Espresso"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Espresso Strong - Budget"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "Capsules"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": "10"
+        },
+        {
+          "code": "number_of_units",
+          "value": "10"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "9"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Very strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": "0.099000"
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Afternoon "
+            },
+            {
+              "label": "Anytime"
+            },
+            {
+              "label": "Black coffee"
+            },
+            {
+              "label": "Coffee date"
+            },
+            {
+              "label": "Coffee pods"
+            },
+            {
+              "label": "Cozy time"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "Evening"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "KaffeK"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Meetings"
+            },
+            {
+              "label": "Morning"
+            },
+            {
+              "label": "Nespresso®"
+            },
+            {
+              "label": "New look"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Party"
+            },
+            {
+              "label": "Pods"
+            },
+            {
+              "label": "Pre-workout"
+            },
+            {
+              "label": "Pressure"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Studying"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Very strong"
+            },
+            {
+              "label": "With dessert"
+            },
+            {
+              "label": "Work"
+            },
+            {
+              "label": "Working from home"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "For Nespresso®"
+            },
+            {
+              "label": "Lungo capsules for Nespresso®"
+            },
+            {
+              "label": "Starbucks for Nespresso"
+            },
+            {
+              "label": "Lavazza for Nespresso"
+            },
+            {
+              "label": "illy coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café Royal coffee pods for Nespresso®"
+            },
+            {
+              "label": "Descaling and care for Nespresso®"
+            },
+            {
+              "label": "L'OR coffee pods for Nespresso®"
+            },
+            {
+              "label": "Segafredo coffee pods for Nespresso®"
+            },
+            {
+              "label": "Café René coffee pods for Nespresso®"
+            },
+            {
+              "label": "Caffè Borbone for Nespresso®"
+            },
+            {
+              "label": "Pods for Nespresso"
+            },
+            {
+              "label": "Gevalia coffee pods for Nespresso®"
+            },
+            {
+              "label": "Belmio coffee pods for Nespresso®"
+            },
+            {
+              "label": "Friele coffee pods for Nespresso®"
+            },
+            {
+              "label": "Garibaldi coffee pods for Nespresso®"
+            },
+            {
+              "label": "Tonino Lamborghini coffee pods for Nespresso®"
+            },
+            {
+              "label": "L'OR espresso pods for Nespresso®"
+            },
+            {
+              "label": "Lavazza espresso pods for Nespresso®"
+            },
+            {
+              "label": "Friends espresso pods for Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "5340"
+        },
+        {
+          "code": "highlighted",
+          "value": "New look"
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Pod system > Nespresso®"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": "Espresso"
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "10"
+        }
+      ]
+    }
+  },
+  "505055": {
+    "__typename": "SimpleProduct",
+    "sku": "505055",
+    "uid": "MzI4Mg==",
+    "name": "Caramel Syrup",
+    "url_key": "caramel-syrup-street-joes",
+    "weight": 0.56,
+    "stock_status": "IN_STOCK",
+    "quantity": 1300,
+    "review_count": 72,
+    "rating_summary": 94,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 2.69,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 2.69,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>Indulge in the classic charm of Street Joe&#039;s Classic Caramel syrup. With its rich caramel notes and a hint of sweetness, this coffee syrup transforms your everyday cup into a delightful treat. Simply add 2cl to your coffee and let the smooth caramel sensation whisk you away. Ideal for those seeking a touch of indulgence, Street Joe&#039;s Classic Caramel is your ticket to an extraordinary coffee experience. Try it today and elevate your coffee moments with this beautifully balanced flavour!</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/c/o/coffee-syrup-street-joes-classic-caramel-1201.webp",
+        "position": 0,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Caramel Syrup"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>Indulge in the classic charm of Street Joe&#039;s Classic Caramel syrup. With its rich caramel notes and a hint of sweetness, this coffee syrup transforms your everyday cup into a delightful treat. Simply add 2cl to your coffee and let the smooth caramel sensation whisk you away. Ideal for those seeking a touch of indulgence, Street Joe&#039;s Classic Caramel is your ticket to an extraordinary coffee experience. Try it today and elevate your coffee moments with this beautifully balanced flavour!</p>"
+        },
+        {
+          "code": "price",
+          "value": "2.690000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "special_from_date",
+          "value": ""
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/c/o/coffee-syrup-street-joes-classic-caramel-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/c/o/coffee-syrup-street-joes-classic-caramel-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/c/o/coffee-syrup-street-joes-classic-caramel-1201.webp"
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "caramel-syrup-street-joes"
+        },
+        {
+          "code": "swatch_image",
+          "value": "/c/o/coffee-syrup-street-joes-classic-caramel-0001.jpg"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "200 ml coffee syrup"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-10-31 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "Street Joe's"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Other"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Caramel Syrup"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "ml"
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": ""
+        },
+        {
+          "code": "number_of_units",
+          "value": "200"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": ""
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": "100 g"
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": ""
+        },
+        {
+          "code": "price_per_kilo",
+          "value": ""
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Coffee add-ons"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Street Joes"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Sweet"
+            },
+            {
+              "label": "Syrup"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": []
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "55"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Product Type > Coffee add-ons"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": ""
+        }
+      ]
+    }
+  }
+}

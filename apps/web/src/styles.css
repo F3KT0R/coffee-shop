@@ -1,0 +1,176 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/playfair-display';
+@import '@fontsource-variable/caveat';
+@import '@fontsource-variable/nunito';
+
+/*
+ * "Cozy café" theme, matched to the shop's Instagram artwork: latte and cream paper, dark chocolate
+ * accents, bold serif headlines, a handwritten script on painted brush strokes, and heart doodles.
+ */
+@theme {
+  --font-sans: 'Nunito Variable', ui-rounded, 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Playfair Display Variable', ui-serif, Georgia, serif;
+  --font-script: 'Caveat Variable', 'Segoe Script', cursive;
+
+  /* Dark chocolate -> latte -> cream */
+  --color-espresso-950: #22120a;
+  --color-espresso-900: #3a2214;
+  --color-espresso-800: #4b2e1c;
+  --color-espresso-700: #6b4630;
+  --color-espresso-600: #86603f;
+  --color-roast-600: #97572a;
+  --color-roast-500: #ad6d3a;
+  --color-roast-400: #c7925f;
+  --color-crema-300: #e4c9a8;
+  --color-crema-200: #efdcc4;
+  --color-crema-100: #f6ebdd;
+  --color-crema-50: #faf3ea;
+  --color-milk: #fffaf3;
+
+  --radius-card: 1.5rem;
+  --shadow-card: 0 1px 2px rgb(58 34 20 / 0.06), 0 10px 28px -14px rgb(58 34 20 / 0.28);
+  --shadow-lift: 0 2px 6px rgb(58 34 20 / 0.1), 0 22px 44px -18px rgb(58 34 20 / 0.4);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-crema-50 font-sans text-espresso-900 antialiased;
+    /* Warm light pooling in from the corners, plus a faint paper grain. */
+    background-image:
+      radial-gradient(60rem 40rem at 100% 0%, rgb(199 146 95 / 0.14), transparent 60%),
+      radial-gradient(50rem 36rem at 0% 100%, rgb(173 109 58 / 0.1), transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .23 0 0 0 0 .13 0 0 0 0 .08 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  h1,
+  h2,
+  h3 {
+    @apply font-display tracking-tight text-balance;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-roast-500;
+  }
+  ::selection {
+    @apply bg-crema-300;
+  }
+  dialog::backdrop {
+    background: rgb(34 18 10 / 0.5);
+    backdrop-filter: blur(2px);
+  }
+}
+
+/* Reusable building blocks. Declared as utilities so they compose with @apply and with variants. */
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold transition
+    disabled:cursor-not-allowed disabled:opacity-50;
+}
+@utility btn-primary {
+  @apply btn bg-espresso-900 text-crema-100 shadow-[0_6px_16px_-8px_rgb(58_34_20/0.7)] hover:bg-espresso-700
+    active:bg-espresso-950;
+}
+@utility btn-accent {
+  @apply btn bg-roast-500 text-white shadow-[0_6px_16px_-8px_rgb(151_87_42/0.8)] hover:bg-roast-600;
+}
+@utility btn-ghost {
+  @apply btn bg-milk/60 text-espresso-800 ring-1 ring-espresso-900/20 hover:bg-crema-100;
+}
+@utility card {
+  @apply rounded-(--radius-card) bg-milk shadow-(--shadow-card) ring-1 ring-espresso-900/5;
+}
+@utility input {
+  @apply w-full rounded-2xl border border-espresso-900/15 bg-milk px-4 py-2.5 text-sm text-espresso-900
+    placeholder:text-espresso-600/50 focus:border-roast-500 focus:ring-2 focus:ring-roast-400/30 focus:outline-none
+    aria-invalid:border-red-600 aria-invalid:ring-red-600/20;
+}
+@utility label {
+  @apply mb-1.5 block text-sm font-semibold text-espresso-800;
+}
+@utility chip {
+  @apply inline-flex items-center gap-1 rounded-full bg-crema-200 px-2.5 py-1 text-xs font-semibold text-espresso-800;
+}
+@utility container-page {
+  @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+@utility font-script {
+  font-family: var(--font-script);
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+/* Hand-painted brush stroke behind a script phrase ("Odmah dostupna!"). */
+@utility brush {
+  @apply relative inline-block px-5 py-1;
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -0.1em -0.15em;
+    z-index: -1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 80' preserveAspectRatio='none'%3E%3Cpath fill='%23efdcc4' d='M9 24C58 10 148 15 221 11s130-1 171 7l-6 12 10 13-12 15c-54 12-124 8-194 12S58 71 12 62l8-12L3 38z'/%3E%3Cpath fill='%23e4c9a8' opacity='.55' d='M30 30c90-7 200-9 330-3l-4 4C236 26 128 30 34 36zM44 54c96 4 190 3 300-2l-2 5c-106 5-202 5-296 1z'/%3E%3C/svg%3E")
+      center / 100% 100% no-repeat;
+  }
+}
+/* Large cream paint panel for a block of text, like the headline panel on the shop's posts. */
+@utility brush-panel {
+  @apply relative;
+  isolation: isolate;
+  &::before {
+    content: '';
+    position: absolute;
+    inset: -1.25rem -1.75rem;
+    z-index: -1;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 220' preserveAspectRatio='none'%3E%3Cpath fill='%23f6ebdd' fill-opacity='.95' d='M16 30c104-20 282-12 402-17s142 4 170 13l-9 36 14 42-11 48 8 36c-122 20-290 10-410 17S38 212 10 198l11-46L6 108l13-44z'/%3E%3Cpath fill='%23efdcc4' fill-opacity='.7' d='M40 40c150-9 330-12 520-4l-2 5c-190-7-368-4-516 6zM34 182c170 6 346 5 524-3l-1 5c-178 8-356 9-522 3z'/%3E%3C/svg%3E")
+      center / 100% 100% no-repeat;
+    filter: drop-shadow(0 18px 30px rgb(34 18 10 / 0.35));
+  }
+}
+
+/* Dark variant for light-on-dark sections. */
+@utility brush-dark {
+  @apply brush;
+  &::before {
+    filter: brightness(0.35) sepia(0.6);
+  }
+}
+
+/* Shipping labels: invisible on screen, the only thing on paper (admin → Slanje / order detail → Štampaj). */
+.print-sheet {
+  display: none;
+}
+@media print {
+  @page {
+    size: A4;
+    margin: 10mm;
+  }
+  body {
+    background: #fff !important;
+  }
+  header,
+  footer,
+  nav,
+  .no-print {
+    display: none !important;
+  }
+  .print-sheet {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+  }
+  .shipping-label {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,27 @@
+# Backup trigger for the daily catalog sync. The API already syncs itself every AUTO_SYNC_HOURS; this
+# covers the case where the process was asleep. Needs repository secrets API_URL (e.g.
+# https://kafeshop-api.onrender.com) and SYNC_SECRET (same value as on Render). Skipped until both exist.
+name: Catalog sync
+
+on:
+  schedule:
+    - cron: '15 4 * * *' # 06:15 Belgrade (CEST)
+  workflow_dispatch:
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Wake the API and start a sync
+        env:
+          API_URL: ${{ secrets.API_URL }}
+          SYNC_SECRET: ${{ secrets.SYNC_SECRET }}
+        run: |
+          if [ -z "$API_URL" ] || [ -z "$SYNC_SECRET" ]; then
+            echo "API_URL / SYNC_SECRET secrets not set -- skipping."
+            exit 0
+          fi
+          # A sleeping free-tier service needs up to a minute to boot.
+          curl --fail --silent --show-error --retry 5 --retry-delay 15 --retry-all-errors --max-time 90 "$API_URL/api/ping"
+          curl --fail --silent --show-error --max-time 60 -X POST -H "Authorization: Bearer $SYNC_SECRET" "$API_URL/api/sync"

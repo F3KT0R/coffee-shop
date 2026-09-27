@@ -1,0 +1,45 @@
+# Web app (apps/web) on Netlify. The API runs on Render and is reached through the /api proxy below,
+# so the browser only ever talks to this origin: no CORS, and the admin cookie is first-party.
+
+[build]
+  base = "/"
+  # Node version comes from .nvmrc.
+  command = "npm ci && npm run build --workspace @kafeshop/core && npm run build --workspace @kafeshop/web"
+  publish = "apps/web/dist"
+
+# --- API proxy -------------------------------------------------------------------------------------
+# Change the host if your Render service has a different name.
+[[redirects]]
+  from = "/api/*"
+  to = "https://kafeshop-api.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# --- Single-page app fallback --------------------------------------------------------------------------
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# --- Headers ---------------------------------------------------------------------------------------------
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://kaffek.co.uk; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self'; object-src 'none'; upgrade-insecure-requests"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+    Cross-Origin-Opener-Policy = "same-origin"
+
+# Hashed build assets never change.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# The HTML shell must always be revalidated so a new deploy is picked up immediately.
+[[headers]]
+  for = "/index.html"
+  [headers.values]
+    Cache-Control = "no-cache"

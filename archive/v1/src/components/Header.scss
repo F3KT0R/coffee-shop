@@ -1,0 +1,155 @@
+.header {
+  position: sticky;
+  top: 0;
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+
+  &__container {
+    max-width: 100%;
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    h1 {
+      font-size: 1.5rem;
+      margin: 0;
+      color: var(--text-primary);
+      font-weight: 700;
+    }
+
+    &-img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  &__cart-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      background: var(--accent-hover);
+      transform: scale(1.05);
+    }
+
+    .cart-icon {
+      font-size: 1.25rem;
+    }
+
+    .cart-badge {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--error-color);
+      color: white;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+
+    .cart-text {
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// Large screens
+@media (min-width: 1920px) {
+  .header {
+    &__container {
+      max-width: 100%;
+    }
+
+    &__logo {
+      h1 {
+        font-size: 1.5rem;
+      }
+
+      &-img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+    &__cart-btn {
+      padding: 0.75rem 1rem;
+
+      .cart-icon {
+        font-size: 1.25rem;
+      }
+
+      .cart-text {
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 768px) {
+  .header {
+    &__container {
+      padding: 0.75rem 1rem;
+    }
+
+    &__logo {
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      &-img {
+        width: 32px;
+        height: 32px;
+      }
+    }
+
+    &__cart-btn {
+      padding: 0.5rem 0.75rem;
+
+      .cart-text {
+        display: none;
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    &__logo h1 {
+      font-size: 1.1rem;
+    }
+  }
+}

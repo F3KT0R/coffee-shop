@@ -1,0 +1,55 @@
+# Render Blueprint for the API (apps/api). Import this repo at https://dashboard.render.com/blueprints --
+# Render reads this file automatically. Values marked `sync: false` are prompted for on first deploy and
+# stored only in Render's dashboard; they never live in the repository.
+services:
+  - type: web
+    name: kafeshop-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    # --include=dev: with NODE_ENV=production npm would skip the TypeScript compiler needed to build.
+    buildCommand: npm ci --include=dev && npm run build --workspace @kafeshop/core && npm run build --workspace @kafeshop/api
+    # Applies pending database migrations, then starts the server.
+    startCommand: npm run start:prod --workspace @kafeshop/api
+    # Liveness only (no database access), so Render's frequent checks don't keep Neon awake.
+    healthCheckPath: /api/ping
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: '24'
+      - key: DATABASE_URL
+        sync: false
+      - key: DIRECT_DATABASE_URL
+        sync: false
+      - key: PUBLIC_SITE_URL
+        value: https://kafeshop.netlify.app
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: SYNC_SECRET
+        generateValue: true
+      - key: INSTAGRAM_URL
+        value: https://ig.me/m/kafekapsule
+      - key: PRICE_MARGIN_PERCENT
+        value: '30'
+      - key: TRANSPORT_GBP_PER_KG
+        value: '4'
+      - key: MIN_PROFIT_RSD
+        value: '100'
+      - key: ORDERS_OPEN
+        value: 'true'
+      - key: AUTO_SYNC_HOURS
+        value: '24'
+      - key: SMTP_HOST
+        sync: false
+      - key: SMTP_USER
+        sync: false
+      - key: SMTP_PASS
+        sync: false
+      - key: MAIL_FROM
+        sync: false
+      - key: ADMIN_EMAIL
+        sync: false

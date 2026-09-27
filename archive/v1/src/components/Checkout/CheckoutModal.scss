@@ -1,0 +1,144 @@
+.checkout-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.checkout-modal {
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s ease;
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-primary);
+    z-index: 10;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: var(--bg-primary);
+      color: var(--accent);
+    }
+  }
+
+  &__header {
+    padding: 2rem;
+    border-bottom: 1px solid var(--border-color);
+
+    h2 {
+      margin: 0 0 1.5rem 0;
+      color: var(--text-primary);
+      font-size: 1.75rem;
+    }
+  }
+
+  &__content {
+    padding: 2rem;
+  }
+}
+
+.checkout-steps {
+  display: flex;
+  gap: 1rem;
+
+  .step {
+    flex: 1;
+    padding: 0.75rem;
+    background: var(--bg-primary);
+    border-radius: 8px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+
+    &.active {
+      background: var(--accent);
+      color: var(--text-primary);
+      font-weight: 600;
+      border-color: var(--accent);
+    }
+
+    &.completed {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .checkout-modal {
+    max-height: 100vh;
+    border-radius: 0;
+    max-width: 100%;
+
+    &__header {
+      padding: 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    &__content {
+      padding: 1.5rem;
+    }
+  }
+
+  .checkout-steps {
+    gap: 0.5rem;
+
+    .step {
+      font-size: 0.8rem;
+      padding: 0.5rem;
+    }
+  }
+}

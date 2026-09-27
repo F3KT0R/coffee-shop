@@ -1,0 +1,176 @@
+// Kafe za Vas -- database schema. Connection settings live in prisma.config.ts (Prisma 7).
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// One sellable product, refreshed from KaffeK by the catalog sync. Never hard-deleted: order lines
+/// keep their own snapshot, and a product that disappears at the source is only marked inactive.
+model Product {
+  sku             String   @id
+  slug            String   @unique
+  name            String
+  brand           String
+  category        String
+  kind            String
+  systems         String[]
+  packCount       Int?
+  packUnit        String?
+  intensity       Int?
+  intensityMax    Int?
+  intensityLevel  Int?
+  coffeeStyle     String?
+  dietTags        String[]
+  flavourNotes    String[]
+  description     String
+  images          String[]
+  priceGbp        Decimal  @db.Decimal(10, 2)
+  regularPriceGbp Decimal? @db.Decimal(10, 2)
+  priceRsd        Int
+  /// Landed cost at the last sync (sale price actually paid + transport), RSD. Never shown to shoppers.
+  costRsd         Int      @default(0)
+  /// Shipping weight in kg from the source (null = unknown, the fallback weight is used for pricing).
+  weightKg        Float?
+  /// KaffeK internal product id, used to add the product to the KaffeK basket.
+  kaffekId        Int?
+  inStock         Boolean
+  stockQuantity   Int?
+  rating          Float?
+  reviewCount     Int      @default(0)
+  popularity      Int      @default(0)
+  sourceUrl       String
+  /// Brand, name, slug and systems in search normal form (no accents) -- see normalizeSearch.
+  searchText      String   @default("")
+  /// False once the product is no longer offered at the source (only set by a complete sync pass).
+  active          Boolean  @default(true)
+  firstSeenAt     DateTime @default(now())
+  lastSeenAt      DateTime
+  updatedAt       DateTime @updatedAt
+
+  @@index([active, category])
+  @@index([active, popularity])
+}
+
+enum SyncStatus {
+  RUNNING
+  SUCCEEDED
+  FAILED
+}
+
+/// Audit trail of catalog syncs -- also the concurrency guard (one RUNNING row at a time).
+model SyncRun {
+  id         String     @id @default(cuid())
+  trigger    String
+  status     SyncStatus @default(RUNNING)
+  startedAt  DateTime   @default(now())
+  finishedAt DateTime?
+  /// Unique items received from the source.
+  fetched    Int        @default(0)
+  upserted   Int        @default(0)
+  /// Products marked inactive because the source stopped listing them.
+  retired    Int        @default(0)
+  skipped    Int        @default(0)
+  /// Whether every item in the source's total_count was seen (required before retiring anything).
+  complete   Boolean    @default(false)
+  gbpRsdRate Float?
+  rateSource String?
+  error      String?
+
+  @@index([status, startedAt])
+}
+
+/// Daily GBP->RSD sell rate. Kept so a sync can fall back to the last known rate when the bank is down.
+model ExchangeRate {
+  id        String   @id @default(cuid())
+  date      DateTime @db.Date
+  gbpSell   Float
+  source    String
+  fetchedAt DateTime @default(now())
+
+  @@unique([date, source])
+}
+
+enum OrderStatus {
+  NEW
+  CONFIRMED
+  ORDERED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+model Order {
+  id              String       @id @default(cuid())
+  /// Customer-facing number, e.g. "260927-4821" -- customers send it in an Instagram message.
+  number          String       @unique
+  /// Secret for the customer's order-status link.
+  accessToken     String       @unique
+  /// Client-generated key: a retried/double-submitted checkout returns the same order instead of a duplicate.
+  idempotencyKey  String?      @unique
+  status          OrderStatus  @default(NEW)
+  fullName        String
+  email           String
+  /// Lower-cased email: how Kafe klub recognises returning customers.
+  emailNormalized String
+  /// Customer's Instagram username (owner-entered from the chat; copied to the customer's later orders).
+  instagramHandle String?
+  phone           String
+  address         String
+  city            String
+  postalCode      String
+  note            String       @default("")
+  subtotalRsd     Int
+  /// Kafe klub discount (RSD) and the tier it came from.
+  discountRsd     Int          @default(0)
+  loyaltyTier     String?
+  /// subtotalRsd - discountRsd: paid to the courier on delivery (postage comes on top).
+  totalRsd        Int
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  lines           OrderLine[]
+  events          OrderEvent[]
+
+  @@index([status, createdAt])
+  @@index([createdAt])
+  @@index([emailNormalized, status])
+}
+
+/// Snapshot of what was bought at which price -- independent of later catalog changes.
+model OrderLine {
+  id           String  @id @default(cuid())
+  orderId      String
+  order        Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  sku          String
+  slug         String
+  name         String
+  brand        String
+  image        String?
+  unitPriceRsd Int
+  /// Landed cost per unit when the order was placed (for profit reporting).
+  unitCostRsd  Int     @default(0)
+  quantity     Int
+  lineTotalRsd Int
+
+  @@index([orderId])
+}
+
+/// Append-only order history: status changes, emails, admin notes.
+model OrderEvent {
+  id         String       @id @default(cuid())
+  orderId    String
+  order      Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  type       String
+  fromStatus OrderStatus?
+  toStatus   OrderStatus?
+  message    String?
+  actor      String
+  createdAt  DateTime     @default(now())
+
+  @@index([orderId, createdAt])
+}

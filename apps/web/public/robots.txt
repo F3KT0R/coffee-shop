@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /korpa
+Disallow: /kasa
+Disallow: /porudzbina/
