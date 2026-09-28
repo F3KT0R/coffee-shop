@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { formatRsd, type ProcurementItem } from '@kafeshop/core';
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
+import { ShipmentWeightCard } from '../../components/ShipmentWeightCard';
 import { EmptyState, ErrorState, Spinner } from '../../components/States';
 import { ApiError, api } from '../../lib/api';
 import { buildKaffekBookmarklet } from '../../lib/kaffekBookmarklet';
@@ -49,7 +50,7 @@ export function AdminProcurement() {
 
   if (batch.error) return <ErrorState error={batch.error} onRetry={() => void batch.refetch()} />;
   if (batch.isPending) return <Spinner />;
-  const { items, orders, totalCostRsd, totalRevenueRsd } = batch.data;
+  const { items, orders, totalCostRsd, totalRevenueRsd, weight } = batch.data;
 
   return (
     <div>
@@ -88,6 +89,8 @@ export function AdminProcurement() {
               </div>
             ))}
           </div>
+
+          <ShipmentWeightCard weight={weight} />
 
           <section className="card mt-6 p-6" aria-labelledby="bm-title">
             <h2 id="bm-title" className="text-xl font-bold">

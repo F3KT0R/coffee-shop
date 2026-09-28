@@ -327,6 +327,9 @@ describe('admin', () => {
       ]),
     );
     expect(batch.items.find((i: { sku: string }) => i.sku === '505055')).toBeUndefined(); // not confirmed
+    // 3 × 0.56 kg + 3 × 0.26 kg, for comparing against the courier's billed weight.
+    expect(batch.weight).toMatchObject({ totalKg: 2.46, estimatedBoxes: 0, transportGbpPerKg: 4 });
+    expect(batch.weight.gbpRsdRate).toBeGreaterThan(0);
 
     const marked = await ctx.app.inject({
       method: 'POST',
@@ -489,6 +492,7 @@ describe('Instagram handle and shipping', () => {
       });
     }
     const shipping = (await ctx.app.inject({ url: '/api/admin/shipping', headers })).json();
+    expect(shipping.weight).toMatchObject({ totalKg: 1.12, boxes: 2, estimatedBoxes: 0 });
     expect(shipping.items).toEqual([
       expect.objectContaining({
         number: first.number,

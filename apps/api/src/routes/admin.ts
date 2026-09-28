@@ -95,7 +95,7 @@ export async function registerAdminRoutes(
       return orders.setInstagramHandle(number, handle);
     });
 
-    secured.get('/api/admin/shipping', async () => ({ items: await orders.shipping() }));
+    secured.get('/api/admin/shipping', async () => orders.shipping());
 
     secured.get('/api/admin/procurement', async () => orders.procurement());
 

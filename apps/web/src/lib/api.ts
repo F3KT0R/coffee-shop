@@ -15,7 +15,7 @@ import type {
   OrderView,
   Paginated,
   ProcurementResponse,
-  ShippingOrder,
+  ShippingResponse,
   ProductDetailResponse,
   ProductListResponse,
   ShopConfigResponse,
@@ -151,7 +151,7 @@ export const api = {
         method: 'POST',
         body: { handle },
       }),
-    shipping: (signal?: AbortSignal) => request<{ items: ShippingOrder[] }>('/admin/shipping', { signal }),
+    shipping: (signal?: AbortSignal) => request<ShippingResponse>('/admin/shipping', { signal }),
     procurement: (signal?: AbortSignal) => request<ProcurementResponse>('/admin/procurement', { signal }),
     markOrdered: (orders: string[]) =>
       request<{ updated: string[]; skipped: string[] }>('/admin/procurement/mark-ordered', {

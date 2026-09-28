@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import { CopyButton, InstagramChatLink, ShippingLabel } from '../../components/AdminCustomerTools';
 import { shippingText } from '../../lib/shipping';
 import { PrinterIcon } from '../../components/icons';
+import { ShipmentWeightCard } from '../../components/ShipmentWeightCard';
 import { EmptyState, ErrorState, Spinner } from '../../components/States';
 import { ApiError, api } from '../../lib/api';
 
@@ -114,7 +115,7 @@ export function AdminShipping() {
 
   if (shipping.error) return <ErrorState error={shipping.error} onRetry={() => void shipping.refetch()} />;
   if (shipping.isPending) return <Spinner />;
-  const orders = shipping.data.items;
+  const { items: orders, weight } = shipping.data;
 
   return (
     <>
@@ -145,11 +146,14 @@ export function AdminShipping() {
             <p>Porudžbine se pojavljuju ovde kada ih označite kao „Poručeno“ u Nabavci.</p>
           </EmptyState>
         ) : (
-          <ul className="mt-6 grid gap-4">
-            {orders.map((order) => (
-              <ShipmentCard key={order.number} order={order} />
-            ))}
-          </ul>
+          <>
+            <ShipmentWeightCard weight={weight} compare />
+            <ul className="mt-6 grid gap-4">
+              {orders.map((order) => (
+                <ShipmentCard key={order.number} order={order} />
+              ))}
+            </ul>
+          </>
         )}
       </div>
 

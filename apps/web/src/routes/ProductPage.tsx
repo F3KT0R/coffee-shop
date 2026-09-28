@@ -11,7 +11,6 @@ import {
 } from '@kafeshop/core';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
-import { BrushText, HeartDoodle } from '../components/Decor';
 import { CheckIcon, ChevronRightIcon, StarIcon, TruckIcon } from '../components/icons';
 import { IntensityMeter } from '../components/IntensityMeter';
 import { Price } from '../components/Price';
@@ -215,12 +214,6 @@ export function ProductPage() {
             </Link>
           </p>
           <h1 className="mt-1 text-4xl leading-tight font-extrabold uppercase sm:text-5xl">{product.name}</h1>
-          {product.inStock && (
-            <p className="mt-3 flex items-center gap-2">
-              <BrushText className="text-3xl">Odmah dostupno!</BrushText>
-              <HeartDoodle className="size-8 text-roast-400" />
-            </p>
-          )}
           {product.rating !== null && product.reviewCount > 0 && (
             <p className="mt-2 inline-flex items-center gap-1 text-sm text-espresso-700">
               <StarIcon size={16} className="text-roast-400" />

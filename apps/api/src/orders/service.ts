@@ -21,7 +21,8 @@ import {
   type Paginated,
   type ProcurementItem,
   type ProcurementResponse,
-  type ShippingOrder,
+  type ShipmentWeight,
+  type ShippingResponse,
   type checkoutSchema,
 } from '@kafeshop/core';
 import type { FastifyBaseLogger } from 'fastify';
@@ -86,6 +87,40 @@ export function createOrderService(deps: {
   log: FastifyBaseLogger;
 }) {
   const { db, env, catalog, mailer, log } = deps;
+
+  /** Summed KaffeK weights of some order lines, for comparing against the courier's billed weight. */
+  async function shipmentWeight(lines: { sku: string; quantity: number }[]): Promise<ShipmentWeight> {
+    const [products, latestRate] = await Promise.all([
+      db.product.findMany({
+        where: { sku: { in: [...new Set(lines.map((l) => l.sku))] } },
+        select: { sku: true, weightKg: true },
+      }),
+      db.exchangeRate.findFirst({
+        orderBy: [{ date: 'desc' }, { fetchedAt: 'desc' }],
+        select: { gbpSell: true },
+      }),
+    ]);
+    const weights = new Map(products.map((p) => [p.sku, p.weightKg]));
+    const fallbackKg = env.FALLBACK_WEIGHT_KG;
+    let totalKg = 0;
+    let boxes = 0;
+    let estimatedBoxes = 0;
+    for (const line of lines) {
+      const kg = weights.get(line.sku);
+      const known = kg !== undefined && kg !== null && kg > 0;
+      totalKg += (known ? kg : fallbackKg) * line.quantity;
+      boxes += line.quantity;
+      if (!known) estimatedBoxes += line.quantity;
+    }
+    return {
+      totalKg: Math.round(totalKg * 1000) / 1000,
+      boxes,
+      estimatedBoxes,
+      fallbackKg,
+      transportGbpPerKg: env.TRANSPORT_GBP_PER_KG,
+      gbpRsdRate: latestRate?.gbpSell ?? null,
+    };
+  }
 
   const emailContext = (order: { number: string; accessToken: string }): EmailContext => ({
     siteUrl: env.PUBLIC_SITE_URL,
@@ -423,13 +458,13 @@ export function createOrderService(deps: {
     },
 
     /** Orders bought at KaffeK and waiting to be sent, oldest first, with full shipping details. */
-    async shipping(): Promise<ShippingOrder[]> {
+    async shipping(): Promise<ShippingResponse> {
       const orders = await db.order.findMany({
         where: { status: 'ORDERED' },
         orderBy: { createdAt: 'asc' },
-        include: { lines: { select: { brand: true, name: true, quantity: true } } },
+        include: { lines: { select: { sku: true, brand: true, name: true, quantity: true } } },
       });
-      return orders.map((o) => ({
+      const items = orders.map((o) => ({
         number: o.number,
         createdAt: o.createdAt.toISOString(),
         fullName: o.fullName,
@@ -442,8 +477,9 @@ export function createOrderService(deps: {
         instagramHandle: o.instagramHandle,
         totalRsd: o.totalRsd,
         itemCount: o.lines.reduce((sum, l) => sum + l.quantity, 0),
-        lines: o.lines,
+        lines: o.lines.map(({ brand, name, quantity }) => ({ brand, name, quantity })),
       }));
+      return { items, weight: await shipmentWeight(orders.flatMap((o) => o.lines)) };
     },
 
     /** Everything the owner needs at a glance. */
@@ -614,6 +650,7 @@ export function createOrderService(deps: {
         items: list,
         totalCostRsd: list.reduce((sum, i) => sum + i.unitCostRsd * i.quantity, 0),
         totalRevenueRsd: confirmed.reduce((sum, o) => sum + o.totalRsd, 0),
+        weight: await shipmentWeight(list),
       };
     },
 

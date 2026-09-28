@@ -130,6 +130,21 @@ export interface AdminOrderDetail extends Omit<OrderView, 'statusHistory'> {
 }
 
 /** One SKU to buy at KaffeK, summed over all confirmed orders that haven't been ordered yet. */
+/**
+ * Summed KaffeK product weights of a shipment. The courier bills the real weight, outer carton
+ * included, so comparing the two measures the packaging overhead.
+ */
+export interface ShipmentWeight {
+  totalKg: number;
+  boxes: number;
+  /** Boxes whose weight KaffeK doesn't list, counted at `fallbackKg` each. */
+  estimatedBoxes: number;
+  fallbackKg: number;
+  transportGbpPerKg: number;
+  /** Latest stored GBP sell rate, null before the first sync. */
+  gbpRsdRate: number | null;
+}
+
 export interface ProcurementItem {
   sku: string;
   /** KaffeK's internal product id, used by the "add to KaffeK basket" button. Null = add by hand. */
@@ -150,6 +165,7 @@ export interface ProcurementResponse {
   items: ProcurementItem[];
   totalCostRsd: number;
   totalRevenueRsd: number;
+  weight: ShipmentWeight;
 }
 
 export interface SyncRunView {
@@ -223,4 +239,10 @@ export interface ShippingOrder {
   totalRsd: number;
   itemCount: number;
   lines: { brand: string; name: string; quantity: number }[];
+}
+
+export interface ShippingResponse {
+  items: ShippingOrder[];
+  /** Weight of everything bought at KaffeK and not yet sent on, i.e. the package in transit. */
+  weight: ShipmentWeight;
 }
