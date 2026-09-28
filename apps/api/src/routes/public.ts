@@ -11,7 +11,7 @@ import {
 import type { FastifyInstance } from 'fastify';
 import type { CatalogRepository } from '../catalog/repository.js';
 import type { Db } from '../db.js';
-import type { Env } from '../env.js';
+import { mailConfigured, type Env } from '../env.js';
 import { notFound, parseInput } from '../http/errors.js';
 import type { OrderService } from '../orders/service.js';
 
@@ -64,6 +64,7 @@ export async function registerPublicRoutes(
       deliveryEstimate: env.DELIVERY_ESTIMATE,
       postageNote: env.POSTAGE_NOTE,
       instagramUrl: env.INSTAGRAM_URL,
+      emailEnabled: mailConfigured(env),
     };
   });
 

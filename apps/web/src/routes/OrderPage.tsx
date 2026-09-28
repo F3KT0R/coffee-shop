@@ -18,6 +18,7 @@ function OrderNumberCard({ order, isNew }: { order: OrderView; isNew: boolean })
   const { data: config } = useQuery(shopConfigQuery);
   const [copied, setCopied] = useState(false);
   const awaitingConfirmation = order.status === 'NEW';
+  const emailEnabled = config?.emailEnabled ?? false;
 
   return (
     <section className="relative overflow-hidden rounded-4xl bg-espresso-900 p-6 text-crema-100 sm:p-8">
@@ -44,8 +45,10 @@ function OrderNumberCard({ order, isNew }: { order: OrderView; isNew: boolean })
         <div className="mt-6 rounded-3xl bg-crema-100 p-5 text-espresso-900">
           <p className="font-bold">Poslednji korak: pošaljite nam ovaj broj u Instagram poruci.</p>
           <p className="mt-1 text-sm text-espresso-700">
-            Tako potvrđujemo da je porudžbina vaša i uključujemo je u narednu nabavku. Nakon potvrde dobijate
-            email.
+            Tako potvrđujemo da je porudžbina vaša i uključujemo je u narednu nabavku.
+            {emailEnabled
+              ? ' Nakon potvrde dobijate email.'
+              : ' Potvrdu vam šaljemo u istom Instagram razgovoru.'}
           </p>
           {config?.instagramUrl && (
             <a
@@ -61,8 +64,14 @@ function OrderNumberCard({ order, isNew }: { order: OrderView; isNew: boolean })
       )}
       {isNew && (
         <p className="mt-4 text-sm text-crema-200/80">
-          Potvrdu smo poslali na <b className="text-crema-100">{order.customer.email}</b>. Sačuvajte ovu
-          stranicu — preko nje pratite status porudžbine.
+          {emailEnabled ? (
+            <>
+              Potvrdu smo poslali na <b className="text-crema-100">{order.customer.email}</b>. Sačuvajte ovu
+              stranicu — preko nje pratite status porudžbine.
+            </>
+          ) : (
+            <>Sačuvajte ovu stranicu (npr. u obeleživače) — preko nje pratite status porudžbine.</>
+          )}
         </p>
       )}
     </section>
@@ -129,7 +138,7 @@ export function OrderPage() {
             new ApiError(
               404,
               'NOT_FOUND',
-              'Porudžbina nije pronađena. Otvorite link iz email poruke koju ste dobili nakon porudžbine.',
+              'Porudžbina nije pronađena. Otvorite link porudžbine koji ste sačuvali ili dobili emailom.',
             )
           }
         />

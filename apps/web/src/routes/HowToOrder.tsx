@@ -24,7 +24,8 @@ export function HowToOrder() {
           <h2 className="text-2xl font-bold">1. Porudžbina</h2>
           <p className="mt-2">
             Izaberite proizvode, dodajte ih u korpu i unesite podatke za dostavu. Cene su izražene u dinarima.
-            Odmah po porudžbini dobijate <b>broj porudžbine</b> i potvrdu na email sa linkom za praćenje.
+            Odmah po porudžbini dobijate <b>broj porudžbine</b> i stranicu za praćenje porudžbine
+            {config?.emailEnabled ? ', a potvrdu i na email.' : ' — sačuvajte je.'}
           </p>
         </section>
         <section>
@@ -46,7 +47,8 @@ export function HowToOrder() {
                 )
               </>
             )}
-            . Nakon toga potvrđujemo porudžbinu i ona ulazi u narednu nabavku — o tome dobijate email.
+            . Nakon toga potvrđujemo porudžbinu i ona ulazi u narednu nabavku
+            {config?.emailEnabled ? ' — o tome dobijate email.' : ' — potvrdu dobijate u istom razgovoru.'}
           </p>
         </section>
         <section>

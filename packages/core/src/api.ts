@@ -53,6 +53,8 @@ export interface ShopConfigResponse {
   postageNote: string;
   /** Where customers send their order number (Instagram profile or DM link), if configured. */
   instagramUrl: string | null;
+  /** Whether customers get emails (order confirmation, status updates); the copy must not promise them otherwise. */
+  emailEnabled: boolean;
 }
 
 export type CartQuoteResponse = CartQuote;

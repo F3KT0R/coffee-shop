@@ -206,6 +206,8 @@ describe('orders', () => {
     expect(response.statusCode).toBe(503);
     expect(response.json().error.code).toBe('ORDERS_CLOSED');
     expect((await ctx.app.inject('/api/config')).json().ordersOpen).toBe(false);
+    // No SMTP in tests, so the site must not promise emails.
+    expect((await ctx.app.inject('/api/config')).json().emailEnabled).toBe(false);
   });
 
   it('still creates the order when email delivery fails, and records the failure', async () => {
