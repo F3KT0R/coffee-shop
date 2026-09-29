@@ -4,6 +4,7 @@ import {
   OPEN_STATUSES,
   allowedTransitions,
   canTransition,
+  isStepBack,
   generateOrderNumber,
   loyaltyDiscountRsd,
   loyaltyStatus,
@@ -277,7 +278,8 @@ export function createOrderService(deps: {
       },
     });
 
-    if (NOTIFY_STATUSES.includes(to)) {
+    // A step back is an internal correction; the customer already heard about that status.
+    if (NOTIFY_STATUSES.includes(to) && !isStepBack(order.status, to)) {
       const fresh = (await findByNumber(number))!;
       void deliver(order.id, `status-${to}`, () =>
         mailer.send(statusUpdateEmail(toEmailOrder(fresh), emailContext(fresh))),

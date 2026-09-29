@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ORDER_STATUSES, formatRsd, type OrderStatus } from '@kafeshop/core';
+import { ORDER_STATUSES, formatRsd, isStepBack, type OrderStatus } from '@kafeshop/core';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { ErrorState, Spinner } from '../../components/States';
@@ -26,6 +26,11 @@ const ACTION_LABELS: Record<OrderStatus, string> = {
   SHIPPED: 'Poslato kurirom',
   DELIVERED: 'Preuzeto i plaćeno',
   CANCELLED: 'Otkaži porudžbinu',
+};
+
+/** Corrections back to an earlier step. */
+const STEP_BACK_LABELS: Partial<Record<OrderStatus, string>> = {
+  CONFIRMED: 'Vrati u nabavku (nije poručeno)',
 };
 
 export function AdminOrderDetail() {
@@ -93,11 +98,17 @@ export function AdminOrderDetail() {
                   <button
                     key={s}
                     type="button"
-                    className={s === 'CANCELLED' ? 'btn-ghost text-red-700' : 'btn-primary'}
+                    className={
+                      s === 'CANCELLED'
+                        ? 'btn-ghost text-red-700'
+                        : isStepBack(o.status, s)
+                          ? 'btn-ghost'
+                          : 'btn-primary'
+                    }
                     onClick={() => setPending(s)}
                     aria-pressed={pending === s}
                   >
-                    {ACTION_LABELS[s]}
+                    {isStepBack(o.status, s) ? STEP_BACK_LABELS[s] : ACTION_LABELS[s]}
                   </button>
                 ))}
               </div>
@@ -106,8 +117,10 @@ export function AdminOrderDetail() {
               <div className="mt-4 rounded-2xl bg-crema-100 p-4">
                 <p className="text-sm">
                   Promeniti status u <b>{ORDER_STATUSES[pending].name}</b>?
-                  {['CONFIRMED', 'SHIPPED', 'CANCELLED'].includes(pending) &&
-                    ' Kupac dobija email obaveštenje.'}
+                  {isStepBack(o.status, pending)
+                    ? ' Kupac ne dobija obaveštenje.'
+                    : ['CONFIRMED', 'SHIPPED', 'CANCELLED'].includes(pending) &&
+                      ' Kupac dobija email obaveštenje.'}
                 </p>
                 <label htmlFor="note" className="label mt-3">
                   Interna napomena (opciono)

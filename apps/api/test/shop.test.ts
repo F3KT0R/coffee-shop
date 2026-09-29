@@ -288,6 +288,28 @@ describe('admin', () => {
 
     await flush();
     expect(ctx.mailer.sent.map((m) => m.subject)).toEqual([`Porudžbina ${number}: Potvrđena`]);
+
+    // Marked as ordered by mistake: back into the next purchase, without emailing the customer again.
+    const status = (to: string) =>
+      ctx.app.inject({
+        method: 'POST',
+        url: `/api/admin/orders/${number}/status`,
+        headers,
+        payload: { status: to },
+      });
+    expect((await status('ORDERED')).json().allowedTransitions).toEqual([
+      'SHIPPED',
+      'CONFIRMED',
+      'CANCELLED',
+    ]);
+    ctx.mailer.sent.length = 0;
+    const back = await status('CONFIRMED');
+    expect(back.statusCode).toBe(200);
+    expect(back.json()).toMatchObject({ status: 'CONFIRMED' });
+    await flush();
+    expect(ctx.mailer.sent).toEqual([]);
+    const batch = (await ctx.app.inject({ url: '/api/admin/procurement', headers })).json();
+    expect(batch.orders.map((o: { number: string }) => o.number)).toContain(number);
   });
 
   it('shows cost and profit per order', async () => {

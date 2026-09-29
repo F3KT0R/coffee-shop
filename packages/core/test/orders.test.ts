@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { loyaltyDiscountRsd, loyaltyStatus, normalizeEmail } from '../src/loyalty.js';
 import { instagramDmUrl, normalizeInstagramHandle } from '../src/instagram.js';
-import { canTransition, generateOrderNumber } from '../src/orders.js';
+import { canTransition, generateOrderNumber, isStepBack } from '../src/orders.js';
 
 describe('order status transitions', () => {
   it('follows the fulfilment path', () => {
@@ -20,6 +20,14 @@ describe('order status transitions', () => {
     expect(canTransition('NEW', 'ORDERED')).toBe(false);
     expect(canTransition('DELIVERED', 'CANCELLED')).toBe(false);
     expect(canTransition('CANCELLED', 'CONFIRMED')).toBe(false);
+    expect(canTransition('SHIPPED', 'ORDERED')).toBe(false);
+  });
+
+  it('allows returning a mistakenly ordered order to the next purchase', () => {
+    expect(canTransition('ORDERED', 'CONFIRMED')).toBe(true);
+    expect(isStepBack('ORDERED', 'CONFIRMED')).toBe(true);
+    expect(isStepBack('CONFIRMED', 'ORDERED')).toBe(false);
+    expect(isStepBack('ORDERED', 'CANCELLED')).toBe(false);
   });
 });
 

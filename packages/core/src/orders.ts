@@ -26,7 +26,8 @@ export type OrderStatus = keyof typeof ORDER_STATUSES;
 const TRANSITIONS: Readonly<Record<OrderStatus, readonly OrderStatus[]>> = {
   NEW: ['CONFIRMED', 'CANCELLED'],
   CONFIRMED: ['ORDERED', 'CANCELLED'],
-  ORDERED: ['SHIPPED', 'CANCELLED'],
+  // Back to CONFIRMED: marked as ordered by mistake, so it goes into the next KaffeK purchase.
+  ORDERED: ['SHIPPED', 'CONFIRMED', 'CANCELLED'],
   // A parcel can come back unclaimed -- with cash on delivery that has to be recordable.
   SHIPPED: ['DELIVERED', 'CANCELLED'],
   DELIVERED: [],
@@ -39,6 +40,13 @@ export function allowedTransitions(from: OrderStatus): readonly OrderStatus[] {
 
 export function canTransition(from: OrderStatus, to: OrderStatus): boolean {
   return TRANSITIONS[from].includes(to);
+}
+
+const FLOW_ORDER: readonly OrderStatus[] = ['NEW', 'CONFIRMED', 'ORDERED', 'SHIPPED', 'DELIVERED'];
+
+/** A correction to an earlier step (e.g. ORDERED -> CONFIRMED); the customer isn't notified again. */
+export function isStepBack(from: OrderStatus, to: OrderStatus): boolean {
+  return to !== 'CANCELLED' && FLOW_ORDER.indexOf(to) < FLOW_ORDER.indexOf(from);
 }
 
 /** Statuses of orders still being worked on (for the admin dashboard). */
