@@ -67,6 +67,19 @@ describe('shopPriceRsd', () => {
     }
   });
 
+  it('can pass transport on at cost for heavy goods (margin on the coffee only)', () => {
+    // KaffeK Intenso beans 1 kg: £8.19, 1.01 kg -> landed (8.19 + 4.04) × 140.5757 = 1719
+    const cost = landedCostRsd(8.19, 1.01, rules);
+    expect(cost).toBe(1719);
+    // 1719 + 30% of the coffee (8.19 × 140.5757 = 1151.3) = 2064.4 -> 2100 (vs 2250 with margin on transport)
+    expect(shopPriceRsd(8.19, 1.01, rules, { marginOnTransport: false })).toBe(2100);
+    expect(shopPriceRsd(8.19, 1.01, rules)).toBe(2250);
+    // The profit floor still applies.
+    expect(
+      shopPriceRsd(1, 1, rules, { marginOnTransport: false }) - landedCostRsd(1, 1, rules),
+    ).toBeGreaterThanOrEqual(rules.minProfitRsd);
+  });
+
   it('rejects an invalid rate instead of producing free products', () => {
     expect(() => shopPriceRsd(5, 0.2, { ...rules, gbpToRsdRate: 0 })).toThrow(RangeError);
   });

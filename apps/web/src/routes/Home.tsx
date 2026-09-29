@@ -92,8 +92,8 @@ function Hero() {
               </span>
             </h1>
             <p className="mt-10 max-w-md text-base text-crema-100/90 sm:text-lg">
-              Kapsule za Nespresso, Dolce Gusto, Tassimo, Senseo i druge aparate, čajevi i sirupi — brendovi
-              koje ne nalazite kod nas, po cenama u dinarima.
+              Kapsule za Nespresso, Dolce Gusto, Tassimo, Senseo i druge aparate, kafa u zrnu, čajevi i sirupi
+              — brendovi koje ne nalazite kod nas, po cenama u dinarima.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
@@ -286,8 +286,17 @@ export function Home() {
         href="/prodavnica?kategorija=kapsule&sort=rating"
         params={{ category: 'kapsule', sort: 'rating', pageSize: 4 }}
       />
-      <section className="container-page mt-20 grid gap-4 sm:grid-cols-2" aria-label="Kategorije">
+      <section
+        className="container-page mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        aria-label="Kategorije"
+      >
         {[
+          {
+            to: '/prodavnica?kategorija=zrno',
+            kicker: 'za kućne bariste',
+            title: 'Kafa u zrnu',
+            text: 'Lavazza, illy, Kimbo, Segafredo i drugi — pakovanja do 1 kg.',
+          },
           {
             to: '/prodavnica?kategorija=caj',
             kicker: 'za mirne trenutke',

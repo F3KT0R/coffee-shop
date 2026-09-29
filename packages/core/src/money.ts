@@ -48,11 +48,23 @@ export function landedCostRsd(gbp: number, weightKg: number | null, rules: Prici
   return Math.round((gbp + kg * rules.transportGbpPerKg) * rules.gbpToRsdRate);
 }
 
-/** The shop's selling price for a pack whose UK list price is `gbp`. */
-export function shopPriceRsd(gbp: number, weightKg: number | null, rules: PricingRules): number {
+/**
+ * The shop's selling price for a pack whose UK list price is `gbp`.
+ *
+ * By default the margin applies to the landed cost, transport included. With `marginOnTransport: false`
+ * (heavy goods such as 1 kg bags of beans) transport is passed on at cost and the margin applies to the
+ * goods only -- otherwise the shop would earn more on the shipping than on a cheap bag of coffee.
+ */
+export function shopPriceRsd(
+  gbp: number,
+  weightKg: number | null,
+  rules: PricingRules,
+  { marginOnTransport = true }: { marginOnTransport?: boolean } = {},
+): number {
   const cost = landedCostRsd(gbp, weightKg, rules);
   if (cost === 0) return 0;
-  const withMargin = cost * (1 + rules.marginPercent / 100);
+  const marginBase = marginOnTransport ? cost : gbp * rules.gbpToRsdRate;
+  const withMargin = cost + marginBase * (rules.marginPercent / 100);
   return roundToSerbianPrice(Math.max(withMargin, cost + rules.minProfitRsd));
 }
 

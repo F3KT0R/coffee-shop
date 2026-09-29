@@ -1,4 +1,4 @@
-import type { Product } from './catalog.js';
+import type { CategorySlug, Product } from './catalog.js';
 import type { MappedProduct } from './kaffek/mapper.js';
 import { landedCostRsd, shopPriceRsd, type PricingRules } from './money.js';
 
@@ -11,6 +11,9 @@ export type PricedProduct = Product &
     costRsd: number;
   };
 
+/** Heavy goods whose transport is passed on at cost (see `shopPriceRsd`). */
+const TRANSPORT_AT_COST: ReadonlySet<CategorySlug> = new Set(['zrno']);
+
 /**
  * Applies the shop's pricing rules to a mapped source product.
  *
@@ -21,7 +24,9 @@ export function priceProduct(product: MappedProduct, rules: PricingRules): Price
   const listGbp = product.regularPriceGbp ?? product.priceGbp;
   return {
     ...product,
-    priceRsd: shopPriceRsd(listGbp, product.weightKg, rules),
+    priceRsd: shopPriceRsd(listGbp, product.weightKg, rules, {
+      marginOnTransport: !TRANSPORT_AT_COST.has(product.category),
+    }),
     costRsd: landedCostRsd(product.priceGbp, product.weightKg, rules),
   };
 }

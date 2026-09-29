@@ -89,8 +89,8 @@ describe('catalog API', () => {
   it('paginates', async () => {
     const page1 = (await ctx.app.inject('/api/products?pageSize=4&page=1')).json<ProductListResponse>();
     const page3 = (await ctx.app.inject('/api/products?pageSize=4&page=3')).json<ProductListResponse>();
-    expect(page1).toMatchObject({ total: 10, totalPages: 3 });
-    expect(page3.items).toHaveLength(2);
+    expect(page1).toMatchObject({ total: 11, totalPages: 3 });
+    expect(page3.items).toHaveLength(3);
   });
 
   it('rejects invalid query parameters with field messages', async () => {
@@ -369,7 +369,7 @@ describe('admin', () => {
   it('triggers a sync and shows the run history', async () => {
     const headers = await login();
     const runs = (await ctx.app.inject({ url: '/api/admin/sync-runs', headers })).json();
-    expect(runs.items[0]).toMatchObject({ status: 'SUCCEEDED', upserted: 10 });
+    expect(runs.items[0]).toMatchObject({ status: 'SUCCEEDED', upserted: 11 });
   });
 });
 
@@ -388,7 +388,7 @@ describe('sync endpoint and health', () => {
   it('answers ping without touching the database, and reports health', async () => {
     expect((await ctx.app.inject('/api/ping')).json()).toEqual({ ok: true });
     const health = (await ctx.app.inject('/api/health')).json();
-    expect(health).toMatchObject({ ok: true, database: 'up', catalog: { activeProducts: 10, stale: false } });
+    expect(health).toMatchObject({ ok: true, database: 'up', catalog: { activeProducts: 11, stale: false } });
   });
 
   it('returns a JSON 404 for unknown routes', async () => {

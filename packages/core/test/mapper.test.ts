@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { mapKaffekItem, type MappedProduct } from '../src/kaffek/mapper.js';
 import type { KaffekItem } from '../src/kaffek/types.js';
+import beanFixtures from './fixtures/kaffek-beans.json' with { type: 'json' };
 import fixtures from './fixtures/kaffek-items.json' with { type: 'json' };
 
 /** Real items captured from kaffek.co.uk with KAFFEK_PRODUCTS_QUERY. */
-const items = fixtures as unknown as Record<string, KaffekItem>;
+const items = { ...fixtures, ...beanFixtures } as unknown as Record<string, KaffekItem>;
 
 function mapped(sku: string): MappedProduct {
   const item = items[sku];
@@ -71,6 +72,18 @@ describe('mapKaffekItem', () => {
     });
   });
 
+  it('maps coffee beans by weight, with the real shipping weight', () => {
+    expect(mapped('100863')).toMatchObject({ category: 'zrno', packUnit: 'g', packCount: 500 });
+    expect(mapped('100808')).toMatchObject({
+      category: 'zrno',
+      kind: 'kafa',
+      systems: [],
+      packUnit: 'g',
+      packCount: 1000,
+      weightKg: 1.01,
+    });
+  });
+
   it('calls Senseo pods "jastučići"', () => {
     expect(mapped('100699')).toMatchObject({ systems: ['senseo'], packUnit: 'jastučića' });
   });
@@ -86,7 +99,6 @@ describe('mapKaffekItem', () => {
   });
 
   it('skips products the shop does not sell', () => {
-    expect(skipReason('100863')).toBe('unsupported-group'); // coffee beans
     expect(skipReason('100747')).toBe('unsupported-group'); // descaler
     expect(skipReason('100844')).toBe('not-simple-product'); // bundle
   });

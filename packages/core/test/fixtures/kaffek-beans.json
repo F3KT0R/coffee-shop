@@ -1,0 +1,366 @@
+{
+  "100808": {
+    "__typename": "SimpleProduct",
+    "sku": "100808",
+    "uid": "NjIyNA==",
+    "name": "Intenso - Budget",
+    "url_key": "intenso-budget-kaffek-coffee-beans-1kg",
+    "weight": 1.01,
+    "stock_status": "IN_STOCK",
+    "quantity": 5245,
+    "review_count": 0,
+    "rating_summary": 0,
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "value": 8.19,
+          "currency": "GBP"
+        },
+        "final_price": {
+          "value": 8.19,
+          "currency": "GBP"
+        }
+      }
+    },
+    "short_description": {
+      "html": "<p>A very strong espresso blend at an affordable price</p> <p>• 1 kg coffee beans</p> <p>• Dark-roasted Arabica and Robusta</p> <p>• Very strong (10/10)</p> <p>• Budget-friendly</p> <p>This Espresso Intenso is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. Made from dark-roasted Arabica and Robusta beans, it delivers a powerful, intense body with spicy notes and a long, satisfying finish. Despite its strength, it&#039;s easy to enjoy straight, and holds up just as well as a base for a cappuccino, flat white, or latte macchiato. Grind fresh before each use for the fullest flavour.</p> <p>Get yours today, only on KaffeK.</p>"
+    },
+    "media_gallery": [
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-kaffek-1000g-budget-intenso-1201.webp",
+        "position": 0,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-kaffek-1000g-budget-intenso-1202.webp",
+        "position": 1,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-kaffek-1000g-budget-intenso-1204.webp",
+        "position": 2,
+        "disabled": false
+      },
+      {
+        "url": "https://kaffek.co.uk/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/w/b/wbe-kaffek-1000g-budget-intenso-1205.webp",
+        "position": 3,
+        "disabled": false
+      }
+    ],
+    "custom_attributesV2": {
+      "items": [
+        {
+          "code": "name",
+          "value": "Intenso - Budget"
+        },
+        {
+          "code": "short_description",
+          "value": "<p>A very strong espresso blend at an affordable price</p> <p>• 1 kg coffee beans</p> <p>• Dark-roasted Arabica and Robusta</p> <p>• Very strong (10/10)</p> <p>• Budget-friendly</p> <p>This Espresso Intenso is part of KaffeK&#039;s own budget line, offering good coffee at an affordable price. Made from dark-roasted Arabica and Robusta beans, it delivers a powerful, intense body with spicy notes and a long, satisfying finish. Despite its strength, it&#039;s easy to enjoy straight, and holds up just as well as a base for a cappuccino, flat white, or latte macchiato. Grind fresh before each use for the fullest flavour.</p> <p>Get yours today, only on KaffeK.</p>"
+        },
+        {
+          "code": "price",
+          "value": "8.190000"
+        },
+        {
+          "code": "special_price",
+          "value": ""
+        },
+        {
+          "code": "special_to_date",
+          "value": ""
+        },
+        {
+          "code": "image",
+          "value": "/w/b/wbe-kaffek-1000g-budget-intenso-1201.webp"
+        },
+        {
+          "code": "small_image",
+          "value": "/w/b/wbe-kaffek-1000g-budget-intenso-1201.webp"
+        },
+        {
+          "code": "thumbnail",
+          "value": "/w/b/wbe-kaffek-1000g-budget-intenso-1201.webp"
+        },
+        {
+          "code": "news_to_date",
+          "value": ""
+        },
+        {
+          "code": "status",
+          "selected_options": [
+            {
+              "label": "Enabled"
+            }
+          ]
+        },
+        {
+          "code": "msrp_display_actual_price_type",
+          "selected_options": [
+            {
+              "label": "Use config"
+            }
+          ]
+        },
+        {
+          "code": "url_key",
+          "value": "intenso-budget-kaffek-coffee-beans-1kg"
+        },
+        {
+          "code": "tax_class_id",
+          "selected_options": [
+            {
+              "label": "UK - 0%"
+            }
+          ]
+        },
+        {
+          "code": "amxnotif_hide_alert",
+          "value": "0"
+        },
+        {
+          "code": "one_liner",
+          "value": "1 kg coffee beans"
+        },
+        {
+          "code": "c2c_before_price",
+          "value": ""
+        },
+        {
+          "code": "best_before_date",
+          "value": "2027-08-18 00:00:00"
+        },
+        {
+          "code": "brand_name",
+          "selected_options": [
+            {
+              "label": "KaffeK"
+            }
+          ]
+        },
+        {
+          "code": "capsule_system_compatibility",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "product_group",
+          "selected_options": [
+            {
+              "label": "Coffee Beans"
+            }
+          ]
+        },
+        {
+          "code": "recommended_cup_size",
+          "selected_options": [
+            {
+              "label": "Espresso"
+            },
+            {
+              "label": "Lungo"
+            }
+          ]
+        },
+        {
+          "code": "short_name",
+          "value": "Intenso - Budget"
+        },
+        {
+          "code": "claims",
+          "selected_options": [
+            {
+              "label": "Arabica/Robusta"
+            }
+          ]
+        },
+        {
+          "code": "measurement_unit",
+          "selected_options": [
+            {
+              "label": "g."
+            }
+          ]
+        },
+        {
+          "code": "cups",
+          "value": ""
+        },
+        {
+          "code": "number_of_units",
+          "value": "1000"
+        },
+        {
+          "code": "coffee_intensity",
+          "value": "10"
+        },
+        {
+          "code": "am_offer_item_condition",
+          "selected_options": [
+            {
+              "label": "NewCondition"
+            }
+          ]
+        },
+        {
+          "code": "intensity_label",
+          "selected_options": [
+            {
+              "label": "Very strong"
+            }
+          ]
+        },
+        {
+          "code": "nutrition_unit",
+          "selected_options": [
+            {
+              "label": " "
+            }
+          ]
+        },
+        {
+          "code": "is_disabled_for_sale",
+          "value": "0"
+        },
+        {
+          "code": "price_per_cup",
+          "value": ""
+        },
+        {
+          "code": "price_per_kilo",
+          "value": "8.190000"
+        },
+        {
+          "code": "tags",
+          "selected_options": [
+            {
+              "label": "Additive-free"
+            },
+            {
+              "label": "Arabica & Robusta"
+            },
+            {
+              "label": "Coffee beans"
+            },
+            {
+              "label": "Dairy-free"
+            },
+            {
+              "label": "Dark roast"
+            },
+            {
+              "label": "Egg-free"
+            },
+            {
+              "label": "Gluten-free"
+            },
+            {
+              "label": "KaffeK"
+            },
+            {
+              "label": "Lactose-free"
+            },
+            {
+              "label": "Nut-free"
+            },
+            {
+              "label": "Soya-free"
+            },
+            {
+              "label": "Spiced"
+            },
+            {
+              "label": "Sulphite-free"
+            },
+            {
+              "label": "Very strong"
+            }
+          ]
+        },
+        {
+          "code": "related_categories",
+          "selected_options": [
+            {
+              "label": "Tilbehør til kaffebønner"
+            },
+            {
+              "label": "illy coffee beans"
+            },
+            {
+              "label": "Starbucks® coffee beans"
+            },
+            {
+              "label": "Café Royal coffee beans"
+            },
+            {
+              "label": "Domus Barista Coffee Beans"
+            },
+            {
+              "label": "KaffeK coffee beans"
+            },
+            {
+              "label": "Lavazza coffee beans"
+            },
+            {
+              "label": "Decaf coffee beans"
+            },
+            {
+              "label": "L'OR coffee beans"
+            },
+            {
+              "label": "Segafredo coffee beans"
+            },
+            {
+              "label": "Caffè Borbone coffee beans "
+            },
+            {
+              "label": "Merrild coffee beans"
+            },
+            {
+              "label": "Garibaldi coffee beans"
+            },
+            {
+              "label": "Tonino Lamborghini coffee beans"
+            },
+            {
+              "label": "Gimoka coffee beans"
+            },
+            {
+              "label": "Delonghi espresso coffee beans"
+            }
+          ]
+        },
+        {
+          "code": "is_enabled_for_arp",
+          "value": "1"
+        },
+        {
+          "code": "recently_bought",
+          "value": "683"
+        },
+        {
+          "code": "highlighted",
+          "value": ""
+        },
+        {
+          "code": "core_tag",
+          "selected_options": [
+            {
+              "label": "Product Type > Coffee beans"
+            }
+          ]
+        },
+        {
+          "code": "coffee_style",
+          "value": ""
+        },
+        {
+          "code": "max_coffee_intensity",
+          "value": "10"
+        }
+      ]
+    }
+  }
+}

@@ -16,6 +16,7 @@ import { CartIcon, CloseIcon, CoffeeIcon, MenuIcon, SearchIcon } from './icons';
 
 const NAV = [
   { to: '/prodavnica?kategorija=kapsule', label: 'Kapsule' },
+  { to: '/prodavnica?kategorija=zrno', label: 'Kafa u zrnu' },
   { to: '/prodavnica?kategorija=caj', label: 'Čajevi' },
   { to: '/prodavnica?kategorija=sirupi', label: 'Sirupi' },
   { to: '/kako-poruciti', label: 'Kako poručiti' },
@@ -185,8 +186,8 @@ export function Layout() {
               Kafe za Vas <HeartDoodle className="size-7 text-roast-400" />
             </p>
             <p className="mt-2 max-w-xs text-sm text-crema-200/75">
-              Kapsule, čajevi i sirupi iz Velike Britanije, poručeni za vas i dostavljeni na vašu adresu širom
-              Srbije.
+              Kapsule, kafa u zrnu, čajevi i sirupi iz Velike Britanije, poručeni za vas i dostavljeni na vašu
+              adresu širom Srbije.
             </p>
           </div>
           <nav aria-label="Prodavnica">

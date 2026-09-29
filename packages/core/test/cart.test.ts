@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CART_LIMITS, quoteCart, type QuotableProduct } from '../src/cart.js';
+import { packLabel, pricePerKg } from '../src/catalog.js';
 import { DEFAULT_PRICING, landedCostRsd, shopPriceRsd } from '../src/money.js';
 import { priceProduct } from '../src/pricing.js';
 import type { MappedProduct } from '../src/kaffek/mapper.js';
@@ -84,5 +85,26 @@ describe('priceProduct', () => {
   it('uses the current price when there is no sale', () => {
     const priced = priceProduct({ ...onSale, regularPriceGbp: null }, rules);
     expect(priced.priceRsd).toBe(shopPriceRsd(7.49, 0.18, rules));
+  });
+
+  it('passes transport on at cost for coffee beans only', () => {
+    const bag = { category: 'zrno', priceGbp: 8.19, regularPriceGbp: null, weightKg: 1.01 } as MappedProduct;
+    expect(priceProduct(bag, rules).priceRsd).toBe(
+      shopPriceRsd(8.19, 1.01, rules, { marginOnTransport: false }),
+    );
+    expect(priceProduct({ ...bag, category: 'kapsule' }, rules).priceRsd).toBe(
+      shopPriceRsd(8.19, 1.01, rules),
+    );
+  });
+});
+
+describe('pack labels', () => {
+  it('shows beans in kilograms and prices them per kg', () => {
+    expect(packLabel(1000, 'g')).toBe('1 kg');
+    expect(packLabel(500, 'g')).toBe('500 g');
+    expect(packLabel(16, 'kapsula')).toBe('16 kapsula');
+    expect(pricePerKg(1_100, 500, 'g')).toBe(2_200);
+    expect(pricePerKg(900, 16, 'kapsula')).toBeNull();
+    expect(pricePerKg(2_100, 1000, 'g')).toBeNull(); // the price already is per kg
   });
 });

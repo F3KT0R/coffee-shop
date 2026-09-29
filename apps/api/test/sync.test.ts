@@ -23,6 +23,7 @@ const SELLABLE = [
   '100744',
   '100752',
   '100800',
+  '100863',
   '108905',
   '505055',
 ];
@@ -35,8 +36,8 @@ describe('catalog sync', () => {
     expect(run).toMatchObject({
       status: 'SUCCEEDED',
       fetched: 13,
-      upserted: 10,
-      skipped: 3,
+      upserted: 11,
+      skipped: 2,
       complete: true,
       gbpRsdRate: 140,
     });
@@ -86,6 +87,21 @@ describe('catalog sync', () => {
     await app.app.close();
   });
 
+  it('gives SKUs that share a KaffeK URL key distinct, stable slugs', async () => {
+    const app = await createTestApp(testDb);
+    const shared = app.source.items.find((i) => i.sku === '100341')!.url_key;
+    app.source.items = app.source.items.map((i) => (i.sku === '100800' ? { ...i, url_key: shared } : i));
+
+    const run = await syncNow(app);
+    expect(run.status).toBe('SUCCEEDED');
+    const slugs = await testDb.db.product.findMany({
+      where: { sku: { in: ['100341', '100800'] } },
+      orderBy: { sku: 'asc' },
+    });
+    expect(slugs.map((p) => p.slug)).toEqual([shared, `${shared}--100800`]);
+    await app.app.close();
+  });
+
   it('keeps a product whose attributes failed to load instead of retiring it', async () => {
     const app = await createTestApp(testDb);
     await syncNow(app);
@@ -123,7 +139,7 @@ describe('catalog sync', () => {
     const run = await syncNow(app);
     expect(run.retired).toBe(0);
     expect(run.error).toMatch(/Safety limit/);
-    expect(await testDb.db.product.count({ where: { active: true } })).toBe(35);
+    expect(await testDb.db.product.count({ where: { active: true } })).toBe(36);
     await app.app.close();
   });
 

@@ -94,7 +94,7 @@ ${opts.body}
 <td style="padding:22px 12px;text-align:center;font-family:${SANS};font-size:13px;line-height:1.6;color:${C.muted}">
 <img src="${escapeHtml(`${ctx.siteUrl}/apple-touch-icon.png`)}" width="40" height="40" alt="" style="display:inline-block;border-radius:12px;border:0"><br>
 <b style="font-family:${SERIF};font-size:16px;color:${C.ink}">${BRAND}</b> &#9825;<br>
-Kapsule, čajevi i sirupi iz Velike Britanije, dostavljeni širom Srbije.<br>
+Kapsule, kafa u zrnu, čajevi i sirupi iz Velike Britanije, dostavljeni širom Srbije.<br>
 <a href="${escapeHtml(ctx.siteUrl)}" style="color:${C.accent}">Prodavnica</a> &middot;
 <a href="${escapeHtml(ctx.instagramUrl)}" style="color:${C.accent}">Instagram</a> &middot;
 <a href="${escapeHtml(ctx.statusUrl)}" style="color:${C.accent}">Vaša porudžbina</a>

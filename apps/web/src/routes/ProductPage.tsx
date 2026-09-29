@@ -6,6 +6,7 @@ import {
   formatRsd,
   getSystem,
   packLabel,
+  pricePerKg,
   pricePerUnit,
   type Product,
 } from '@kafeshop/core';
@@ -164,6 +165,7 @@ export function ProductPage() {
 
   const { product, related } = data;
   const perUnit = pricePerUnit(product.priceRsd, product.packCount, product.packUnit);
+  const perKg = pricePerKg(product.priceRsd, product.packCount, product.packUnit);
   const system = product.systems[0];
   const description = product.description.split('\n').filter((line) => !/^get yours today/i.test(line));
 
@@ -228,6 +230,7 @@ export function ProductPage() {
                 {formatRsd(perUnit)} po {PER_UNIT[product.packUnit ?? 'kom'] ?? 'komadu'}
               </span>
             )}
+            {perKg && <span className="pb-1 text-sm text-espresso-600">{formatRsd(perKg)} po kg</span>}
           </div>
 
           <div className="mt-6">

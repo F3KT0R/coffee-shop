@@ -98,6 +98,7 @@ function classify(
         return null;
     }
   }
+  if (group === 'Coffee Beans') return { category: 'zrno', kind: 'kafa' };
   if (group === 'Tea' || group === 'Instant Tea') return { category: 'caj', kind: 'caj' };
   if (group === 'Other' && unit === 'ml' && /syrup/i.test(text)) return { category: 'sirupi', kind: 'sirup' };
   return null;

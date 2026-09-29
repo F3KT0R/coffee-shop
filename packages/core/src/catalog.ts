@@ -1,8 +1,9 @@
 import type { SystemSlug } from './systems.js';
 
-/** Shop sections. Everything else KaffeK sells (beans, machines, accessories...) is not synced. */
+/** Shop sections. Everything else KaffeK sells (ground coffee, machines, accessories...) is not synced. */
 export const CATEGORIES = [
   { slug: 'kapsule', name: 'Kapsule', description: 'Kapsule i jastučići za sve popularne aparate' },
+  { slug: 'zrno', name: 'Kafa u zrnu', description: 'Kafa u zrnu za espresso aparate i mlinove' },
   { slug: 'caj', name: 'Čajevi', description: 'Biljni, crni i začinski čajevi u kesicama i prahu' },
   { slug: 'sirupi', name: 'Sirupi', description: 'Sirupi za kafu -- karamela, vanila, lešnik i drugi' },
 ] as const;
@@ -159,10 +160,17 @@ export function intensityName(level: number | null): string | null {
   return INTENSITY_LEVELS.find((l) => l.level === level)?.name ?? null;
 }
 
-/** "16 kapsula", "200 ml" */
+/** "16 kapsula", "200 ml", "500 g", "1 kg" */
 export function packLabel(count: number | null, unit: PackUnit | null): string | null {
   if (!count || !unit) return null;
+  if (unit === 'g' && count >= 1000) return `${String(count / 1000).replace('.', ',')} kg`;
   return `${count} ${unit}`;
+}
+
+/** Price per kilogram for goods sold by weight (coffee beans), the figure shoppers compare; null for 1 kg packs. */
+export function pricePerKg(priceRsd: number, count: number | null, unit: PackUnit | null): number | null {
+  if (unit !== 'g' || !count || count <= 0 || count === 1000) return null;
+  return Math.round(priceRsd / (count / 1000));
 }
 
 /** Price per cup/pod/bag, only meaningful for counted units. */

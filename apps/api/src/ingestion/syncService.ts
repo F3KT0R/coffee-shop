@@ -66,6 +66,14 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
     }
   }
 
+  // KaffeK occasionally gives two SKUs the same URL key. The lowest SKU keeps it and the others get a
+  // SKU suffix -- decided by SKU, not page order, so links stay stable from one sync to the next.
+  const slugOwners = new Map<string, string>();
+  for (const p of [...products].sort((a, b) => a.sku.localeCompare(b.sku))) {
+    if (slugOwners.has(p.slug)) p.slug = `${p.slug}--${p.sku}`;
+    slugOwners.set(p.slug, p.sku);
+  }
+
   // A product's URL key can move to a different SKU at the source; free the slug before upserting.
   const incomingSlugs = new Map(products.map((p) => [p.slug, p.sku]));
   const slugClashes = await db.product.findMany({
