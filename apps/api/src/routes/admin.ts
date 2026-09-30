@@ -112,6 +112,12 @@ export async function registerAdminRoutes(
       return { items: runs.map(toSyncRunView), running: sync.isRunning() };
     });
 
+    secured.post(
+      '/api/admin/email-test',
+      { config: { rateLimit: { max: 5, timeWindow: '10 minutes' } } },
+      async () => orders.sendTestEmail(),
+    );
+
     secured.post('/api/admin/sync', async (_request, reply) => {
       const { started } = await sync.start('admin');
       return reply.status(202).send({ started });

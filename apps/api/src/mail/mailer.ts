@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 import type { FastifyBaseLogger } from 'fastify';
-import { mailConfigured, type Env } from '../env.js';
+import { mailConfigured, mailRelayConfigured, type Env } from '../env.js';
 
 export interface MailMessage {
   to: string;
@@ -8,7 +8,6 @@ export interface MailMessage {
   html: string;
   text: string;
   replyTo?: string;
-  attachments?: { filename: string; content: Buffer; cid: string; contentType: string }[];
 }
 
 export interface Mailer {
@@ -16,20 +15,59 @@ export interface Mailer {
   send(message: MailMessage): Promise<void>;
 }
 
+const RELAY_TIMEOUT_MS = 30_000;
+
 /**
- * SMTP mail (e.g. Gmail with an app password: smtp.gmail.com:465). Sent from the server, so no mail
- * credentials or templates live in the browser bundle anymore.
+ * Sends through the Gmail relay (a Google Apps Script web app, see apps/api/mail-relay/Code.gs): one
+ * HTTPS POST per message. Apps Script answers the POST with a redirect to the script's output, which
+ * fetch follows as a GET -- that output is the relay's JSON verdict.
  */
-export function createMailer(env: Env, log: FastifyBaseLogger): Mailer {
+function createRelayMailer(env: Env, fetchImpl: typeof fetch): Mailer {
+  const url = env.MAIL_RELAY_URL!;
+  const secret = env.MAIL_RELAY_SECRET!;
+  return {
+    enabled: true,
+    async send(message) {
+      const response = await fetchImpl(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ secret, name: env.MAIL_FROM_NAME, ...message }),
+        redirect: 'follow',
+        signal: AbortSignal.timeout(RELAY_TIMEOUT_MS),
+      });
+      const body = await response.text();
+      let verdict: { ok?: boolean; error?: string };
+      try {
+        verdict = JSON.parse(body) as typeof verdict;
+      } catch {
+        // Typically Google's HTML sign-in page: the web app isn't deployed with access "Anyone".
+        throw new Error(
+          `Mail relay answered HTTP ${response.status} without JSON -- check the URL and access`,
+        );
+      }
+      if (!response.ok || verdict.ok !== true) {
+        throw new Error(`Mail relay refused: ${verdict.error ?? `HTTP ${response.status}`}`);
+      }
+    },
+  };
+}
+
+/**
+ * Order emails. The Gmail relay wins when configured; plain SMTP (smtp.gmail.com:465 with an app
+ * password) needs a paid Render instance, since free instances block outbound SMTP ports.
+ */
+export function createMailer(env: Env, log: FastifyBaseLogger, fetchImpl: typeof fetch = fetch): Mailer {
   if (!mailConfigured(env)) {
-    log.warn('SMTP is not configured -- order emails are logged, not sent.');
+    log.warn('Email is not configured -- order emails are logged, not sent.');
     return {
       enabled: false,
       async send(message) {
-        log.info({ to: message.to, subject: message.subject }, 'Email skipped (SMTP not configured)');
+        log.info({ to: message.to, subject: message.subject }, 'Email skipped (not configured)');
       },
     };
   }
+  if (mailRelayConfigured(env)) return createRelayMailer(env, fetchImpl);
+
   const transport = nodemailer.createTransport({
     host: env.SMTP_HOST,
     port: env.SMTP_PORT,

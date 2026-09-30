@@ -43,6 +43,16 @@ const envSchema = z.object({
   /** Instagram profile or DM link where customers send their order number (shown on the order page). */
   INSTAGRAM_URL: z.url().default('https://ig.me/m/kafekapsule'),
 
+  /**
+   * Gmail relay: a Google Apps Script web app (apps/api/mail-relay/Code.gs) that sends from the owner's
+   * Gmail over HTTPS. Preferred on Render's free plan, which blocks outbound SMTP ports.
+   */
+  MAIL_RELAY_URL: optional(z.url()),
+  MAIL_RELAY_SECRET: optional(z.string().min(24, 'use at least 24 random characters')),
+  /** Sender name shown to customers (the address is the Gmail account that runs the relay). */
+  MAIL_FROM_NAME: z.string().default('Kafe za Vas'),
+
+  /** Plain SMTP (e.g. smtp.gmail.com with an app password) -- only usable on a paid Render instance. */
   SMTP_HOST: optional(z.string()),
   SMTP_PORT: z.coerce.number().int().positive().default(465),
   SMTP_USER: optional(z.string()),
@@ -76,8 +86,12 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
   return env;
 }
 
+export function mailRelayConfigured(env: Env): boolean {
+  return !!(env.MAIL_RELAY_URL && env.MAIL_RELAY_SECRET);
+}
+
 export function mailConfigured(env: Env): boolean {
-  return !!(env.SMTP_HOST && env.SMTP_USER && env.SMTP_PASS && env.MAIL_FROM);
+  return mailRelayConfigured(env) || !!(env.SMTP_HOST && env.SMTP_USER && env.SMTP_PASS && env.MAIL_FROM);
 }
 
 /** Pricing rules from the environment; the exchange rate is added per sync. */

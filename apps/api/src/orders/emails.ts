@@ -202,6 +202,43 @@ function linesText(order: EmailOrder, totalLabel: string): string {
 }
 
 /** The customer's receipt, sent right after ordering. */
+/** A realistic made-up order for the admin's "send a test email" button. */
+export function sampleEmailOrder(): EmailOrder {
+  return {
+    number: '000000-0000',
+    status: 'NEW',
+    fullName: 'Probni Kupac',
+    email: 'kupac@primer.rs',
+    phone: '+381641234567',
+    address: 'Bulevar oslobođenja 12',
+    city: 'Novi Sad',
+    postalCode: '21000',
+    note: 'Ovo je probni email -- porudžbina ne postoji.',
+    subtotalRsd: 3_900,
+    discountRsd: 190,
+    loyaltyTier: 'Stalni gost',
+    totalRsd: 3_710,
+    lines: [
+      {
+        name: 'Cortado',
+        brand: 'Nescafé',
+        image: null,
+        quantity: 2,
+        unitPriceRsd: 1_550,
+        lineTotalRsd: 3_100,
+      },
+      {
+        name: 'Café au Lait',
+        brand: 'KaffeK',
+        image: null,
+        quantity: 1,
+        unitPriceRsd: 800,
+        lineTotalRsd: 800,
+      },
+    ],
+  };
+}
+
 export function orderConfirmationEmail(order: EmailOrder, ctx: EmailContext): MailMessage {
   const body = `<p style="margin:0 0 18px;font-size:16px">Zdravo ${escapeHtml(firstName(order.fullName))}, hvala što ste izabrali nas! Evo vaše porudžbine.</p>
 ${orderNumberBlock(order.number, ORDER_STATUSES.NEW.name)}

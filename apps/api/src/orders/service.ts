@@ -39,6 +39,7 @@ import {
   NOTIFY_STATUSES,
   adminNewOrderEmail,
   orderConfirmationEmail,
+  sampleEmailOrder,
   statusUpdateEmail,
   type EmailContext,
   type EmailOrder,
@@ -290,6 +291,29 @@ export function createOrderService(deps: {
 
   return {
     loyaltyFor,
+
+    /** Sends the customer receipt, filled with a made-up order, to the owner -- checks the whole mail setup. */
+    async sendTestEmail(): Promise<{ sentTo: string }> {
+      const to = env.ADMIN_EMAIL;
+      if (!mailer.enabled || !to) {
+        throw new AppError(
+          409,
+          'MAIL_NOT_CONFIGURED',
+          'Slanje emailova nije podešeno: na Renderu su potrebni MAIL_RELAY_URL, MAIL_RELAY_SECRET i ADMIN_EMAIL.',
+        );
+      }
+      const order = sampleEmailOrder();
+      const mail = orderConfirmationEmail(order, {
+        ...emailContext({ number: order.number, accessToken: 'test' }),
+        loyalty: loyaltyStatus(1),
+      });
+      try {
+        await mailer.send({ ...mail, to, subject: `[PROBA] ${mail.subject}` });
+      } catch (error) {
+        throw new AppError(502, 'MAIL_FAILED', `Email nije poslat: ${(error as Error).message}`);
+      }
+      return { sentTo: to };
+    },
 
     async create(input: CheckoutData, idempotencyKey: string | undefined): Promise<CreateOrderResponse> {
       if (!env.ORDERS_OPEN) throw new AppError(503, 'ORDERS_CLOSED', env.ORDERS_CLOSED_MESSAGE);

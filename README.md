@@ -122,7 +122,7 @@ Schema changes: edit `apps/api/prisma/schema.prisma`, then
 1. **Database — Neon** (free): create a project in region _Frankfurt_. Copy both connection strings:
    the **pooled** one (host contains `-pooler`) and the **direct** one.
 2. **API — Render**: _New → Blueprint_, pick this repository. Render reads `render.yaml` and asks for the
-   secrets: `DATABASE_URL` (pooled), `DIRECT_DATABASE_URL` (direct), `ADMIN_PASSWORD` and optionally SMTP.
+   secrets: `DATABASE_URL` (pooled), `DIRECT_DATABASE_URL` (direct), `ADMIN_PASSWORD` and optionally email.
    `SESSION_SECRET`/`SYNC_SECRET` are generated. `INSTAGRAM_URL` defaults to the @kafekapsule DM.
    Migrations run on every start. The first catalog sync starts ~20 seconds after the first boot.
 3. **Web — Netlify**: connect the repository to the existing `kafeshop` site. `netlify.toml` does the
@@ -132,8 +132,12 @@ Schema changes: edit `apps/api/prisma/schema.prisma`, then
    ~50 s; the site shows a friendly retry). Create a free [cron-job.org](https://cron-job.org) job:
    `GET https://kafeshop-api.onrender.com/api/ping` every 10 minutes. `/api/ping` never touches the
    database, so it doesn't consume Neon compute hours. Or use Render's paid plan and skip this.
-5. **Email (optional)**: Gmail → enable 2-step verification → create an _app password_ → set
-   `SMTP_HOST=smtp.gmail.com`, `SMTP_USER`, `SMTP_PASS`, `MAIL_FROM`, `ADMIN_EMAIL` on Render.
+5. **Email (optional)**: Render's free plan blocks outbound SMTP ports, so emails go through a Gmail
+   relay: a Google Apps Script web app in the shop's Gmail account ([`apps/api/mail-relay/Code.gs`](apps/api/mail-relay/Code.gs),
+   setup steps at the top of the file). On Render set `MAIL_RELAY_URL` (the web app's `/exec` URL),
+   `MAIL_RELAY_SECRET` (same random value as in the script, 24+ characters) and `ADMIN_EMAIL`. Then use
+   _Pošalji probni email_ on the admin dashboard. On a paid instance plain SMTP works too (`SMTP_HOST=
+smtp.gmail.com`, `SMTP_USER`, `SMTP_PASS` = app password, `MAIL_FROM`).
 6. **Backup sync (optional)**: add repository secrets `API_URL` and `SYNC_SECRET` for
    `.github/workflows/catalog-sync.yml`.
 

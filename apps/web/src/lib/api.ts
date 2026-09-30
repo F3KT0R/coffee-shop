@@ -153,6 +153,7 @@ export const api = {
       }),
     shipping: (signal?: AbortSignal) => request<ShippingResponse>('/admin/shipping', { signal }),
     procurement: (signal?: AbortSignal) => request<ProcurementResponse>('/admin/procurement', { signal }),
+    sendTestEmail: () => request<{ sentTo: string }>('/admin/email-test', { method: 'POST' }),
     markOrdered: (orders: string[]) =>
       request<{ updated: string[]; skipped: string[] }>('/admin/procurement/mark-ordered', {
         method: 'POST',

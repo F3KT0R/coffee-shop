@@ -366,6 +366,23 @@ describe('admin', () => {
     expect(after.items).toEqual([]);
   });
 
+  it('sends the owner a test receipt to check the mail setup', async () => {
+    const headers = await login();
+    ctx.mailer.sent.length = 0;
+    const res = await ctx.app.inject({ method: 'POST', url: '/api/admin/email-test', headers });
+    expect(res.json()).toEqual({ sentTo: 'owner@shop.test' });
+    expect(ctx.mailer.sent).toHaveLength(1);
+    expect(ctx.mailer.sent[0]).toMatchObject({
+      to: 'owner@shop.test',
+      subject: expect.stringMatching(/^\[PROBA\] /),
+    });
+
+    ctx.mailer.failNext = true;
+    const failed = await ctx.app.inject({ method: 'POST', url: '/api/admin/email-test', headers });
+    expect(failed.statusCode).toBe(502);
+    expect(failed.json().error.message).toMatch(/Email nije poslat/);
+  });
+
   it('triggers a sync and shows the run history', async () => {
     const headers = await login();
     const runs = (await ctx.app.inject({ url: '/api/admin/sync-runs', headers })).json();

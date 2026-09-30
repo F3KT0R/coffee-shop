@@ -1,10 +1,11 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { ORDER_STATUSES, formatRsd, type OrderStatus } from '@kafeshop/core';
 import { Link } from 'react-router';
 import { OrdersTable } from '../../components/OrdersTable';
 import { ErrorState, Spinner } from '../../components/States';
 import { StatusBadge } from '../../components/StatusBadge';
 import { adminDashboardQuery } from '../../lib/adminQueries';
+import { ApiError, api } from '../../lib/api';
 
 const dateTime = new Intl.DateTimeFormat('sr-Latn-RS', { dateStyle: 'medium', timeStyle: 'short' });
 const PIPELINE: OrderStatus[] = ['NEW', 'CONFIRMED', 'ORDERED', 'SHIPPED', 'DELIVERED', 'CANCELLED'];
@@ -120,21 +121,55 @@ export function AdminDashboard() {
         )}
       </section>
 
+      <EmailStatus enabled={data.emailEnabled} />
+
       <ul className="mt-6 space-y-1 text-xs text-espresso-600">
-        <li>
-          Email obaveštenja o novim porudžbinama:{' '}
-          {data.emailEnabled ? (
-            <b className="text-emerald-800">uključena</b>
-          ) : (
-            <b className="text-red-700">nisu podešena (SMTP_* i ADMIN_EMAIL)</b>
-          )}
-        </li>
         <li>
           Katalog poslednji put osvežen:{' '}
           {data.lastSyncAt ? dateTime.format(new Date(data.lastSyncAt)) : 'nikad'}
         </li>
       </ul>
     </div>
+  );
+}
+
+/** Email setup status, with a button that sends the real receipt (made-up order) to the owner. */
+function EmailStatus({ enabled }: { enabled: boolean }) {
+  const test = useMutation({ mutationFn: () => api.admin.sendTestEmail() });
+  return (
+    <section className="card mt-6 p-5 text-sm" aria-labelledby="email-status">
+      <h2 id="email-status" className="font-bold">
+        Emailovi kupcima i vama:{' '}
+        {enabled ? (
+          <span className="text-emerald-800">uključeni</span>
+        ) : (
+          <span className="text-red-700">nisu podešeni</span>
+        )}
+      </h2>
+      <p className="mt-1 text-espresso-700">
+        {enabled
+          ? 'Pošaljite sebi probni email da vidite kako kupci dobijaju potvrdu porudžbine.'
+          : 'Na Renderu su potrebni MAIL_RELAY_URL, MAIL_RELAY_SECRET i ADMIN_EMAIL.'}
+      </p>
+      <button
+        type="button"
+        className="btn-ghost mt-3"
+        disabled={test.isPending}
+        onClick={() => test.mutate()}
+      >
+        {test.isPending ? 'Šaljem…' : 'Pošalji probni email'}
+      </button>
+      {test.data && (
+        <p role="status" className="mt-2 text-emerald-800">
+          Poslato na <b>{test.data.sentTo}</b> — proverite inbox (i Spam, prvi put).
+        </p>
+      )}
+      {test.error && (
+        <p role="alert" className="mt-2 text-red-700">
+          {test.error instanceof ApiError ? test.error.message : 'Slanje nije uspelo.'}
+        </p>
+      )}
+    </section>
   );
 }
 
