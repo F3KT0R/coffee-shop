@@ -15,6 +15,12 @@
   status = 200
   force = true
 
+# --- Image CDN -------------------------------------------------------------------------------------------
+# Lets /.netlify/images convert KaffeK's product photos: order emails use small JPEG thumbnails from
+# this domain (Outlook can't show WebP).
+[images]
+  remote_images = ['https://kaffek\.co\.uk/media/.*']
+
 # --- Single-page app fallback --------------------------------------------------------------------------
 [[redirects]]
   from = "/*"

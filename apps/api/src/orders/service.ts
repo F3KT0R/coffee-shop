@@ -302,7 +302,13 @@ export function createOrderService(deps: {
           'Slanje emailova nije podešeno: na Renderu su potrebni MAIL_RELAY_URL, MAIL_RELAY_SECRET i ADMIN_EMAIL.',
         );
       }
-      const order = sampleEmailOrder();
+      const popular = await db.product.findMany({
+        where: { active: true, inStock: true, category: 'kapsule', NOT: { images: { isEmpty: true } } },
+        orderBy: { popularity: 'desc' },
+        take: 2,
+        select: { name: true, brand: true, images: true, priceRsd: true },
+      });
+      const order = sampleEmailOrder(popular.map((p) => ({ ...p, image: p.images[0] ?? null })));
       const mail = orderConfirmationEmail(order, {
         ...emailContext({ number: order.number, accessToken: 'test' }),
         loyalty: loyaltyStatus(1),

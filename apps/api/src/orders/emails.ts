@@ -113,12 +113,21 @@ function heading(text: string): string {
   return `<h2 style="margin:28px 0 10px;font-family:${SERIF};font-size:22px;line-height:1.2;color:${C.ink}">${escapeHtml(text)}</h2>`;
 }
 
-function productsTable(order: EmailOrder, totalLabel: string): string {
+/**
+ * Product photo for an email: Netlify's image CDN turns KaffeK's WebP into a small JPEG served from the
+ * shop's own domain, since Outlook can't show WebP (and 5 KB beats KaffeK's ~60 KB originals).
+ */
+export function emailThumbnailUrl(siteUrl: string, src: string): string {
+  if (!src.startsWith('https://')) return src;
+  return `${siteUrl}/.netlify/images?url=${encodeURIComponent(src)}&w=112&h=112&fit=cover&fm=jpg&q=80`;
+}
+
+function productsTable(order: EmailOrder, totalLabel: string, siteUrl: string): string {
   const rows = order.lines
     .map(
       (l) => `<tr>
 <td width="68" style="padding:10px 12px 10px 0;border-bottom:1px solid ${C.line};vertical-align:middle">
-${l.image ? `<img src="${escapeHtml(l.image)}" width="56" height="56" alt="" style="display:block;width:56px;height:56px;background:#ffffff;border-radius:10px;border:1px solid ${C.line}">` : ''}
+${l.image ? `<img src="${escapeHtml(emailThumbnailUrl(siteUrl, l.image))}" width="56" height="56" alt="" style="display:block;width:56px;height:56px;background:#ffffff;border-radius:10px;border:1px solid ${C.line}">` : ''}
 </td>
 <td style="padding:10px 8px 10px 0;border-bottom:1px solid ${C.line};vertical-align:middle">
 <span style="display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:700;color:${C.accent}">${escapeHtml(l.brand)}</span>
@@ -202,8 +211,46 @@ function linesText(order: EmailOrder, totalLabel: string): string {
 }
 
 /** The customer's receipt, sent right after ordering. */
-/** A realistic made-up order for the admin's "send a test email" button. */
-export function sampleEmailOrder(): EmailOrder {
+/** Fallback lines for the test email when the catalog is empty. */
+const SAMPLE_LINES: EmailOrder['lines'] = [
+  {
+    name: 'Cortado',
+    brand: 'Nescafé',
+    image: null,
+    quantity: 2,
+    unitPriceRsd: 1_550,
+    lineTotalRsd: 3_100,
+  },
+  {
+    name: 'Café au Lait',
+    brand: 'KaffeK',
+    image: null,
+    quantity: 1,
+    unitPriceRsd: 800,
+    lineTotalRsd: 800,
+  },
+];
+
+/**
+ * A made-up order for the admin's "send a test email" button, filled with real catalog products (and
+ * their photos) when given, so the test looks exactly like a customer's receipt.
+ */
+export function sampleEmailOrder(
+  products: { name: string; brand: string; image: string | null; priceRsd: number }[] = [],
+): EmailOrder {
+  const lines =
+    products.length > 0
+      ? products.map((p, i) => ({
+          name: p.name,
+          brand: p.brand,
+          image: p.image,
+          quantity: i === 0 ? 2 : 1,
+          unitPriceRsd: p.priceRsd,
+          lineTotalRsd: p.priceRsd * (i === 0 ? 2 : 1),
+        }))
+      : SAMPLE_LINES;
+  const subtotalRsd = lines.reduce((sum, l) => sum + l.lineTotalRsd, 0);
+  const discountRsd = Math.floor((subtotalRsd * 0.05) / 10) * 10;
   return {
     number: '000000-0000',
     status: 'NEW',
@@ -214,28 +261,11 @@ export function sampleEmailOrder(): EmailOrder {
     city: 'Novi Sad',
     postalCode: '21000',
     note: 'Ovo je probni email -- porudžbina ne postoji.',
-    subtotalRsd: 3_900,
-    discountRsd: 190,
+    subtotalRsd,
+    discountRsd,
     loyaltyTier: 'Stalni gost',
-    totalRsd: 3_710,
-    lines: [
-      {
-        name: 'Cortado',
-        brand: 'Nescafé',
-        image: null,
-        quantity: 2,
-        unitPriceRsd: 1_550,
-        lineTotalRsd: 3_100,
-      },
-      {
-        name: 'Café au Lait',
-        brand: 'KaffeK',
-        image: null,
-        quantity: 1,
-        unitPriceRsd: 800,
-        lineTotalRsd: 800,
-      },
-    ],
+    totalRsd: subtotalRsd - discountRsd,
+    lines,
   };
 }
 
@@ -249,7 +279,7 @@ ${orderNumberBlock(order.number, ORDER_STATUSES.NEW.name)}
 ${button(ctx.instagramUrl, 'Pošalji na Instagramu')}
 </td></tr></table>
 ${heading('Vaša porudžbina')}
-${productsTable(order, 'Plaćate pouzećem')}
+${productsTable(order, 'Plaćate pouzećem', ctx.siteUrl)}
 ${loyaltyBlock(ctx.loyalty)}
 ${heading('Dostava na adresu')}
 ${addressBlock(order)}
@@ -296,7 +326,7 @@ ${heading('Kupac')}
 ${addressBlock(order)}
 <p style="margin:8px 0 0;font-size:14px"><a href="mailto:${escapeHtml(order.email)}" style="color:${C.accent}">${escapeHtml(order.email)}</a></p>
 ${heading('Proizvodi')}
-${productsTable(order, 'Kupac plaća pouzećem')}
+${productsTable(order, 'Kupac plaća pouzećem', ctx.siteUrl)}
 <div style="margin-top:22px">${button(adminUrl, 'Otvori u administraciji')}</div>`;
   return {
     to,
@@ -333,7 +363,9 @@ export function statusUpdateEmail(order: EmailOrder, ctx: EmailContext): MailMes
 </tr></table>`
       : '';
   const summary =
-    order.status === 'CANCELLED' ? '' : `${heading('Porudžbina')}${productsTable(order, 'Plaćate pouzećem')}`;
+    order.status === 'CANCELLED'
+      ? ''
+      : `${heading('Porudžbina')}${productsTable(order, 'Plaćate pouzećem', ctx.siteUrl)}`;
   const body = `<p style="margin:0 0 18px;font-size:16px">Zdravo ${escapeHtml(firstName(order.fullName))},</p>
 ${orderNumberBlock(order.number, status.name)}
 <p style="margin:18px 0 0;font-size:15px">${escapeHtml(intro)}</p>

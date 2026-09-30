@@ -166,7 +166,10 @@ describe('orders', () => {
     expect(confirmation.html).toContain('pouzećem');
     // The receipt: branded header, product thumbnails, Kafe klub progress, DM link to the shop.
     expect(confirmation.html).toContain('https://shop.test/email/header-thanks.jpg');
-    expect(confirmation.html).toMatch(/<img src="https:\/\/kaffek\.co\.uk\/media\/catalog\/product\/[^"]+"/);
+    // Product photos as JPEG thumbnails converted by Netlify's image CDN on the shop's own domain.
+    expect(confirmation.html).toMatch(
+      /<img src="https:\/\/shop\.test\/\.netlify\/images\?url=https%3A%2F%2Fkaffek\.co\.uk%2Fmedia%2F[^"]+fm=jpg/,
+    );
     expect(confirmation.html).toContain('Kafe klub');
     expect(confirmation.html).toContain('https://ig.me/m/kafekapsule');
     expect(confirmation.html).not.toMatch(/uplat|račun|IPS|depozit/i);
@@ -376,6 +379,8 @@ describe('admin', () => {
       to: 'owner@shop.test',
       subject: expect.stringMatching(/^\[PROBA\] /),
     });
+    // Real catalog products, their photos as JPEG thumbnails from the shop's own domain.
+    expect(ctx.mailer.sent[0]!.html).toContain('/.netlify/images?url=https%3A%2F%2Fkaffek.co.uk%2F');
 
     ctx.mailer.failNext = true;
     const failed = await ctx.app.inject({ method: 'POST', url: '/api/admin/email-test', headers });
