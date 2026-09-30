@@ -292,6 +292,47 @@ export function createOrderService(deps: {
   return {
     loyaltyFor,
 
+    /**
+     * Emails the customer what fits the order's current status: the full receipt while it waits for
+     * confirmation, otherwise the status update. For orders placed before email was set up, or a lost email.
+     */
+    async resendCustomerEmail(number: string): Promise<AdminOrderDetail> {
+      const order = await findByNumber(number);
+      if (!order) throw notFound('Porudžbina nije pronađena.');
+      if (!OPEN_STATUSES.includes(order.status)) {
+        throw new AppError(409, 'ORDER_CLOSED', 'Porudžbina je završena ili otkazana — email se ne šalje.');
+      }
+      if (!mailer.enabled) {
+        throw new AppError(409, 'MAIL_NOT_CONFIGURED', 'Slanje emailova nije podešeno.');
+      }
+      const kind = order.status === 'NEW' ? 'confirmation' : `status-${order.status}`;
+      const mail =
+        order.status === 'NEW'
+          ? orderConfirmationEmail(toEmailOrder(order), {
+              ...emailContext(order),
+              loyalty: await loyaltyFor(order.email).catch(() => undefined),
+            })
+          : statusUpdateEmail(toEmailOrder(order), emailContext(order));
+      try {
+        await mailer.send(mail);
+      } catch (error) {
+        const message = (error as Error).message;
+        await db.orderEvent.create({
+          data: {
+            orderId: order.id,
+            type: 'EMAIL_FAILED',
+            message: `resend ${kind}: ${message}`.slice(0, 500),
+            actor: 'admin',
+          },
+        });
+        throw new AppError(502, 'MAIL_FAILED', `Email nije poslat: ${message}`);
+      }
+      await db.orderEvent.create({
+        data: { orderId: order.id, type: 'EMAIL_SENT', message: `ručno: ${kind}`, actor: 'admin' },
+      });
+      return detailForAdmin(number);
+    },
+
     /** Sends the customer receipt, filled with a made-up order, to the owner -- checks the whole mail setup. */
     async sendTestEmail(): Promise<{ sentTo: string }> {
       const to = env.ADMIN_EMAIL;

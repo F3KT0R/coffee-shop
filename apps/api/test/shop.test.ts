@@ -369,6 +369,44 @@ describe('admin', () => {
     expect(after.items).toEqual([]);
   });
 
+  it('re-sends the email that fits the order status (e.g. orders placed before email was set up)', async () => {
+    const { number } = (await placeOrder()).json<CreateOrderResponse>();
+    const headers = await login();
+    const resend = () =>
+      ctx.app.inject({ method: 'POST', url: `/api/admin/orders/${number}/email`, headers });
+    const setStatus = (status: string) =>
+      ctx.app.inject({
+        method: 'POST',
+        url: `/api/admin/orders/${number}/status`,
+        headers,
+        payload: { status },
+      });
+    await flush();
+
+    ctx.mailer.sent.length = 0;
+    const receipt = await resend();
+    expect(receipt.statusCode).toBe(200);
+    expect(ctx.mailer.sent.map((m) => [m.to, m.subject])).toEqual([
+      ['petar@example.com', expect.stringContaining(`Porudžbina ${number} je primljena`)],
+    ]);
+    expect(receipt.json().events.at(-1)).toMatchObject({
+      type: 'EMAIL_SENT',
+      message: 'ručno: confirmation',
+    });
+
+    await setStatus('CONFIRMED');
+    await setStatus('ORDERED');
+    await flush();
+    ctx.mailer.sent.length = 0;
+    await resend();
+    expect(ctx.mailer.sent.map((m) => m.subject)).toEqual([`Porudžbina ${number}: Poručeno`]);
+    expect(ctx.mailer.sent[0]!.html).toContain('poručili iz Velike Britanije');
+
+    await setStatus('SHIPPED');
+    await setStatus('DELIVERED');
+    expect((await resend()).statusCode).toBe(409);
+  });
+
   it('sends the owner a test receipt to check the mail setup', async () => {
     const headers = await login();
     ctx.mailer.sent.length = 0;

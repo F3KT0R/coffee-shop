@@ -95,6 +95,15 @@ export async function registerAdminRoutes(
       return orders.setInstagramHandle(number, handle);
     });
 
+    secured.post(
+      '/api/admin/orders/:number/email',
+      { config: { rateLimit: { max: 20, timeWindow: '10 minutes' } } },
+      async (request) => {
+        const { number } = parseInput(z.object({ number: z.string().max(20) }), request.params);
+        return orders.resendCustomerEmail(number);
+      },
+    );
+
     secured.get('/api/admin/shipping', async () => orders.shipping());
 
     secured.get('/api/admin/procurement', async () => orders.procurement());

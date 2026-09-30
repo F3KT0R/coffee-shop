@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { ORDER_STATUSES, formatRsd, isStepBack, type OrderStatus } from '@kafeshop/core';
+import { OPEN_STATUSES, ORDER_STATUSES, formatRsd, isStepBack, type OrderStatus } from '@kafeshop/core';
 import { useState } from 'react';
 import { Link, useParams } from 'react-router';
 import { ErrorState, Spinner } from '../../components/States';
@@ -51,6 +51,11 @@ export function AdminOrderDetail() {
       setPending(null);
       setNote('');
     },
+  });
+
+  const resend = useMutation({
+    mutationFn: () => api.admin.resendEmail(number),
+    onSuccess: (data) => queryClient.setQueryData(['admin', 'order', number], data),
   });
 
   if (order.error) return <ErrorState error={order.error} onRetry={() => void order.refetch()} />;
@@ -250,6 +255,33 @@ export function AdminOrderDetail() {
               </a>
             </p>
             {o.customerNote && <p className="mt-3 rounded-xl bg-crema-100 p-3">Napomena: {o.customerNote}</p>}
+            {OPEN_STATUSES.includes(o.status) && (
+              <div className="mt-4 border-t border-espresso-900/10 pt-4">
+                <button
+                  type="button"
+                  className="btn-ghost"
+                  disabled={resend.isPending}
+                  onClick={() => resend.mutate()}
+                >
+                  {resend.isPending ? 'Šaljem…' : 'Pošalji email kupcu'}
+                </button>
+                <p className="mt-1 text-xs text-espresso-600">
+                  {o.status === 'NEW'
+                    ? 'Šalje potvrdu porudžbine (račun sa proizvodima).'
+                    : `Šalje obaveštenje „${ORDER_STATUSES[o.status].name}“ sa proizvodima.`}
+                </p>
+                {resend.isSuccess && (
+                  <p role="status" className="mt-2 text-emerald-800">
+                    Poslato na {o.customer.email}.
+                  </p>
+                )}
+                {resend.error && (
+                  <p role="alert" className="mt-2 text-red-700">
+                    {resend.error instanceof ApiError ? resend.error.message : 'Slanje nije uspelo.'}
+                  </p>
+                )}
+              </div>
+            )}
           </section>
 
           <section className="card p-6 text-sm" aria-labelledby="links">

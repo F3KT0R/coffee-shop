@@ -141,6 +141,8 @@ export const api = {
       request<Paginated<AdminOrderSummary>>(`/admin/orders${query(params)}`, { signal }),
     order: (number: string, signal?: AbortSignal) =>
       request<AdminOrderDetail>(`/admin/orders/${encodeURIComponent(number)}`, { signal }),
+    resendEmail: (number: string) =>
+      request<AdminOrderDetail>(`/admin/orders/${encodeURIComponent(number)}/email`, { method: 'POST' }),
     setStatus: (number: string, status: OrderStatus, note?: string) =>
       request<AdminOrderDetail>(`/admin/orders/${encodeURIComponent(number)}/status`, {
         method: 'POST',

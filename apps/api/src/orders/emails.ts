@@ -348,6 +348,7 @@ export const NOTIFY_STATUSES: readonly OrderStatus[] = ['CONFIRMED', 'SHIPPED', 
 const STATUS_INTRO: Partial<Record<OrderStatus, string>> = {
   CONFIRMED:
     'Vaša porudžbina je potvrđena i ulazi u narednu nabavku iz Velike Britanije. Javićemo vam se kada krene ka vama.',
+  ORDERED: 'Vaše proizvode smo poručili iz Velike Britanije. Javićemo vam se kada paket krene ka vama.',
   SHIPPED: 'Vaš paket je krenuo! Kurir će vas kontaktirati pre isporuke.',
   CANCELLED: 'Vaša porudžbina je otkazana. Ako mislite da je u pitanju greška, pišite nam na Instagramu.',
 };
