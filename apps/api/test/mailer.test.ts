@@ -17,11 +17,12 @@ const message = {
   replyTo: 'x@y.rs',
 };
 
-function relay(answer: Response) {
+/** A fake relay answering each call with the next response. */
+function relay(...answers: Response[]) {
   const calls: { url: string; init: RequestInit }[] = [];
-  const fetchImpl = (async (url: string, init: RequestInit) => {
-    calls.push({ url, init });
-    return answer;
+  const fetchImpl = (async (url: string | URL, init: RequestInit) => {
+    calls.push({ url: String(url), init });
+    return answers.shift()!;
   }) as unknown as typeof fetch;
   return { mailer: createMailer(env, log, fetchImpl), calls };
 }
@@ -38,6 +39,22 @@ describe('Gmail relay mailer', () => {
       name: 'Kafe za Vas',
       ...message,
     });
+  });
+
+  it('reads the verdict from the redirect with a GET, as Apps Script requires', async () => {
+    const echo = 'https://script.googleusercontent.com/macros/echo?user_content_key=k&lib=l';
+    for (const status of [302, 307]) {
+      const { mailer, calls } = relay(
+        new Response(null, { status, headers: { location: echo } }),
+        Response.json({ ok: true, remainingToday: 97 }),
+      );
+      await mailer.send(message);
+      expect(calls.map((c) => [c.init.method, c.url])).toEqual([
+        ['POST', env.MAIL_RELAY_URL],
+        ['GET', echo],
+      ]);
+      expect(calls[0]!.init.redirect).toBe('manual');
+    }
   });
 
   it('fails when the relay refuses (wrong secret, Gmail quota...)', async () => {

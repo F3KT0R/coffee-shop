@@ -19,8 +19,9 @@ const RELAY_TIMEOUT_MS = 30_000;
 
 /**
  * Sends through the Gmail relay (a Google Apps Script web app, see apps/api/mail-relay/Code.gs): one
- * HTTPS POST per message. Apps Script answers the POST with a redirect to the script's output, which
- * fetch follows as a GET -- that output is the relay's JSON verdict.
+ * HTTPS POST per message. Apps Script runs the script on the POST itself, then redirects to a one-off
+ * URL holding its output -- the relay's JSON verdict. That URL only answers GET, and a 307 redirect
+ * would make fetch repeat the POST there (a 404), so the redirect is followed by hand, always as a GET.
  */
 function createRelayMailer(env: Env, fetchImpl: typeof fetch): Mailer {
   const url = env.MAIL_RELAY_URL!;
@@ -28,13 +29,18 @@ function createRelayMailer(env: Env, fetchImpl: typeof fetch): Mailer {
   return {
     enabled: true,
     async send(message) {
-      const response = await fetchImpl(url, {
+      const signal = AbortSignal.timeout(RELAY_TIMEOUT_MS);
+      let response = await fetchImpl(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ secret, name: env.MAIL_FROM_NAME, ...message }),
-        redirect: 'follow',
-        signal: AbortSignal.timeout(RELAY_TIMEOUT_MS),
+        redirect: 'manual',
+        signal,
       });
+      const location = response.headers.get('location');
+      if (response.status >= 300 && response.status < 400 && location) {
+        response = await fetchImpl(new URL(location, url), { method: 'GET', redirect: 'follow', signal });
+      }
       const body = await response.text();
       let verdict: { ok?: boolean; error?: string };
       try {
