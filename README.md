@@ -47,7 +47,12 @@ The sync is built to fail safe:
   its landed cost, so the admin shows the estimated profit per order.
 
 The API runs the sync itself every `AUTO_SYNC_HOURS` (default 24). `POST /api/sync` (with `SYNC_SECRET`)
-and the GitHub workflow are backups.
+and the GitHub workflow are backups: they do nothing when a sync succeeded in the last 12 hours (the admin
+"sync now" button always runs one).
+
+The sync is frugal with bandwidth, because Render's free plan counts every database query to Neon as
+outbound traffic: each product stores a hash of its synced data, and only new, changed or returning
+products are written. The admin's "Ažurirano" column shows how many were written per run.
 
 **Orders.** The browser sends only SKUs and quantities; the server prices the cart, rejects changed carts
 with the exact reasons, and snapshots every line. Checkout is idempotent (retries can't duplicate orders)

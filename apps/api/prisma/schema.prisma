@@ -47,9 +47,12 @@ model Product {
   sourceUrl       String
   /// Brand, name, slug and systems in search normal form (no accents) -- see normalizeSearch.
   searchText      String   @default("")
+  /// Hash of everything the sync writes; an unchanged product is not rewritten (saves outbound bandwidth).
+  syncHash        String   @default("")
   /// False once the product is no longer offered at the source (only set by a complete sync pass).
   active          Boolean  @default(true)
   firstSeenAt     DateTime @default(now())
+  /// Last time a sync wrote this product (new or changed at the source).
   lastSeenAt      DateTime
   updatedAt       DateTime @updatedAt
 

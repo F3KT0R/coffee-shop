@@ -436,12 +436,21 @@ describe('admin', () => {
 describe('sync endpoint and health', () => {
   it('requires the sync secret', async () => {
     expect((await ctx.app.inject({ method: 'POST', url: '/api/sync' })).statusCode).toBe(401);
-    const ok = await ctx.app.inject({
-      method: 'POST',
-      url: '/api/sync',
-      headers: { authorization: `Bearer ${TEST_SECRETS.SYNC_SECRET}` },
-    });
-    expect(ok.statusCode).toBe(202);
+    const trigger = () =>
+      ctx.app.inject({
+        method: 'POST',
+        url: '/api/sync',
+        headers: { authorization: `Bearer ${TEST_SECRETS.SYNC_SECRET}` },
+      });
+
+    // beforeEach just synced, so the backup trigger has nothing to do.
+    const skipped = await trigger();
+    expect(skipped.statusCode).toBe(200);
+    expect(skipped.json()).toMatchObject({ started: false });
+
+    const longAgo = new Date(Date.now() - 13 * 3_600_000);
+    await testDb.db.syncRun.updateMany({ data: { startedAt: longAgo, finishedAt: longAgo } });
+    expect((await trigger()).statusCode).toBe(202);
     await new Promise((resolve) => setTimeout(resolve, 500));
   });
 

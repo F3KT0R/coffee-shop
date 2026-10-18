@@ -166,6 +166,23 @@ describe('catalog sync', () => {
     await app.app.close();
   });
 
+  it('rewrites only products that changed since the last sync', async () => {
+    const app = await createTestApp(testDb);
+    await syncNow(app);
+    const before = await testDb.db.product.findUniqueOrThrow({ where: { sku: '100575' } });
+
+    expect(await syncNow(app)).toMatchObject({ status: 'SUCCEEDED', upserted: 0 });
+
+    app.source.items = app.source.items.map((i) => (i.sku === '100341' ? { ...i, quantity: 7 } : i));
+    await testDb.db.product.update({ where: { sku: '100800' }, data: { active: false } });
+    expect(await syncNow(app)).toMatchObject({ status: 'SUCCEEDED', upserted: 2 });
+    expect((await testDb.db.product.findUniqueOrThrow({ where: { sku: '100341' } })).stockQuantity).toBe(7);
+    expect((await testDb.db.product.findUniqueOrThrow({ where: { sku: '100800' } })).active).toBe(true);
+    const after = await testDb.db.product.findUniqueOrThrow({ where: { sku: '100575' } });
+    expect(after.updatedAt).toEqual(before.updatedAt);
+    await app.app.close();
+  });
+
   it('runs one sync at a time', async () => {
     const app = await createTestApp(testDb);
     const first = await app.sync.start('test');
