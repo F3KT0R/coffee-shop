@@ -47,7 +47,12 @@ The sync is built to fail safe:
   its landed cost, so the admin shows the estimated profit per order.
 
 The API runs the sync itself every `AUTO_SYNC_HOURS` (default 24). `POST /api/sync` (with `SYNC_SECRET`)
-and the GitHub workflow are backups.
+and the GitHub workflow are backups: they do nothing when a sync succeeded in the last 12 hours (the admin
+"sync now" button always runs one).
+
+The sync is frugal with bandwidth, because Render's free plan counts every database query to Neon as
+outbound traffic: each product stores a hash of its synced data, and only new, changed or returning
+products are written. The admin's "Ažurirano" column shows how many were written per run.
 
 **Orders.** The browser sends only SKUs and quantities; the server prices the cart, rejects changed carts
 with the exact reasons, and snapshots every line. Checkout is idempotent (retries can't duplicate orders)
@@ -57,7 +62,10 @@ send/failure is logged on the order; a failed email never fails the order.
 Statuses: `Primljena → Potvrđena → Poručeno → Poslato → Preuzeto` (or `Otkazano`, also for an unclaimed
 parcel). Invalid jumps are refused. The customer is emailed when the order is confirmed, shipped and
 cancelled. The owner is emailed for every new order (`ADMIN_EMAIL`), and the admin shows desktop
-notifications and a live count of orders waiting for confirmation.
+notifications and a live count of orders waiting for confirmation. An open admin tab checks for new
+orders every 30 seconds through `/api/admin/pulse`, which the API answers from memory; the order data is
+reloaded from the database only when a new order arrives. A forgotten admin tab therefore no longer keeps
+Neon awake (polling the database directly used up the free plan's monthly compute hours).
 
 **Payment.** Cash on delivery only: nothing is paid online. Every order gets a short number
 (`260927-4821`) that the customer sends in an Instagram message; the owner then confirms the order in the

@@ -48,6 +48,7 @@ export function AdminOrderDetail() {
     onSuccess: (data) => {
       queryClient.setQueryData(['admin', 'order', number], data);
       void queryClient.invalidateQueries({ queryKey: ['admin', 'orders'] });
+      void queryClient.invalidateQueries({ queryKey: ['admin', 'dashboard'] });
       setPending(null);
       setNote('');
     },

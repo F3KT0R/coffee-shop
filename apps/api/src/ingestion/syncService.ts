@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto';
 import {
   getSystem,
   mapKaffekItem,
@@ -74,55 +75,82 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
     slugOwners.set(p.slug, p.sku);
   }
 
+  const rows = products.map((p) => {
+    const data = {
+      slug: p.slug,
+      name: p.name,
+      brand: p.brand,
+      category: p.category,
+      kind: p.kind,
+      systems: p.systems,
+      packCount: p.packCount,
+      packUnit: p.packUnit,
+      intensity: p.intensity,
+      intensityMax: p.intensityMax,
+      intensityLevel: p.intensityLevel,
+      coffeeStyle: p.coffeeStyle,
+      dietTags: p.dietTags,
+      flavourNotes: p.flavourNotes,
+      description: p.description,
+      images: p.images,
+      priceGbp: p.priceGbp,
+      regularPriceGbp: p.regularPriceGbp,
+      priceRsd: p.priceRsd,
+      costRsd: p.costRsd,
+      weightKg: p.weightKg,
+      kaffekId: p.kaffekId,
+      inStock: p.inStock,
+      stockQuantity: p.stockQuantity,
+      rating: p.rating,
+      reviewCount: p.reviewCount,
+      popularity: p.popularity,
+      sourceUrl: p.sourceUrl,
+      searchText: normalizeSearch(
+        [p.brand, p.name, p.slug, ...p.systems.map((s) => getSystem(s)?.name ?? s)].join(' '),
+      ),
+    };
+    return { sku: p.sku, data, hash: createHash('sha256').update(JSON.stringify(data)).digest('base64url') };
+  });
+
+  // Only new, changed or returning products are written. Prices round up to 50 RSD, so on a normal day
+  // few rows change -- rewriting the whole catalog every run was most of the API's outbound traffic.
+  const stored = new Map(
+    (await db.product.findMany({ select: { sku: true, syncHash: true, active: true } })).map((r) => [
+      r.sku,
+      r,
+    ]),
+  );
+  const changed = rows.filter((r) => {
+    const current = stored.get(r.sku);
+    return !current || !current.active || current.syncHash !== r.hash;
+  });
+
   // A product's URL key can move to a different SKU at the source; free the slug before upserting.
-  const incomingSlugs = new Map(products.map((p) => [p.slug, p.sku]));
+  // Unchanged products keep their stored slug, so only changed ones can clash.
+  const incomingSlugs = new Map(changed.map((r) => [r.data.slug, r.sku]));
   const slugClashes = await db.product.findMany({
     where: { slug: { in: [...incomingSlugs.keys()] } },
     select: { sku: true, slug: true },
   });
   for (const clash of slugClashes.filter((c) => incomingSlugs.get(c.slug) !== c.sku)) {
-    await db.product.update({ where: { sku: clash.sku }, data: { slug: `${clash.slug}--${clash.sku}` } });
+    await db.product.update({
+      where: { sku: clash.sku },
+      data: { slug: `${clash.slug}--${clash.sku}`, syncHash: '' },
+      select: { sku: true },
+    });
   }
 
-  for (let i = 0; i < products.length; i += UPSERT_CHUNK) {
+  for (let i = 0; i < changed.length; i += UPSERT_CHUNK) {
     await db.$transaction(
-      products.slice(i, i + UPSERT_CHUNK).map((p) => {
-        const data = {
-          slug: p.slug,
-          name: p.name,
-          brand: p.brand,
-          category: p.category,
-          kind: p.kind,
-          systems: p.systems,
-          packCount: p.packCount,
-          packUnit: p.packUnit,
-          intensity: p.intensity,
-          intensityMax: p.intensityMax,
-          intensityLevel: p.intensityLevel,
-          coffeeStyle: p.coffeeStyle,
-          dietTags: p.dietTags,
-          flavourNotes: p.flavourNotes,
-          description: p.description,
-          images: p.images,
-          priceGbp: p.priceGbp,
-          regularPriceGbp: p.regularPriceGbp,
-          priceRsd: p.priceRsd,
-          costRsd: p.costRsd,
-          weightKg: p.weightKg,
-          kaffekId: p.kaffekId,
-          inStock: p.inStock,
-          stockQuantity: p.stockQuantity,
-          rating: p.rating,
-          reviewCount: p.reviewCount,
-          popularity: p.popularity,
-          sourceUrl: p.sourceUrl,
-          searchText: normalizeSearch(
-            [p.brand, p.name, p.slug, ...p.systems.map((s) => getSystem(s)?.name ?? s)].join(' '),
-          ),
-          active: true,
-          lastSeenAt: now,
-        };
-        return db.product.upsert({ where: { sku: p.sku }, create: { sku: p.sku, ...data }, update: data });
+      changed.slice(i, i + UPSERT_CHUNK).map(({ sku, data, hash }) => {
+        const write = { ...data, syncHash: hash, active: true, lastSeenAt: now };
+        // Return only the key: the default would send every written row back over the network.
+        return db.product.upsert({
+          where: { sku },
+          create: { sku, ...write },
+          update: write,
+          select: { sku: true },
+        });
       }),
     );
   }
@@ -154,7 +182,8 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
   log.info(
     {
       fetched: catalog.items.length,
-      upserted: products.length,
+      priced: products.length,
+      written: changed.length,
       skipped,
       retired,
       fieldErrors: catalog.fieldErrors,
@@ -167,7 +196,7 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
       status: 'SUCCEEDED',
       finishedAt: new Date(),
       fetched: catalog.items.length,
-      upserted: products.length,
+      upserted: changed.length,
       skipped,
       retired,
       complete: catalog.complete,

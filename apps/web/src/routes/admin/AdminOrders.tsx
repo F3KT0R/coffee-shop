@@ -18,7 +18,6 @@ export function AdminOrders() {
     queryKey: ['admin', 'orders', { status, q, page }],
     queryFn: ({ signal }) => api.admin.orders({ status, q, page }, signal),
     placeholderData: keepPreviousData,
-    refetchInterval: 60_000,
   });
 
   const set = (key: string, value: string | null) => {
