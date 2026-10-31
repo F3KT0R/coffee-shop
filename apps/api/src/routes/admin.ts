@@ -70,6 +70,9 @@ export async function registerAdminRoutes(
 
     secured.get('/api/admin/session', async () => ({ ok: true }));
 
+    // Polled by every open admin tab: answered from memory so it never wakes the database (Neon).
+    secured.get('/api/admin/pulse', { config: { rateLimit: false } }, async () => orders.pulse());
+
     secured.get('/api/admin/dashboard', async () => orders.dashboard());
 
     secured.get('/api/admin/customers', async () => ({ items: await orders.customers() }));

@@ -522,6 +522,17 @@ describe('Kafe klub and the admin overview', () => {
     });
   });
 
+  it('changes the admin pulse only when an order is placed', async () => {
+    const headers = await login();
+    const pulse = async () => (await ctx.app.inject({ url: '/api/admin/pulse', headers })).json().version;
+    expect((await ctx.app.inject('/api/admin/pulse')).statusCode).toBe(401);
+
+    const before = await pulse();
+    expect(await pulse()).toBe(before);
+    await placeOrder();
+    expect(await pulse()).not.toBe(before);
+  });
+
   it('summarises orders, revenue and profit on the dashboard and lists customers', async () => {
     const headers = await login();
     const a = (await placeOrder()).json<CreateOrderResponse>();

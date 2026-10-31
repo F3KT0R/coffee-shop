@@ -195,6 +195,14 @@ export interface HealthResponse {
 /** Kafe klub status for an email (shown at checkout). */
 export type LoyaltyResponse = LoyaltyStatus;
 
+/**
+ * Changes whenever an order is placed (and when the API restarts). Served from memory, so an open admin
+ * tab can poll it without waking the database; the tab reloads the dashboard only when it changes.
+ */
+export interface AdminPulse {
+  version: string;
+}
+
 export interface AdminDashboard {
   /** Orders per status. */
   counts: Record<OrderStatus, number>;

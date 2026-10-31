@@ -13,6 +13,7 @@ import {
   quoteCart,
   type AdminCustomer,
   type AdminDashboard,
+  type AdminPulse,
   type AdminOrderDetail,
   type AdminOrderSummary,
   type CreateOrderResponse,
@@ -89,6 +90,10 @@ export function createOrderService(deps: {
   log: FastifyBaseLogger;
 }) {
   const { db, env, catalog, mailer, log } = deps;
+
+  // Bumped on every new order; read by the admin pulse. The boot time makes a restart count as a change.
+  const bootId = Date.now().toString(36);
+  let ordersPlaced = 0;
 
   /** Summed KaffeK weights of some order lines, for comparing against the courier's billed weight. */
   async function shipmentWeight(lines: { sku: string; quantity: number }[]): Promise<ShipmentWeight> {
@@ -292,6 +297,11 @@ export function createOrderService(deps: {
   return {
     loyaltyFor,
 
+    /** No database access: an open admin tab polls this instead of the dashboard. */
+    pulse(): AdminPulse {
+      return { version: `${bootId}.${ordersPlaced}` };
+    },
+
     /**
      * Emails the customer what fits the order's current status: the full receipt while it waits for
      * confirmation, otherwise the status update. For orders placed before email was set up, or a lost email.
@@ -429,6 +439,7 @@ export function createOrderService(deps: {
             include: orderInclude,
           });
           log.info({ order: order.number, total: order.totalRsd }, 'Order created');
+          ordersPlaced++;
           // Fire-and-forget: the customer gets their confirmation page immediately; delivery is recorded.
           void notifyCreated(order);
           return { number: order.number, accessToken: order.accessToken };

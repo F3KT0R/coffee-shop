@@ -1,6 +1,7 @@
 import type {
   AdminCustomer,
   AdminDashboard,
+  AdminPulse,
   LoyaltyResponse,
   AdminOrderDetail,
   AdminOrderSummary,
@@ -135,6 +136,7 @@ export const api = {
       request<{ ok: true }>('/admin/login', { method: 'POST', body: { password } }),
     logout: () => request<{ ok: true }>('/admin/logout', { method: 'POST', body: {} }),
     session: (signal?: AbortSignal) => request<{ ok: true }>('/admin/session', { signal }),
+    pulse: (signal?: AbortSignal) => request<AdminPulse>('/admin/pulse', { signal }),
     dashboard: (signal?: AbortSignal) => request<AdminDashboard>('/admin/dashboard', { signal }),
     customers: (signal?: AbortSignal) => request<{ items: AdminCustomer[] }>('/admin/customers', { signal }),
     orders: (params: { status?: string; q?: string; page?: number }, signal?: AbortSignal) =>

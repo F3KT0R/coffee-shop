@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { NavLink, Navigate, Outlet, useLocation } from 'react-router';
 import { BellIcon } from '../../components/icons';
 import { Spinner } from '../../components/States';
-import { adminDashboardQuery } from '../../lib/adminQueries';
+import { adminDashboardQuery, adminPulseQuery } from '../../lib/adminQueries';
 import { ApiError, api } from '../../lib/api';
 
 const adminSessionQuery = queryOptions({
@@ -37,6 +37,20 @@ function useNewOrderAlerts(newCount: number | undefined) {
   }, [newCount]);
 }
 
+/** Reloads the order data (from the database) only when the in-memory pulse says something changed. */
+function useReloadOnNewOrders(version: string | undefined) {
+  const queryClient = useQueryClient();
+  const seen = useRef<string | undefined>(undefined);
+  useEffect(() => {
+    if (version === undefined) return;
+    if (seen.current !== undefined && seen.current !== version) {
+      void queryClient.invalidateQueries({ queryKey: ['admin', 'dashboard'] });
+      void queryClient.invalidateQueries({ queryKey: ['admin', 'orders'] });
+    }
+    seen.current = version;
+  }, [version, queryClient]);
+}
+
 function NotificationToggle() {
   const [permission, setPermission] = useState(notificationsSupported ? Notification.permission : 'denied');
   if (!notificationsSupported) return null;
@@ -68,6 +82,8 @@ export function AdminLayout() {
   const queryClient = useQueryClient();
   const session = useQuery(adminSessionQuery);
   const dashboard = useQuery({ ...adminDashboardQuery, enabled: session.isSuccess });
+  const pulse = useQuery({ ...adminPulseQuery, enabled: session.isSuccess });
+  useReloadOnNewOrders(pulse.data?.version);
   const newCount = dashboard.data?.counts.NEW;
   useNewOrderAlerts(newCount);
   const logout = useMutation({
