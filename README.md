@@ -54,6 +54,19 @@ The sync is frugal with bandwidth, because Render's free plan counts every datab
 outbound traffic: each product stores a hash of its synced data, and only new, changed or returning
 products are written. The admin's "Ažurirano" column shows how many were written per run.
 
+**Keeping Neon asleep.** Neon's free plan bills compute for every 5 minutes the database stays awake, so
+the API avoids touching it when nobody needs it:
+
+- The public catalog (product lists, filters, product pages, cart prices) is served from the API's memory.
+  The active products are loaded once and loaded again after every sync, so shoppers and search-engine
+  bots browsing the shop don't wake the database. Only checkout, order-status pages, Kafe klub lookups,
+  the admin and the sync do. A product changed directly in the database (e.g. Prisma Studio) shows up in
+  the shop after the next sync or restart.
+- An open admin tab polls an in-memory pulse for new orders, not the database.
+- `/api/ping` (keep-warm, Render health check) never queries the database; `/api/health` does, so don't
+  point an uptime monitor at it every few minutes.
+- Responses over 1 KB are gzip/brotli-compressed, which cuts Render's outbound bandwidth.
+
 **Orders.** The browser sends only SKUs and quantities; the server prices the cart, rejects changed carts
 with the exact reasons, and snapshots every line. Checkout is idempotent (retries can't duplicate orders)
 and rate-limited. Each order has a private status link. Emails are sent from the server and every
