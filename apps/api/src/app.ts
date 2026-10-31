@@ -1,3 +1,4 @@
+import compress from '@fastify/compress';
 import cookie from '@fastify/cookie';
 import helmet from '@fastify/helmet';
 import rateLimit from '@fastify/rate-limit';
@@ -44,6 +45,8 @@ export async function buildApp(deps: AppDeps): Promise<App> {
 
   registerErrorHandling(app);
   await app.register(helmet, { contentSecurityPolicy: false });
+  // Product lists are JSON of a few dozen KB; gzip/brotli cuts Render's outbound bandwidth several times.
+  await app.register(compress, { threshold: 1024 });
   await app.register(cookie);
   await app.register(rateLimit, {
     max: 300,
@@ -62,6 +65,8 @@ export async function buildApp(deps: AppDeps): Promise<App> {
     pricing: pricingSettings(env),
     fetch: deps.fetch,
     pageDelayMs: deps.syncPageDelayMs,
+    // The public catalog is served from memory; reload it once the sync has written new products.
+    onFinished: () => catalog.invalidate(),
   });
   const version = process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? 'dev';
 

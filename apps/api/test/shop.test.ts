@@ -116,6 +116,73 @@ describe('catalog API', () => {
     expect(meta.lastSyncAt).not.toBeNull();
   });
 
+  it('sorts by every option with in-stock products first', async () => {
+    const list = async (sort: string) =>
+      (await ctx.app.inject(`/api/products?pageSize=60&sort=${sort}`)).json<ProductListResponse>().items;
+    const inStockFirst = (items: { inStock: boolean }[]) =>
+      items.findIndex((p) => !p.inStock) === -1 ||
+      items.slice(items.findIndex((p) => !p.inStock)).every((p) => !p.inStock);
+
+    for (const sort of ['popular', 'price-asc', 'price-desc', 'rating', 'name', 'newest']) {
+      const items = await list(sort);
+      expect(items).toHaveLength(11);
+      expect(inStockFirst(items)).toBe(true);
+    }
+    const prices = (await list('price-desc')).filter((p) => p.inStock).map((p) => p.priceRsd);
+    expect(prices).toEqual([...prices].sort((a, b) => b - a));
+    const ratings = (await list('rating')).filter((p) => p.inStock).map((p) => p.rating ?? -1);
+    expect(ratings).toEqual([...ratings].sort((a, b) => b - a));
+  });
+
+  it('lists only summary fields and matches a brand case-insensitively', async () => {
+    const items = (
+      await ctx.app.inject(`/api/products?brand=${encodeURIComponent('CAFFÈ BORBONE')}`)
+    ).json<ProductListResponse>().items;
+    expect(items.map((p) => p.sku)).toEqual(['100341']);
+    expect(Object.keys(items[0]!).sort()).toEqual(
+      [
+        'brand',
+        'category',
+        'image',
+        'inStock',
+        'intensityLevel',
+        'kind',
+        'name',
+        'packCount',
+        'packUnit',
+        'priceRsd',
+        'rating',
+        'reviewCount',
+        'sku',
+        'slug',
+        'systems',
+      ].sort(),
+    );
+  });
+
+  it('serves the catalog from memory and reloads it after a sync', async () => {
+    const skus = async () =>
+      (await ctx.app.inject('/api/products?pageSize=60')).json<ProductListResponse>().items.map((p) => p.sku);
+    const before = await skus();
+    expect(before).toContain('100341');
+
+    // A database change is not seen until the next sync: browsing doesn't query the database.
+    await testDb.db.product.update({ where: { sku: '100341' }, data: { active: false } });
+    expect(await skus()).toEqual(before);
+
+    // The sync reactivates the product (it is still at the source) and the catalog is reloaded.
+    await syncNow(ctx);
+    expect(await skus()).toContain('100341');
+  });
+
+  it('compresses larger responses', async () => {
+    const response = await ctx.app.inject({
+      url: '/api/products?pageSize=60',
+      headers: { 'accept-encoding': 'gzip' },
+    });
+    expect(response.headers['content-encoding']).toBe('gzip');
+  });
+
   it('quotes a cart from server prices and reports problems', async () => {
     const response = await ctx.app.inject({
       method: 'POST',

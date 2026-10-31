@@ -20,6 +20,7 @@
     "sync:now": "tsx --env-file-if-exists=.env scripts/sync-now.ts"
   },
   "dependencies": {
+    "@fastify/compress": "9.2.1",
     "@fastify/cookie": "^11.1.2",
     "@fastify/helmet": "^13.1.1",
     "@fastify/rate-limit": "^11.2.0",

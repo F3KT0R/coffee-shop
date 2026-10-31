@@ -44,6 +44,8 @@ export interface SyncDeps {
   fetch?: typeof fetch;
   /** Test hook: no pauses between source pages. */
   pageDelayMs?: number;
+  /** Called after every run (even a failed one may have written products), e.g. to reload the catalog. */
+  onFinished?: () => void;
 }
 
 async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
@@ -241,6 +243,7 @@ export function createSyncService(deps: SyncDeps) {
       })
       .finally(() => {
         current = null;
+        deps.onFinished?.();
       });
     return { started: true, run: current };
   }
