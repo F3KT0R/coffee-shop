@@ -62,7 +62,10 @@ the API avoids touching it when nobody needs it:
   bots browsing the shop don't wake the database. Only checkout, order-status pages, Kafe klub lookups,
   the admin and the sync do. A product changed directly in the database (e.g. Prisma Studio) shows up in
   the shop after the next sync or restart.
-- An open admin tab polls an in-memory pulse for new orders, not the database.
+- An open admin tab polls an in-memory pulse for new orders, not the database. The pulse moves on a new
+  order, any admin change and a finished sync. The dashboard and the order list are cached in memory
+  until then (and the dashboard until the day turns), so even an outdated admin tab that still polls them
+  every 30 seconds can't keep the database awake.
 - `/api/ping` (keep-warm, Render health check) never queries the database; `/api/health` does, so don't
   point an uptime monitor at it every few minutes.
 - Responses over 1 KB are gzip/brotli-compressed, which cuts Render's outbound bandwidth.

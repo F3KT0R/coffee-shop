@@ -91,9 +91,28 @@ export function createOrderService(deps: {
 }) {
   const { db, env, catalog, mailer, log } = deps;
 
-  // Bumped on every new order; read by the admin pulse. The boot time makes a restart count as a change.
+  // Bumped whenever orders may have changed: a new order, any admin change, a finished sync. The admin
+  // pulse reports it (the boot time makes a restart count as a change), and the admin views below are
+  // cached until it moves, so even an outdated admin tab polling every 30 s can't keep Neon awake.
   const bootId = Date.now().toString(36);
-  let ordersPlaced = 0;
+  let changes = 0;
+  const adminViews = new Map<string, unknown>();
+
+  function markChanged() {
+    changes++;
+    adminViews.clear();
+  }
+
+  /** The cached result for `key`, computed (from the database) only after a change. Failures aren't cached. */
+  async function cachedView<T>(key: string, compute: () => Promise<T>): Promise<T> {
+    if (adminViews.has(key)) return adminViews.get(key) as T;
+    if (adminViews.size >= 100) adminViews.clear(); // many different searches: keep memory bounded
+    const startedAt = changes;
+    const value = await compute();
+    // A change during the query may not be in the result: return it, but don't keep it.
+    if (startedAt === changes) adminViews.set(key, value);
+    return value;
+  }
 
   /** Summed KaffeK weights of some order lines, for comparing against the courier's billed weight. */
   async function shipmentWeight(lines: { sku: string; quantity: number }[]): Promise<ShipmentWeight> {
@@ -299,8 +318,11 @@ export function createOrderService(deps: {
 
     /** No database access: an open admin tab polls this instead of the dashboard. */
     pulse(): AdminPulse {
-      return { version: `${bootId}.${ordersPlaced}` };
+      return { version: `${bootId}.${changes}` };
     },
+
+    /** Orders (may) have changed outside this service: an admin write or a finished sync. */
+    markChanged,
 
     /**
      * Emails the customer what fits the order's current status: the full receipt while it waits for
@@ -439,7 +461,7 @@ export function createOrderService(deps: {
             include: orderInclude,
           });
           log.info({ order: order.number, total: order.totalRsd }, 'Order created');
-          ordersPlaced++;
+          markChanged();
           // Fire-and-forget: the customer gets their confirmation page immediately; delivery is recorded.
           void notifyCreated(order);
           return { number: order.number, accessToken: order.accessToken };
@@ -462,7 +484,13 @@ export function createOrderService(deps: {
       return toView(order);
     },
 
-    async listForAdmin(query: {
+    /** Cached until orders change. */
+    async listForAdmin(query: { status?: string; q?: string; page: number }) {
+      const key = `orders:${JSON.stringify([query.status ?? '', query.q ?? '', query.page])}`;
+      return cachedView(key, () => this.listForAdminFresh(query));
+    },
+
+    async listForAdminFresh(query: {
       status?: string;
       q?: string;
       page: number;
@@ -567,7 +595,14 @@ export function createOrderService(deps: {
     },
 
     /** Everything the owner needs at a glance. */
+    /** Cached until orders change or the day turns (today/7-day/month figures depend on the date). */
     async dashboard(now = new Date()): Promise<AdminDashboard> {
+      const day = new Date(now);
+      day.setHours(0, 0, 0, 0);
+      return cachedView(`dashboard:${day.getTime()}`, () => this.dashboardFresh(now));
+    },
+
+    async dashboardFresh(now: Date): Promise<AdminDashboard> {
       const startOfDay = new Date(now);
       startOfDay.setHours(0, 0, 0, 0);
       const weekAgo = new Date(now.getTime() - 7 * 86_400_000);
