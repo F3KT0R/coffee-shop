@@ -589,15 +589,61 @@ describe('Kafe klub and the admin overview', () => {
     });
   });
 
-  it('changes the admin pulse only when an order is placed', async () => {
+  it('changes the admin pulse when orders change, not when shoppers browse', async () => {
     const headers = await login();
     const pulse = async () => (await ctx.app.inject({ url: '/api/admin/pulse', headers })).json().version;
     expect((await ctx.app.inject('/api/admin/pulse')).statusCode).toBe(401);
 
     const before = await pulse();
     expect(await pulse()).toBe(before);
+    await ctx.app.inject({
+      method: 'POST',
+      url: '/api/cart/quote',
+      payload: { items: [{ sku: '100341', quantity: 1 }] },
+    });
+    expect(await pulse()).toBe(before);
+
+    const { number } = (await placeOrder()).json<CreateOrderResponse>();
+    const afterOrder = await pulse();
+    expect(afterOrder).not.toBe(before);
+
+    await ctx.app.inject({
+      method: 'POST',
+      url: `/api/admin/orders/${number}/status`,
+      headers,
+      payload: { status: 'CONFIRMED' },
+    });
+    expect(await pulse()).not.toBe(afterOrder);
+  });
+
+  it('serves the dashboard and order list from memory until orders change', async () => {
+    const headers = await login();
+    const dashboard = async () => (await ctx.app.inject({ url: '/api/admin/dashboard', headers })).json();
+    const list = async () => (await ctx.app.inject({ url: '/api/admin/orders', headers })).json();
+    const { number } = (await placeOrder()).json<CreateOrderResponse>();
+    expect((await dashboard()).counts.NEW).toBe(1);
+    expect((await list()).total).toBe(1);
+
+    // A direct database change isn't seen: repeated polling doesn't query the database.
+    await testDb.db.order.updateMany({ data: { status: 'CANCELLED' } });
+    expect((await dashboard()).counts.NEW).toBe(1);
+    expect((await list()).items[0].status).toBe('NEW');
+
+    // A change through the API refreshes both views.
+    await testDb.db.order.updateMany({ data: { status: 'NEW' } });
+    await ctx.app.inject({
+      method: 'POST',
+      url: `/api/admin/orders/${number}/status`,
+      headers,
+      payload: { status: 'CONFIRMED' },
+    });
+    expect((await dashboard()).counts).toMatchObject({ NEW: 0, CONFIRMED: 1 });
+    expect((await list()).items[0].status).toBe('CONFIRMED');
+
+    // So does a new order.
     await placeOrder();
-    expect(await pulse()).not.toBe(before);
+    expect((await dashboard()).counts.NEW).toBe(1);
+    expect((await list()).total).toBe(2);
   });
 
   it('summarises orders, revenue and profit on the dashboard and lists customers', async () => {

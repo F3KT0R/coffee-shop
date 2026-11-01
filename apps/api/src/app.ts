@@ -66,9 +66,24 @@ export async function buildApp(deps: AppDeps): Promise<App> {
     fetch: deps.fetch,
     pageDelayMs: deps.syncPageDelayMs,
     // The public catalog is served from memory; reload it once the sync has written new products.
-    onFinished: () => catalog.invalidate(),
+    // Also refreshes the admin views, which show the last sync time.
+    onFinished: () => {
+      catalog.invalidate();
+      orders.markChanged();
+    },
   });
   const version = process.env.RENDER_GIT_COMMIT?.slice(0, 7) ?? 'dev';
+
+  // A successful admin change (status, Instagram handle, purchase marking...) refreshes the cached admin views.
+  app.addHook('onResponse', async (request, reply) => {
+    if (
+      request.method !== 'GET' &&
+      reply.statusCode < 400 &&
+      request.url.startsWith('/api/admin/') &&
+      !/^\/api\/admin\/(login|logout)\b/.test(request.url)
+    )
+      orders.markChanged();
+  });
 
   await registerPublicRoutes(app, { env, db, catalog, orders, version });
   await registerAdminRoutes(app, { env, db, orders, sync });
