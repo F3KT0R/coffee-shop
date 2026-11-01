@@ -14,6 +14,15 @@ services:
     # Liveness only (no database access), so Render's frequent checks don't keep Neon awake.
     healthCheckPath: /api/ping
     autoDeploy: true
+    # Deploy only when the API can have changed: a web-only or docs commit doesn't rebuild and restart it
+    # (saves build minutes and a database wake-up for the migration check on start).
+    buildFilter:
+      paths:
+        - apps/api/**
+        - packages/core/**
+        - package.json
+        - package-lock.json
+        - render.yaml
     envVars:
       - key: NODE_ENV
         value: production

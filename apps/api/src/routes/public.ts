@@ -8,14 +8,24 @@ import {
   type HealthResponse,
   type ShopConfigResponse,
 } from '@kafeshop/core';
-import type { FastifyInstance } from 'fastify';
+import type { FastifyInstance, FastifyReply } from 'fastify';
 import type { CatalogRepository } from '../catalog/repository.js';
 import type { Db } from '../db.js';
 import { mailConfigured, type Env } from '../env.js';
 import { notFound, parseInput } from '../http/errors.js';
 import type { OrderService } from '../orders/service.js';
 
-const CATALOG_CACHE = 'public, max-age=60, stale-while-revalidate=600';
+/**
+ * Catalog responses: browsers keep them a minute; Netlify's CDN (the /api proxy) keeps them 5 minutes in
+ * its shared, durable cache and then serves the stale copy while it refreshes in the background. Repeat
+ * visits are answered at the edge without reaching Render, which saves its bandwidth and work. Prices
+ * change once a day (sync), so a few minutes' delay is harmless.
+ */
+function cacheCatalog(reply: FastifyReply) {
+  reply.header('Cache-Control', 'public, max-age=60, stale-while-revalidate=600');
+  reply.header('Netlify-CDN-Cache-Control', 'public, durable, max-age=300, stale-while-revalidate=86400');
+}
+
 const STALE_AFTER_MS = 48 * 60 * 60 * 1000;
 
 export async function registerPublicRoutes(
@@ -57,7 +67,7 @@ export async function registerPublicRoutes(
   });
 
   app.get('/api/config', async (_request, reply): Promise<ShopConfigResponse> => {
-    reply.header('Cache-Control', CATALOG_CACHE);
+    cacheCatalog(reply);
     return {
       ordersOpen: env.ORDERS_OPEN,
       closedMessage: env.ORDERS_CLOSED_MESSAGE,
@@ -73,13 +83,13 @@ export async function registerPublicRoutes(
       z.object({ category: z.string().max(40).optional(), system: z.string().max(40).optional() }),
       request.query,
     );
-    reply.header('Cache-Control', CATALOG_CACHE);
+    cacheCatalog(reply);
     return catalog.meta(context);
   });
 
   app.get('/api/products', async (request, reply) => {
     const query = parseInput(productQuerySchema, request.query);
-    reply.header('Cache-Control', CATALOG_CACHE);
+    cacheCatalog(reply);
     return catalog.list(query);
   });
 
@@ -87,7 +97,7 @@ export async function registerPublicRoutes(
     const { slug } = parseInput(z.object({ slug: z.string().min(1).max(200) }), request.params);
     const product = await catalog.bySlug(slug);
     if (!product) throw notFound('Proizvod nije pronađen.');
-    reply.header('Cache-Control', CATALOG_CACHE);
+    cacheCatalog(reply);
     return { product, related: await catalog.related(product) };
   });
 

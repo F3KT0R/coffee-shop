@@ -32,6 +32,9 @@ export function parseInput<T extends z.ZodType>(schema: T, input: unknown): z.ou
 
 export function registerErrorHandling(app: FastifyInstance): void {
   app.setErrorHandler<FastifyError | AppError>((error, request, reply) => {
+    // A route may have set catalog cache headers before failing: never let a CDN keep an error.
+    reply.removeHeader('Netlify-CDN-Cache-Control');
+    reply.header('Cache-Control', 'no-store');
     if (error instanceof AppError) {
       const body: ApiErrorBody = { error: { code: error.code, message: error.message, ...error.extra } };
       return reply.status(error.statusCode).send(body);

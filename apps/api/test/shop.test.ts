@@ -70,6 +70,7 @@ describe('catalog API', () => {
     const inStock = body.items.filter((p) => p.inStock).map((p) => p.priceRsd);
     expect(inStock).toEqual([...inStock].sort((a, b) => a - b));
     expect(response.headers['cache-control']).toContain('max-age');
+    expect(response.headers['netlify-cdn-cache-control']).toContain('durable');
   });
 
   it('searches across name, brand and system', async () => {
@@ -104,7 +105,11 @@ describe('catalog API', () => {
     expect(response.statusCode).toBe(200);
     expect(response.json().product).toMatchObject({ sku: '100341', priceRsd: 1_950 });
     expect(Array.isArray(response.json().related)).toBe(true);
-    expect((await ctx.app.inject('/api/products/nope')).statusCode).toBe(404);
+    const missing = await ctx.app.inject('/api/products/nope');
+    expect(missing.statusCode).toBe(404);
+    // Errors must never be kept by the CDN.
+    expect(missing.headers['netlify-cdn-cache-control']).toBeUndefined();
+    expect(missing.headers['cache-control']).toBe('no-store');
   });
 
   it('returns facet counts', async () => {
