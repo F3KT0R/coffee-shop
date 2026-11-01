@@ -69,6 +69,10 @@ the API avoids touching it when nobody needs it:
 - `/api/ping` (keep-warm, Render health check) never queries the database; `/api/health` does, so don't
   point an uptime monitor at it every few minutes.
 - Responses over 1 KB are gzip/brotli-compressed, which cuts Render's outbound bandwidth.
+- Catalog responses carry `Netlify-CDN-Cache-Control` (5 minutes, then served stale while refreshing), so
+  Netlify's CDN answers repeat visits at the edge without reaching Render. Errors are never cached.
+- Render deploys only when the API can have changed (`buildFilter` in `render.yaml`): web-only and docs
+  commits don't rebuild or restart it.
 
 **Orders.** The browser sends only SKUs and quantities; the server prices the cart, rejects changed carts
 with the exact reasons, and snapshots every line. Checkout is idempotent (retries can't duplicate orders)
@@ -156,6 +160,10 @@ Schema changes: edit `apps/api/prisma/schema.prisma`, then
    ~50 s; the site shows a friendly retry). Create a free [cron-job.org](https://cron-job.org) job:
    `GET https://kafeshop-api.onrender.com/api/ping` every 10 minutes. `/api/ping` never touches the
    database, so it doesn't consume Neon compute hours. Or use Render's paid plan and skip this.
+   Render's 750 free instance hours a month are shared by **all** free services in the workspace, and a
+   service kept awake 24/7 uses ~744 of them. If another free service also needs hours, limit the job to
+   the shop's busy hours (e.g. 07:00–01:00 in cron-job.org's schedule): the API sleeps at night and the
+   first night-time visitor waits ~50 s. The nightly GitHub sync workflow wakes it for the catalog sync.
 5. **Email (optional)**: Render's free plan blocks outbound SMTP ports, so emails go through a Gmail
    relay: a Google Apps Script web app in the shop's Gmail account ([`apps/api/mail-relay/Code.gs`](apps/api/mail-relay/Code.gs),
    setup steps at the top of the file). On Render set `MAIL_RELAY_URL` (the web app's `/exec` URL),
