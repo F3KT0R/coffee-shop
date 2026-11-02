@@ -192,6 +192,38 @@ smtp.gmail.com`, `SMTP_USER`, `SMTP_PASS` = app password, `MAIL_FROM`).
 
 Health: `GET /api/health` reports database status, product count and whether the catalog is stale (>48 h).
 
+## Backups
+
+`npm run db:backup --workspace @kafeshop/api` saves the whole database into a local folder as one
+gzipped JSON file (`kafeshop-2026-11-02_03-30.json.gz`, ~0.5 MB), **only if the orders changed** since
+the last backup: new orders, status changes, notes, sent emails. The catalog tables change every night
+(the sync re-prices products with the day's exchange rate), so they don't trigger a backup, but every
+backup contains all tables. The check runs in the database and only transfers a fingerprint, so a night
+without changes costs a few bytes and a few minutes of Neon compute.
+
+Settings live in an env file outside the repository (it holds the production password):
+
+```ini
+# D:\backups\coffee-shop\backup.env
+BACKUP_DATABASE_URL=postgresql://...neon.tech/neondb?sslmode=require
+BACKUP_DIR=D:\backups\coffee-shop
+```
+
+Nightly run (Windows Task Scheduler, task _Coffee shop DB backup_, daily 03:30; if the computer was off
+or asleep, it runs as soon as it is back on). Each run appends a line to `backup.log` in the backup folder:
+
+```powershell
+$cmd = 'cd /d D:\code\coffee-shop\apps\api && npx tsx --env-file=D:\backups\coffee-shop\backup.env scripts\backup-db.ts >> D:\backups\coffee-shop\backup.log 2>&1'
+Register-ScheduledTask -TaskName 'Coffee shop DB backup' -Action (New-ScheduledTaskAction -Execute 'cmd.exe' -Argument "/c $cmd") `
+  -Trigger (New-ScheduledTaskTrigger -Daily -At 3:30) -Settings (New-ScheduledTaskSettingsSet -StartWhenAvailable)
+```
+
+Force a backup: add `-- --force`. Restore: create an empty database, apply the schema
+(`npm run db:deploy` with that database's URL), then run
+`npm run db:backup --workspace @kafeshop/api -- restore latest` (or a file path) with
+`RESTORE_DATABASE_URL` set to it. A restore refuses a database that already holds data, and it is all or
+nothing.
+
 ## Configuration
 
 All API settings are documented in [`apps/api/.env.example`](apps/api/.env.example) and validated at boot
