@@ -93,6 +93,19 @@ export async function registerPublicRoutes(
     return catalog.list(query);
   });
 
+  /**
+   * The whole public catalog, for the web app's copy: it browses the copy while the API is asleep.
+   * The ETag is the sync it comes from, so an up-to-date copy is confirmed with an empty 304.
+   */
+  app.get('/api/catalog/copy', async (request, reply) => {
+    const { json, lastSyncAt } = await catalog.copy();
+    const etag = `"${lastSyncAt ?? 'never'}"`;
+    cacheCatalog(reply);
+    reply.header('ETag', etag);
+    if (request.headers['if-none-match'] === etag) return reply.status(304).send();
+    return reply.type('application/json; charset=utf-8').send(json);
+  });
+
   app.get('/api/products/:slug', async (request, reply) => {
     const { slug } = parseInput(z.object({ slug: z.string().min(1).max(200) }), request.params);
     const product = await catalog.bySlug(slug);

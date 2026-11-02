@@ -1,6 +1,7 @@
 export * from './api.js';
 export * from './cart.js';
 export * from './catalog.js';
+export * from './catalogIndex.js';
 export * from './loyalty.js';
 export * from './instagram.js';
 export * from './kaffek/mapper.js';

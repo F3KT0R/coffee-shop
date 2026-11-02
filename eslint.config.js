@@ -26,6 +26,11 @@ export default defineConfig(
     rules: { 'no-console': 'off' },
   },
   {
+    files: ['apps/web/scripts/**/*.mjs'],
+    languageOptions: { globals: globals.node },
+    rules: { 'no-console': 'off' },
+  },
+  {
     files: ['apps/web/**/*.{ts,tsx}'],
     languageOptions: { globals: globals.browser },
     plugins: { 'react-hooks': reactHooks, 'react-refresh': reactRefresh },

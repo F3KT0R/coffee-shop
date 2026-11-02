@@ -1,4 +1,13 @@
-import type { CreateOrderResponse, OrderView, ProductListResponse } from '@kafeshop/core';
+import {
+  createCatalogIndex,
+  fromCopyProduct,
+  productQuerySchema,
+  type CatalogCopy,
+  type CreateOrderResponse,
+  type OrderView,
+  type ProductDetailResponse,
+  type ProductListResponse,
+} from '@kafeshop/core';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { App } from '../src/app.js';
 import {
@@ -178,6 +187,50 @@ describe('catalog API', () => {
     // The sync reactivates the product (it is still at the source) and the catalog is reloaded.
     await syncNow(ctx);
     expect(await skus()).toContain('100341');
+  });
+
+  it('serves the whole catalog as a copy that gives the same answers as the API', async () => {
+    const response = await ctx.app.inject('/api/catalog/copy');
+    expect(response.statusCode).toBe(200);
+    expect(response.headers['netlify-cdn-cache-control']).toContain('durable');
+    const copy = response.json<CatalogCopy>();
+    const index = createCatalogIndex(copy.products.map(fromCopyProduct), copy.lastSyncAt);
+    expect(copy.lastSyncAt).not.toBeNull();
+    expect(response.headers.etag).toBe(`"${copy.lastSyncAt}"`);
+    // Never the landed cost or other internal fields.
+    expect(Object.keys(copy.products[0]!)).not.toContain('costRsd');
+
+    const queries = [
+      '',
+      'category=kapsule&system=nespresso&sort=price-asc',
+      'q=borbone',
+      'q=dolce%20gusto&sort=rating',
+      'sort=name&pageSize=5&page=2',
+      'sort=newest',
+      'intensity=4,5&sort=price-desc',
+    ];
+    for (const query of queries) {
+      const live = (await ctx.app.inject(`/api/products?${query}`)).json<ProductListResponse>();
+      const params = Object.fromEntries(new URLSearchParams(query));
+      expect(index.list(productQuerySchema.parse(params)), query).toEqual(live);
+    }
+    const contexts: Record<string, string>[] = [{}, { category: 'kapsule' }, { system: 'nespresso' }];
+    for (const context of contexts) {
+      const live = (await ctx.app.inject(`/api/catalog/meta?${new URLSearchParams(context)}`)).json();
+      expect(index.meta(context)).toEqual(live);
+    }
+    const detail = (await ctx.app.inject('/api/products?pageSize=1')).json<ProductListResponse>().items[0]!;
+    const live = (await ctx.app.inject(`/api/products/${detail.slug}`)).json<ProductDetailResponse>();
+    const entry = index.bySlug(detail.slug)!;
+    expect({ product: entry.product, related: index.related(entry.product) }).toEqual(live);
+
+    // An up-to-date copy is confirmed without sending it again.
+    const again = await ctx.app.inject({
+      url: '/api/catalog/copy',
+      headers: { 'if-none-match': response.headers.etag as string },
+    });
+    expect(again.statusCode).toBe(304);
+    expect(again.body).toBe('');
   });
 
   it('compresses larger responses', async () => {
