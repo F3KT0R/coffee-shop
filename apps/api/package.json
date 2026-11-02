@@ -17,7 +17,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:migration": "tsx scripts/new-migration.ts",
     "db:studio": "prisma studio",
-    "sync:now": "tsx --env-file-if-exists=.env scripts/sync-now.ts"
+    "sync:now": "tsx --env-file-if-exists=.env scripts/sync-now.ts",
+    "db:backup": "tsx scripts/backup-db.ts"
   },
   "dependencies": {
     "@fastify/compress": "9.2.1",

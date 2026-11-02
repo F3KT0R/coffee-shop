@@ -8,8 +8,20 @@ import {
   type ProductDetailResponse,
   type ProductListResponse,
 } from '@kafeshop/core';
+import { mkdtemp, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import pg from 'pg';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import type { App } from '../src/app.js';
+import {
+  TABLES,
+  fingerprint,
+  latestBackup,
+  readBackupFile,
+  restoreBackup,
+  runBackup,
+} from '../src/backup/backup.js';
 import {
   createTestApp,
   flush,
@@ -781,5 +793,52 @@ describe('Instagram handle and shipping', () => {
         itemCount: 2,
       }),
     ]);
+  });
+});
+
+describe('local backups', () => {
+  it('backs up only when orders changed, and restores into an empty database', async () => {
+    const dir = await mkdtemp(join(tmpdir(), 'kafeshop-backup-'));
+    const client = new pg.Client({ connectionString: testDb.url });
+    await client.connect();
+    try {
+      const { number } = (await placeOrder()).json<CreateOrderResponse>();
+      await flush();
+
+      const first = await runBackup(client, dir, { now: new Date(2026, 10, 2, 3, 30) });
+      expect(first).toMatchObject({ status: 'created', file: 'kafeshop-2026-11-02_03-30.json.gz' });
+      expect(first.status === 'created' && first.rows.Order).toBe(1);
+
+      // A catalog sync changes products and logs a run, but no orders: no new backup.
+      await syncNow(ctx);
+      expect(await runBackup(client, dir)).toEqual({
+        status: 'unchanged',
+        since: 'kafeshop-2026-11-02_03-30.json.gz',
+      });
+
+      // A status change is an order change.
+      await ctx.app.inject({
+        method: 'POST',
+        url: `/api/admin/orders/${number}/status`,
+        headers: await login(),
+        payload: { status: 'CONFIRMED' },
+      });
+      await flush();
+      const second = await runBackup(client, dir, { now: new Date(2026, 10, 3, 3, 30) });
+      expect(second).toMatchObject({ status: 'created', file: 'kafeshop-2026-11-03_03-30.json.gz' });
+
+      // Restore the newest backup into the (emptied) database: every table comes back identical.
+      const before = await fingerprint(client, TABLES);
+      const path = (await latestBackup(dir))!;
+      expect(path).toContain('2026-11-03');
+      const backup = await readBackupFile(path);
+      await expect(restoreBackup(client, backup)).rejects.toThrow(/not empty/);
+      await testDb.reset();
+      await restoreBackup(client, backup);
+      expect(await fingerprint(client, TABLES)).toBe(before);
+    } finally {
+      await client.end();
+      await rm(dir, { recursive: true, force: true });
+    }
   });
 });
