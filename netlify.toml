@@ -4,7 +4,8 @@
 [build]
   base = "/"
   # Node version comes from .nvmrc.
-  command = "npm ci && npm run build --workspace @kafeshop/core && npm run build --workspace @kafeshop/web"
+  # The last step saves the live catalog into the deploy (apps/web/scripts/catalog-copy.mjs).
+  command = "npm ci && npm run build --workspace @kafeshop/core && npm run build --workspace @kafeshop/web && node apps/web/scripts/catalog-copy.mjs"
   publish = "apps/web/dist"
 
 # --- API proxy -------------------------------------------------------------------------------------

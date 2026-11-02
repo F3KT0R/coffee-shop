@@ -74,6 +74,21 @@ the API avoids touching it when nobody needs it:
 - Render deploys only when the API can have changed (`buildFilter` in `render.yaml`): web-only and docs
   commits don't rebuild or restart it.
 
+**Browsing while the API sleeps (catalog copy).** Render's free plan puts the API to sleep after 15 idle
+minutes, and waking it takes ~50 s. So that the shop doesn't need a keep-warm ping, the web app keeps a copy of
+the whole public catalog (`GET /api/catalog/copy`, ~350 KB compressed):
+
+- Every page load pings the API. If it doesn't answer within 1.5 s, product lists, filters, search and
+  product pages are answered from the copy, with the same code the API uses
+  (`packages/core/src/catalogIndex.ts`), so results are identical.
+- As soon as the API is awake, everything shown from the copy is reloaded with live data, and the
+  browser's copy (Cache Storage) is updated. Its ETag is the last sync, so an up-to-date copy costs an
+  empty 304, not a new download.
+- First-time visitors get the copy baked into the Netlify deploy (`/catalog.json`, saved at build time by
+  `apps/web/scripts/catalog-copy.mjs`; the build still succeeds without it). It is as old as the last
+  deploy, which is fine: it is only shown until the API wakes up, and the cart and checkout always use
+  live prices.
+
 **Orders.** The browser sends only SKUs and quantities; the server prices the cart, rejects changed carts
 with the exact reasons, and snapshots every line. Checkout is idempotent (retries can't duplicate orders)
 and rate-limited. Each order has a private status link. Emails are sent from the server and every
@@ -156,14 +171,16 @@ Schema changes: edit `apps/api/prisma/schema.prisma`, then
 3. **Web — Netlify**: connect the repository to the existing `kafeshop` site. `netlify.toml` does the
    rest. If the Render service URL differs from `https://kafeshop-api.onrender.com`, update the `/api/*`
    redirect in `netlify.toml`.
-4. **Keep-warm (recommended)**: Render's free plan sleeps after 15 idle minutes (first visitor then waits
-   ~50 s; the site shows a friendly retry). Create a free [cron-job.org](https://cron-job.org) job:
-   `GET https://kafeshop-api.onrender.com/api/ping` every 10 minutes. `/api/ping` never touches the
-   database, so it doesn't consume Neon compute hours. Or use Render's paid plan and skip this.
-   Render's 750 free instance hours a month are shared by **all** free services in the workspace, and a
-   service kept awake 24/7 uses ~744 of them. If another free service also needs hours, limit the job to
-   the shop's busy hours (e.g. 07:00–01:00 in cron-job.org's schedule): the API sleeps at night and the
-   first night-time visitor waits ~50 s. The nightly GitHub sync workflow wakes it for the catalog sync.
+4. **Keep-warm (optional)**: Render's free plan sleeps after 15 idle minutes. Thanks to the catalog copy
+   (see above) visitors can browse right away anyway; only the cart and checkout wait for the API (~50 s
+   after a quiet spell, with a friendly retry). To keep it awake during busy hours, create a free
+   [cron-job.org](https://cron-job.org) job: `GET https://kafeshop-api.onrender.com/api/ping` every
+   10 minutes (it must be under 15), restricted to those hours (e.g. `*/10 18-22 * * *`, time zone
+   Europe/Belgrade). Pinging less often than every 15 minutes only wakes it briefly and gains nothing.
+   `/api/ping` never touches the database. Render's 750 free instance hours a month are shared by **all**
+   free services in the workspace: a service kept awake 24/7 uses ~744 of them, and going over suspends
+   every free service until the next month. The nightly GitHub sync workflow wakes the API for the
+   catalog sync.
 5. **Email (optional)**: Render's free plan blocks outbound SMTP ports, so emails go through a Gmail
    relay: a Google Apps Script web app in the shop's Gmail account ([`apps/api/mail-relay/Code.gs`](apps/api/mail-relay/Code.gs),
    setup steps at the top of the file). On Render set `MAIL_RELAY_URL` (the web app's `/exec` URL),
