@@ -1,7 +1,13 @@
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest';
-import { DEFAULT_PRICING, landedCostRsd, shopPriceRsd } from '@kafeshop/core';
+import { readFileSync } from 'node:fs';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { DEFAULT_PRICING, landedCostRsd, shopPriceRsd, shopPrices } from '@kafeshop/core';
 import { parseOtpGbpSellRate } from '../src/ingestion/exchangeRate.js';
-import { createTestApp, fixtureItems, startTestDb, syncNow, type TestDb } from './helpers.js';
+import { parseListingPage } from '../src/ingestion/kaffekListing.js';
+import { createTestApp, fixtureItems, listingHtml, startTestDb, syncNow, type TestDb } from './helpers.js';
+
+const here = dirname(fileURLToPath(import.meta.url));
 
 let testDb: TestDb;
 beforeAll(async () => {
@@ -203,5 +209,123 @@ describe('parseOtpGbpSellRate', () => {
 
   it('returns null when GBP is missing', () => {
     expect(parseOtpGbpSellRate('<tr><td>EUR</td><td>1</td></tr>')).toBeNull();
+  });
+});
+
+describe('category page fallback (GraphQL unavailable)', () => {
+  const DG = 'https://kaffek.co.uk/dolce-gusto/pods-for-dolce-gusto.html';
+  const NESPRESSO = 'https://kaffek.co.uk/nespresso/pods-for-nespresso.html';
+  const rules = { ...DEFAULT_PRICING, gbpToRsdRate: 140 };
+
+  /** Imports the fixture catalog over GraphQL, then blocks GraphQL with a 403. */
+  async function blockedApp(listingPages: Record<string, string>) {
+    const app = await createTestApp(testDb, { env: { KAFFEK_LISTING_URLS: `${DG},${NESPRESSO}` } });
+    await syncNow(app);
+    app.source.graphqlStatus = 403;
+    app.source.listingPages = listingPages;
+    return app;
+  }
+
+  it('reads the real KaffeK tile markup', () => {
+    const html = readFileSync(resolve(here, 'fixtures/kaffek-listing-excerpt.html'), 'utf8');
+    const page = parseListingPage(html);
+    expect(page.totalCount).toBe(208);
+    expect(page.offers.length).toBeGreaterThanOrEqual(2);
+    // First tile in the excerpt: Flat White, £2.89, in stock.
+    expect(page.offers[0]).toEqual({
+      sku: '101330',
+      priceGbp: 2.89,
+      regularPriceGbp: null,
+      inStock: true,
+      systems: ['dolce-gusto'],
+    });
+  });
+
+  it('refreshes price and stock of existing products, walking every page', async () => {
+    const app = await blockedApp({
+      [DG]: listingHtml(
+        [{ id: 1, sku: '100800', price: 1.9, oldPrice: 2.1, inStock: false, compatibility: 'Dolce Gusto' }],
+        2,
+      ),
+      [`${DG}?p=2`]: listingHtml(
+        [{ id: 2, sku: '999999', price: 3, inStock: true, compatibility: 'Dolce Gusto' }],
+        2,
+      ),
+      [NESPRESSO]: listingHtml(
+        ['100341', '100575', '108905'].map((sku, i) => ({
+          id: 10 + i,
+          sku,
+          price: 5,
+          inStock: true,
+          compatibility: 'Nespresso',
+        })),
+        3,
+      ),
+    });
+
+    const run = await syncNow(app);
+    expect(run).toMatchObject({ status: 'SUCCEEDED', fetched: 5, complete: true });
+    expect(run.error).toContain('HTTP 403');
+    const dg = await testDb.db.product.findUniqueOrThrow({ where: { sku: '100800' } });
+    expect(dg).toMatchObject({
+      inStock: false,
+      syncHash: '',
+      ...shopPrices(
+        { priceGbp: 1.9, regularPriceGbp: 2.1, weightKg: dg.weightKg, category: 'kapsule' },
+        rules,
+      ),
+    });
+    expect(Number(dg.priceGbp)).toBe(1.9);
+    expect(Number(dg.regularPriceGbp)).toBe(2.1);
+    expect(await testDb.db.product.findUnique({ where: { sku: '999999' } })).toBeNull();
+    await app.app.close();
+  });
+
+  it('marks products missing from a fully read listing of their system sold out, and nothing else', async () => {
+    const app = await blockedApp({
+      [DG]: listingHtml(
+        [{ id: 1, sku: '100800', price: 1.7, inStock: true, compatibility: 'Dolce Gusto' }],
+        1,
+      ),
+      [NESPRESSO]: listingHtml(
+        [{ id: 10, sku: '100341', price: 8.29, inStock: true, compatibility: 'Nespresso' }],
+        1,
+      ),
+    });
+
+    await syncNow(app);
+    const stock = Object.fromEntries(
+      (await testDb.db.product.findMany({ select: { sku: true, inStock: true, active: true } })).map((p) => [
+        p.sku,
+        p,
+      ]),
+    );
+    expect(stock['100575']).toEqual({ sku: '100575', inStock: false, active: true });
+    expect(stock['108905']?.inStock).toBe(false);
+    expect(stock['100341']?.inStock).toBe(true);
+    expect(stock['100699']?.inStock).toBe(true); // Senseo: no listing covers it
+    await app.app.close();
+  });
+
+  it('marks nothing sold out when a category page fails', async () => {
+    const app = await blockedApp({
+      [NESPRESSO]: listingHtml(
+        [{ id: 10, sku: '100341', price: 8.29, inStock: true, compatibility: 'Nespresso' }],
+        1,
+      ),
+    });
+
+    const run = await syncNow(app);
+    expect(run).toMatchObject({ status: 'SUCCEEDED', complete: false });
+    expect((await testDb.db.product.findUniqueOrThrow({ where: { sku: '100575' } })).inStock).toBe(true);
+    await app.app.close();
+  });
+
+  it('fails the run when the category pages return nothing either', async () => {
+    const app = await blockedApp({});
+    const run = await syncNow(app);
+    expect(run.status).toBe('FAILED');
+    expect(run.error).toContain('HTTP 403');
+    await app.app.close();
   });
 });

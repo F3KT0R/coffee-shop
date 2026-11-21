@@ -4,6 +4,8 @@ import {
   mapKaffekItem,
   normalizeSearch,
   priceProduct,
+  shopPrices,
+  type CategorySlug,
   type PricingRules,
   type SyncRunView,
 } from '@kafeshop/core';
@@ -11,7 +13,8 @@ import type { FastifyBaseLogger } from 'fastify';
 import type { Db } from '../db.js';
 import type { SyncRun } from '../generated/prisma/client.js';
 import { resolveGbpRate } from './exchangeRate.js';
-import { fetchKaffekCatalog } from './kaffekClient.js';
+import { fetchKaffekCatalog, type KaffekCatalog } from './kaffekClient.js';
+import { fetchListingCatalog } from './kaffekListing.js';
 
 /** A RUNNING row older than this is a crashed run, not a live one. */
 const STALE_RUN_MS = 30 * 60 * 1000;
@@ -44,6 +47,8 @@ export interface SyncDeps {
   fetch?: typeof fetch;
   /** Test hook: no pauses between source pages. */
   pageDelayMs?: number;
+  /** KaffeK category pages that refresh price and stock while the GraphQL catalog is unavailable. */
+  listingUrls?: readonly string[];
   /** Called after every run (even a failed one may have written products), e.g. to reload the catalog. */
   onFinished?: () => void;
 }
@@ -53,9 +58,16 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
   const { rate, source } = await resolveGbpRate({ db, log, fetch: deps.fetch });
   await db.syncRun.update({ where: { id: run.id }, data: { gbpRsdRate: rate, rateSource: source } });
 
-  const catalog = await fetchKaffekCatalog({ fetch: deps.fetch, log, pageDelayMs: deps.pageDelayMs });
-  const now = new Date();
   const rules: PricingRules = { ...deps.pricing, gbpToRsdRate: rate };
+  let catalog: KaffekCatalog;
+  try {
+    catalog = await fetchKaffekCatalog({ fetch: deps.fetch, log, pageDelayMs: deps.pageDelayMs });
+  } catch (error) {
+    if (!deps.listingUrls?.length) throw error;
+    log.warn({ err: error }, 'KaffeK GraphQL failed, refreshing price and stock from category pages');
+    return refreshFromListings(deps, run, rules, (error as Error).message);
+  }
+  const now = new Date();
 
   const products = [];
   const keepAsIs = new Set<string>(); // present at the source but unreadable this time -- don't retire
@@ -203,6 +215,108 @@ async function executeSync(deps: SyncDeps, run: SyncRun): Promise<SyncRun> {
       retired,
       complete: catalog.complete,
       error: note,
+    },
+  });
+}
+
+/**
+ * Updates price and stock of products we already have from KaffeK's category pages. Adds nothing and
+ * retires nothing: a product missing from a fully read listing of its machine system is marked sold out.
+ */
+async function refreshFromListings(
+  deps: SyncDeps,
+  run: SyncRun,
+  rules: PricingRules,
+  graphqlError: string,
+): Promise<SyncRun> {
+  const { db, log } = deps;
+  const listing = await fetchListingCatalog(deps.listingUrls!, {
+    fetch: deps.fetch,
+    log,
+    pageDelayMs: deps.pageDelayMs,
+  });
+  if (listing.offers.size === 0) throw new Error(`${graphqlError}; category pages returned no products`);
+
+  const now = new Date();
+  const stored = await db.product.findMany({
+    where: { active: true },
+    select: {
+      sku: true,
+      category: true,
+      systems: true,
+      weightKg: true,
+      priceGbp: true,
+      regularPriceGbp: true,
+      priceRsd: true,
+      costRsd: true,
+      inStock: true,
+    },
+  });
+
+  const updates = [];
+  for (const p of stored) {
+    const offer = listing.offers.get(p.sku);
+    if (!offer) continue;
+    const prices = shopPrices(
+      { ...offer, weightKg: p.weightKg, category: p.category as CategorySlug },
+      rules,
+    );
+    const unchanged =
+      Number(p.priceGbp) === offer.priceGbp &&
+      (p.regularPriceGbp === null ? null : Number(p.regularPriceGbp)) === offer.regularPriceGbp &&
+      p.priceRsd === prices.priceRsd &&
+      p.costRsd === prices.costRsd &&
+      p.inStock === offer.inStock;
+    if (unchanged) continue;
+    updates.push({
+      sku: p.sku,
+      // syncHash cleared so the next full sync rewrites the row with every attribute.
+      data: {
+        priceGbp: offer.priceGbp,
+        regularPriceGbp: offer.regularPriceGbp,
+        ...prices,
+        inStock: offer.inStock,
+        lastSeenAt: now,
+        syncHash: '',
+      },
+    });
+  }
+
+  // Sold out: in stock here, every system it fits is covered by the listing, yet it was not listed.
+  let note: string | null = null;
+  const covered = new Set<string>([...listing.offers.values()].flatMap((o) => o.systems));
+  const coveredProducts = stored.filter(
+    (p) => p.systems.length > 0 && p.systems.every((s) => covered.has(s)),
+  );
+  const vanished = coveredProducts.filter((p) => p.inStock && !listing.offers.has(p.sku)).map((p) => p.sku);
+  if (!listing.complete) {
+    note = 'Some category pages failed; no product marked sold out this run.';
+  } else if (vanished.length > Math.max(20, coveredProducts.length * MAX_RETIRE_SHARE)) {
+    note = `Safety limit: ${vanished.length} of ${coveredProducts.length} products would be marked sold out; left as they are.`;
+  } else {
+    for (const sku of vanished) updates.push({ sku, data: { inStock: false, syncHash: '' } });
+  }
+  if (note) log.warn(note);
+
+  for (let i = 0; i < updates.length; i += UPSERT_CHUNK) {
+    await db.$transaction(
+      updates
+        .slice(i, i + UPSERT_CHUNK)
+        .map(({ sku, data }) => db.product.update({ where: { sku }, data, select: { sku: true } })),
+    );
+  }
+
+  const summary = `KaffeK GraphQL failed (${graphqlError}); price and stock refreshed from category pages.`;
+  log.info({ listed: listing.offers.size, written: updates.length }, 'Catalog listing refresh finished');
+  return db.syncRun.update({
+    where: { id: run.id },
+    data: {
+      status: 'SUCCEEDED',
+      finishedAt: new Date(),
+      fetched: listing.offers.size,
+      upserted: updates.length,
+      complete: listing.complete,
+      error: note ? `${summary} ${note}` : summary,
     },
   });
 }
