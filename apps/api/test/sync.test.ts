@@ -231,11 +231,12 @@ describe('category page fallback (GraphQL unavailable)', () => {
     const page = parseListingPage(html);
     expect(page.totalCount).toBe(208);
     expect(page.offers.length).toBeGreaterThanOrEqual(2);
+    // First tile in the excerpt: Flat White, £2.89, in stock.
     expect(page.offers[0]).toEqual({
-      sku: '101350',
-      priceGbp: 2.29,
+      sku: '101330',
+      priceGbp: 2.89,
       regularPriceGbp: null,
-      inStock: false,
+      inStock: true,
       systems: ['dolce-gusto'],
     });
   });
@@ -263,7 +264,7 @@ describe('category page fallback (GraphQL unavailable)', () => {
     });
 
     const run = await syncNow(app);
-    expect(run).toMatchObject({ status: 'SUCCEEDED', fetched: 4, complete: true });
+    expect(run).toMatchObject({ status: 'SUCCEEDED', fetched: 5, complete: true });
     expect(run.error).toContain('HTTP 403');
     const dg = await testDb.db.product.findUniqueOrThrow({ where: { sku: '100800' } });
     expect(dg).toMatchObject({
