@@ -25,6 +25,20 @@ const envSchema = z.object({
 
   /** Hours between automatic catalog syncs run by the API process itself. 0 disables the scheduler. */
   AUTO_SYNC_HOURS: z.coerce.number().min(0).max(168).default(24),
+  /**
+   * Comma-separated KaffeK category pages (KaffeK agreed we may read them). When the GraphQL catalog fails,
+   * the sync refreshes price and stock of existing products from these instead. Empty disables the fallback.
+   */
+  KAFFEK_LISTING_URLS: z
+    .string()
+    .default('https://kaffek.co.uk/dolce-gusto/pods-for-dolce-gusto.html')
+    .transform((v) =>
+      v
+        .split(',')
+        .map((u) => u.trim())
+        .filter(Boolean),
+    )
+    .pipe(z.array(z.url())),
   /** Pricing: price = (UK price + kg × TRANSPORT_GBP_PER_KG) × rate × (1 + margin), at least cost + MIN_PROFIT_RSD. */
   PRICE_MARGIN_PERCENT: z.coerce.number().min(0).max(500).default(DEFAULT_PRICING.marginPercent),
   TRANSPORT_GBP_PER_KG: z.coerce.number().min(0).max(100).default(DEFAULT_PRICING.transportGbpPerKg),

@@ -65,6 +65,7 @@ export async function buildApp(deps: AppDeps): Promise<App> {
     pricing: pricingSettings(env),
     fetch: deps.fetch,
     pageDelayMs: deps.syncPageDelayMs,
+    listingUrls: env.KAFFEK_LISTING_URLS,
     // The public catalog is served from memory; reload it once the sync has written new products.
     // Also refreshes the admin views, which show the last sync time.
     onFinished: () => {

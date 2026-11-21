@@ -91,6 +91,51 @@ export interface FakeSource {
   totalCount?: number;
   otpSellRate?: number | null;
   requests: string[];
+  /** Answer KaffeK GraphQL with this HTTP status instead of data. */
+  graphqlStatus?: number;
+  /** KaffeK category pages by full URL (including `?p=N`); missing pages answer 404. */
+  listingPages?: Record<string, string>;
+}
+
+export interface FakeTile {
+  id: number;
+  sku: string;
+  price: number;
+  oldPrice?: number;
+  inStock: boolean;
+  compatibility: string;
+}
+
+/** Escapes like Magento's escapeJs: everything but letters, digits, comma and dot becomes a \u escape. */
+const escapeJs = (text: string) =>
+  text.replace(/[^a-zA-Z0-9,.]/g, (c) => `\\u${c.charCodeAt(0).toString(16).toUpperCase().padStart(4, '0')}`);
+
+/** A KaffeK category page in the markup the listing parser reads (see fixtures/kaffek-listing-excerpt.html). */
+export function listingHtml(tiles: FakeTile[], totalCount: number): string {
+  const ld = JSON.stringify({
+    '@type': 'CollectionPage',
+    mainEntity: { '@type': 'OfferCatalog', numberOfItems: totalCount },
+  });
+  const body = tiles.map((t) => {
+    const old = t.oldPrice
+      ? `<span data-price-amount="${t.oldPrice}" data-price-type="oldPrice"></span>`
+      : '';
+    const data = JSON.stringify({
+      title: t.sku,
+      price: t.price,
+      sku: t.sku,
+      in_stock: t.inStock,
+      compatibility: t.compatibility,
+    });
+    return `<div class="price-box" data-product-id="${t.id}" data-price-box="product-id-${t.id}">
+<span data-price-amount="${t.price}" data-price-type="finalPrice"></span>${old}</div>
+<form x-data @auth-id-defined.window="productDisplayed(
+        ${t.id},
+        0,
+        '${escapeJs(data)}'
+    )"></form>`;
+  });
+  return `<script type="application/ld+json">${ld}</script>\n${body.join('\n')}`;
 }
 
 /** Fake upstream: KaffeK GraphQL (paged) and OTP banka rates, from in-memory data. */
@@ -99,6 +144,7 @@ export function fakeFetch(source: FakeSource): typeof fetch {
     const url = String(input);
     source.requests.push(url);
     if (url.startsWith('https://kaffek.co.uk/graphql')) {
+      if (source.graphqlStatus) return new Response('Forbidden', { status: source.graphqlStatus });
       const { variables } = JSON.parse(String(init?.body)) as {
         variables: { page: number; pageSize: number };
       };
@@ -126,6 +172,10 @@ export function fakeFetch(source: FakeSource): typeof fetch {
 <tr><td>GBP</td><td><i class="flag gb"></i></td><td>Funta</td><td>132.0</td><td>136.0</td><td>${source.otpSellRate}</td><td>1</td></tr>`,
         },
       });
+    }
+    if (source.listingPages && url.startsWith('https://kaffek.co.uk/')) {
+      const html = source.listingPages[url];
+      return html === undefined ? new Response('missing', { status: 404 }) : new Response(html);
     }
     if (url.startsWith('https://open.er-api.com/')) return new Response('down', { status: 503 });
     throw new Error(`Unexpected fetch in test: ${url}`);

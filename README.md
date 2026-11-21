@@ -45,6 +45,14 @@ The sync is built to fail safe:
   rounded up to the next 50 RSD (all configurable, see `.env.example`). KaffeK sales are never passed on:
   the shop keeps its normal price and the discount is extra profit. Each product and order line also stores
   its landed cost, so the admin shows the estimated profit per order.
+- **Category page fallback.** When KaffeK's GraphQL catalog fails (for example HTTP 403), the sync reads
+  the KaffeK category pages in `KAFFEK_LISTING_URLS` instead (comma-separated; KaffeK agreed we may read
+  them; default: the Dolce Gusto pods page, every `?p=N` page included). Those pages carry price, sale
+  price, stock and machine system per SKU, but not the full product attributes, so the fallback only
+  updates the price and stock of products the shop already has: it adds and retires nothing. A product
+  missing from a fully read listing of every system it fits is marked sold out (at most 25% at once). The
+  run shows as succeeded in the admin with a note saying GraphQL failed. Add one URL per system you sell
+  to keep all of them fresh; an empty value turns the fallback off.
 
 The API runs the sync itself every `AUTO_SYNC_HOURS` (default 24). `POST /api/sync` (with `SYNC_SECRET`)
 and the GitHub workflow are backups: they do nothing when a sync succeeded in the last 12 hours (the admin
